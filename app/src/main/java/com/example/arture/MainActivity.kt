@@ -6,17 +6,17 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.LinearGradient
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.example.arture.ui.theme.ArtureTheme
 
 class MainActivity : ComponentActivity() {
@@ -36,7 +36,17 @@ class MainActivity : ComponentActivity() {
                             isVerticalGradient = true, colors = colorList
                         )
                     ))
-                signInScreen()
+                val navController = rememberNavController()
+                
+                NavHost(navController = navController, startDestination = "SignIn", builder = {
+                    composable("SignIn"){
+                        signInScreen(navController)
+                    }
+                    composable("testPage"){
+                        testPageScreen()
+                    }
+                })
+                //signInScreen()
                 //Greeting("Marcel")
             }
             }

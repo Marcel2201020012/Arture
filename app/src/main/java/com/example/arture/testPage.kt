@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3Api::class)
-
 package com.example.arture
 
 import androidx.compose.foundation.Image
@@ -23,7 +21,6 @@ import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
@@ -37,10 +34,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -51,11 +46,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
-import com.example.arture.ui.theme.fontFamily
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun signInScreen(navController: NavController) {
+fun testPageScreen() {
     Column(modifier = Modifier
         .fillMaxSize()
         .padding(top = 50.dp)
@@ -71,9 +65,9 @@ fun signInScreen(navController: NavController) {
             .background(Color.White)
             .width(400.dp)
             .height(525.dp)
-            ){
+        ){
             Column(modifier = Modifier.padding(32.dp)) {
-                var userName by rememberSaveable { mutableStateOf("") }
+                var user_name by rememberSaveable { mutableStateOf("") }
                 var email by rememberSaveable { mutableStateOf("") }
                 var pass by rememberSaveable { mutableStateOf("") }
                 var conPass by rememberSaveable { mutableStateOf("")}
@@ -96,24 +90,15 @@ fun signInScreen(navController: NavController) {
                 else
                     Color.Black
 
-                Text(text = "Daftar"
-                    , fontFamily = fontFamily
-                    , style = TextStyle(
-                        brush = Brush.linearGradient(
-                            colors = listOf(Color(0xFF387B382), Color(0xFF0C0E0C))
-                        )
-                    )
+                Text(text = "TestPage"
                     , fontSize = 24.sp
                     , fontWeight = FontWeight.Bold)
                 Spacer(modifier = Modifier.height(12.dp))
 
-                Text(text = "Nama Pengguna"
-                    , fontFamily = fontFamily
-                    , fontSize = 15.sp
-                    , style = MaterialTheme.typography.bodyLarge)
-                OutlinedTextField(value = userName
+                Text(text = "Nama Pengguna", fontSize = 15.sp)
+                OutlinedTextField(value = user_name
                     , modifier = Modifier.fillMaxWidth()
-                    , onValueChange = {userName = it}
+                    , onValueChange = {user_name = it}
                     , singleLine = true
                     , colors = TextFieldDefaults.outlinedTextFieldColors(unfocusedBorderColor = Color.White
                         , focusedBorderColor = Color.White)
@@ -124,10 +109,7 @@ fun signInScreen(navController: NavController) {
                 Divider(color = Color.Black)
                 Spacer(modifier = Modifier.height(8.dp))
 
-                Text(text = "Email"
-                    , fontFamily = fontFamily
-                    , style = MaterialTheme.typography.bodyLarge
-                    , fontSize = 15.sp)
+                Text(text = "Email", fontSize = 15.sp)
                 OutlinedTextField(value = email
                     , onValueChange = {email = it}
                     , modifier = Modifier.fillMaxWidth()
@@ -142,10 +124,7 @@ fun signInScreen(navController: NavController) {
                 Divider(color = Color.Black)
                 Spacer(modifier = Modifier.height(8.dp))
 
-                Text(text = "Kata Sandi"
-                    , fontFamily = fontFamily
-                    , style = MaterialTheme.typography.bodyLarge
-                    , fontSize = 15.sp)
+                Text(text = "Kata Sandi", fontSize = 15.sp)
                 OutlinedTextField(value = pass
                     , onValueChange = {pass = it}
                     , modifier = Modifier.fillMaxWidth()
@@ -163,10 +142,7 @@ fun signInScreen(navController: NavController) {
                 Divider(color = Color.Black)
                 Spacer(modifier = Modifier.height(8.dp))
 
-                Text(text = "Konfirmasi Kata Sandi"
-                    , fontFamily = fontFamily
-                    , style = MaterialTheme.typography.bodyLarge
-                    , fontSize = 15.sp)
+                Text(text = "Konfirmasi Kata Sandi", fontSize = 15.sp)
                 OutlinedTextField(value = conPass
                     , onValueChange = {conPass = it}
                     , modifier = Modifier.fillMaxWidth()
@@ -185,7 +161,6 @@ fun signInScreen(navController: NavController) {
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Button(onClick = {
-                                 navController.navigate("testPage")
                 }
                     , modifier = Modifier.fillMaxWidth()
                     , colors = ButtonDefaults.buttonColors(Color(0xFFF8B402))) {
@@ -198,17 +173,14 @@ fun signInScreen(navController: NavController) {
                     , modifier = Modifier.fillMaxWidth()) {
                     Text(
                         text = "Sudah punya akun? "
-                        , fontFamily = fontFamily
-                        , style = MaterialTheme.typography.bodyLarge
                         , fontSize = 12.sp
                     )
                     ClickableText(
                         text = buildAnnotatedString { withStyle(style = androidx.compose.ui.text.SpanStyle(
-                                                        fontWeight = FontWeight.Bold,
-                                                        fontFamily = fontFamily,
-                                                        textDecoration = TextDecoration.Underline,
-                                                        color = masukTextColor
-                                                    )){
+                            fontWeight = FontWeight.Bold,
+                            textDecoration = TextDecoration.Underline,
+                            color = masukTextColor
+                        )){
                             append("Masuk")
                         }}
                         , onClick = {isMasukClicked = !isMasukClicked})
@@ -217,9 +189,3 @@ fun signInScreen(navController: NavController) {
         }
     }
 }
-
-//@Preview(showBackground = true)
-//@Composable
-//fun signInView() {
-//    signInScreen()
-//}
