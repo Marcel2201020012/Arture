@@ -31,9 +31,13 @@ class MainActivity : ComponentActivity() {
                 )
                 Box(modifier = Modifier
                     .fillMaxSize()
-                    .background(brush = linearBgBrush(
-                        isVerticalGradient = true, colors = colorList)))
-                Greeting("Marcel")
+                    .background(
+                        brush = linearBgBrush(
+                            isVerticalGradient = true, colors = colorList
+                        )
+                    ))
+                signInScreen()
+                //Greeting("Marcel")
             }
             }
         }
