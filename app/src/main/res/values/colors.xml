@@ -11,4 +11,5 @@
     <color name="splash_start">#FAF5E4</color>
     <color name="splash_middle">#C3CE9A</color>
     <color name="splash_end">#90A955</color>
+    <color name="button">#F8B402</color>
 </resources>

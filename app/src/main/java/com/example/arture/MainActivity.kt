@@ -33,8 +33,9 @@ class MainActivity : ComponentActivity() {
                     .fillMaxSize()
                     .background(brush = linearBgBrush(
                         isVerticalGradient = true, colors = colorList)))
-                Greeting("Marcel")
+//                Greeting("Marcel")
             }
+            LoginScreen()
             }
         }
     }
