@@ -3,7 +3,6 @@
     <style name="Theme.Arture" parent="android:Theme.Material.Light.NoActionBar" />
 
     <style name="Theme.ArtureSplashScreen" parent="Theme.SplashScreen">
-        <item name="windowSplashScreenBackground">@color/splash_middle</item>
         <item name="windowSplashScreenAnimatedIcon">@drawable/logo</item>
         <item name="postSplashScreenTheme">@style/Theme.Arture</item>
         <item name="android:windowSplashScreenBrandingImage">@drawable/logo_brand</item>
