@@ -1,4 +1,6 @@
-@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3Api::class)
+@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3Api::class,
+    ExperimentalMaterial3Api::class
+)
 
 package com.example.arture
 
@@ -185,7 +187,7 @@ fun signInScreen(navController: NavController) {
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Button(onClick = {
-                                 navController.navigate("testPage")
+                                 navController.navigate("homePage")
                 }
                     , modifier = Modifier.fillMaxWidth()
                     , colors = ButtonDefaults.buttonColors(Color(0xFFF8B402))) {
