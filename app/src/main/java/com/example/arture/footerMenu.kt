@@ -94,7 +94,12 @@ fun footerMenuScreen(modifier: Modifier = Modifier) {
                     modifier = Modifier.scale(1.5f)
                 ) {
                     IconButton(
-                        onClick = { berandaButtonIsClicked = !berandaButtonIsClicked },
+                        onClick = {
+                            berandaButtonIsClicked = true
+                            edukasiButtonIsClicked = false
+                            pekerjaanButtonIsClicked = false
+                            diskusiButtonIsClicked = false
+                            akunButtonIsClicked = false },
                         modifier = Modifier.height(16.dp)
                     ) {
                         Icon(
@@ -119,7 +124,12 @@ fun footerMenuScreen(modifier: Modifier = Modifier) {
                     modifier = Modifier.scale(1.5f)
                 ) {
                     IconButton(
-                        onClick = { edukasiButtonIsClicked = !edukasiButtonIsClicked },
+                        onClick = {
+                            berandaButtonIsClicked = false
+                            edukasiButtonIsClicked = true
+                            pekerjaanButtonIsClicked = false
+                            diskusiButtonIsClicked = false
+                            akunButtonIsClicked = false },
                         modifier = Modifier.height(16.dp)
                     ) {
                         Icon(
@@ -144,7 +154,13 @@ fun footerMenuScreen(modifier: Modifier = Modifier) {
                     modifier = Modifier.scale(1.5f)
                 ) {
                     IconButton(
-                        onClick = { pekerjaanButtonIsClicked = !pekerjaanButtonIsClicked },
+                        onClick = {
+                            berandaButtonIsClicked = false
+                            edukasiButtonIsClicked = false
+                            pekerjaanButtonIsClicked = true
+                            diskusiButtonIsClicked = false
+                            akunButtonIsClicked = false
+                        },
                         modifier = Modifier.height(16.dp)
                     ) {
                         Icon(
@@ -169,7 +185,13 @@ fun footerMenuScreen(modifier: Modifier = Modifier) {
                     modifier = Modifier.scale(1.5f)
                 ) {
                     IconButton(
-                        onClick = { diskusiButtonIsClicked = !diskusiButtonIsClicked },
+                        onClick = {
+                            berandaButtonIsClicked = false
+                            edukasiButtonIsClicked = false
+                            pekerjaanButtonIsClicked = false
+                            diskusiButtonIsClicked = true
+                            akunButtonIsClicked = false
+                        },
                         modifier = Modifier.height(16.dp)
                     ) {
                         Icon(
@@ -194,7 +216,13 @@ fun footerMenuScreen(modifier: Modifier = Modifier) {
                     modifier = Modifier.scale(1.5f)
                 ) {
                     IconButton(
-                        onClick = { akunButtonIsClicked = !akunButtonIsClicked },
+                        onClick = {
+                            berandaButtonIsClicked = false
+                            edukasiButtonIsClicked = false
+                            pekerjaanButtonIsClicked = false
+                            diskusiButtonIsClicked = false
+                            akunButtonIsClicked = true
+                        },
                         modifier = Modifier.height(16.dp)
                     ) {
                         Icon(
