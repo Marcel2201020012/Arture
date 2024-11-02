@@ -1,4 +1,5 @@
-@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3Api::class,
+@file:OptIn(
+    ExperimentalMaterial3Api::class, ExperimentalMaterial3Api::class,
     ExperimentalMaterial3Api::class
 )
 
@@ -58,162 +59,210 @@ import com.example.arture.ui.theme.fontFamily
 
 @Composable
 fun signInScreen(navController: NavController) {
-    Column(modifier = Modifier
-        .fillMaxSize()
-        .padding(top = 50.dp)
-        , verticalArrangement = Arrangement.SpaceEvenly
-        , horizontalAlignment = Alignment.CenterHorizontally) {
-        Image(painter = painterResource(id = R.drawable.logo_text),
-            contentDescription = "logo_app"
-            , modifier = Modifier
-                .width(126.dp))
-        Box(modifier = Modifier
-            .scale(0.8f)
-            .clip(shape = RoundedCornerShape(24.dp))
-            .background(Color.White)
-            .width(400.dp)
-            .height(525.dp)
-            ){
-            Column(modifier = Modifier.padding(32.dp)) {
-                var userName by rememberSaveable { mutableStateOf("") }
-                var email by rememberSaveable { mutableStateOf("") }
-                var pass by rememberSaveable { mutableStateOf("") }
-                var conPass by rememberSaveable { mutableStateOf("")}
+    val colorList = listOf(
+        Color(0xFFFAF5E4),
+        Color(0xFF90A955)
+    )
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(
+                brush = linearBgBrush(
+                    isVerticalGradient = true, colors = colorList
+                )
+            )
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(top = 50.dp),
+            verticalArrangement = Arrangement.SpaceEvenly,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.logo_text),
+                contentDescription = "logo_app", modifier = Modifier
+                    .width(126.dp)
+            )
+            Box(
+                modifier = Modifier
+                    .scale(0.8f)
+                    .clip(shape = RoundedCornerShape(24.dp))
+                    .background(Color.White)
+                    .width(400.dp)
+                    .height(525.dp)
+            ) {
+                Column(modifier = Modifier.padding(32.dp)) {
+                    var userName by rememberSaveable { mutableStateOf("") }
+                    var email by rememberSaveable { mutableStateOf("") }
+                    var pass by rememberSaveable { mutableStateOf("") }
+                    var conPass by rememberSaveable { mutableStateOf("") }
 
-                var passVisible by remember { mutableStateOf(false) }
-                val eye = if(passVisible)
-                    painterResource(id = R.drawable.eyeinvisible)
-                else
-                    painterResource(id = R.drawable.eye)
+                    var passVisible by remember { mutableStateOf(false) }
+                    val eye = if (passVisible)
+                        painterResource(id = R.drawable.eyeinvisible)
+                    else
+                        painterResource(id = R.drawable.eye)
 
-                var conPassVisible by remember { mutableStateOf(false) }
-                val eyeCon = if(conPassVisible)
-                    painterResource(id = R.drawable.eyeinvisible)
-                else
-                    painterResource(id = R.drawable.eye)
+                    var conPassVisible by remember { mutableStateOf(false) }
+                    val eyeCon = if (conPassVisible)
+                        painterResource(id = R.drawable.eyeinvisible)
+                    else
+                        painterResource(id = R.drawable.eye)
 
-                var isMasukClicked by remember { mutableStateOf(false) }
-                val masukTextColor = if (isMasukClicked)
-                    Color.Red
-                else
-                    Color.Black
+                    var isMasukClicked by remember { mutableStateOf(false) }
+                    val masukTextColor = if (isMasukClicked)
+                        Color.Red
+                    else
+                        Color.Black
 
-                Text(text = "Daftar"
-                    , fontFamily = fontFamily
-                    , style = TextStyle(
-                        brush = Brush.linearGradient(
-                            colors = listOf(Color(0xFF387B382), Color(0xFF0C0E0C))
-                        )
-                    )
-                    , fontSize = 24.sp
-                    , fontWeight = FontWeight.Bold)
-                Spacer(modifier = Modifier.height(12.dp))
-
-                Text(text = "Nama Pengguna"
-                    , fontFamily = fontFamily
-                    , fontSize = 15.sp
-                    , style = MaterialTheme.typography.bodyLarge)
-                OutlinedTextField(value = userName
-                    , modifier = Modifier.fillMaxWidth()
-                    , onValueChange = {userName = it}
-                    , singleLine = true
-                    , colors = TextFieldDefaults.outlinedTextFieldColors(unfocusedBorderColor = Color.White
-                        , focusedBorderColor = Color.White)
-                    , trailingIcon = {
-                        Icon(painter = painterResource(id = R.drawable.user_logo)
-                            , contentDescription = "user_logo")
-                    })
-                Divider(color = Color.Black)
-                Spacer(modifier = Modifier.height(8.dp))
-
-                Text(text = "Email"
-                    , fontFamily = fontFamily
-                    , style = MaterialTheme.typography.bodyLarge
-                    , fontSize = 15.sp)
-                OutlinedTextField(value = email
-                    , onValueChange = {email = it}
-                    , modifier = Modifier.fillMaxWidth()
-                    , singleLine = true
-                    , colors = TextFieldDefaults.outlinedTextFieldColors(unfocusedBorderColor = Color.White
-                        , focusedBorderColor = Color.White)
-                    , trailingIcon = {
-                        Icon(painter = painterResource(id = R.drawable.mail)
-                            , contentDescription = "gmail_logo"
-                            , modifier = Modifier.size(28.dp))
-                    })
-                Divider(color = Color.Black)
-                Spacer(modifier = Modifier.height(8.dp))
-
-                Text(text = "Kata Sandi"
-                    , fontFamily = fontFamily
-                    , style = MaterialTheme.typography.bodyLarge
-                    , fontSize = 15.sp)
-                OutlinedTextField(value = pass
-                    , onValueChange = {pass = it}
-                    , modifier = Modifier.fillMaxWidth()
-                    , singleLine = true
-                    , colors = TextFieldDefaults.outlinedTextFieldColors(unfocusedBorderColor = Color.White
-                        , focusedBorderColor = Color.White)
-                    , trailingIcon = {
-                        IconButton(onClick = {passVisible = !passVisible}) {
-                            Icon(painter = eye
-                                , contentDescription = "eye_status_1"
-                                , modifier = Modifier.size(28.dp))
-                        }
-                    }
-                    , visualTransformation = if(passVisible) PasswordVisualTransformation() else VisualTransformation.None)
-                Divider(color = Color.Black)
-                Spacer(modifier = Modifier.height(8.dp))
-
-                Text(text = "Konfirmasi Kata Sandi"
-                    , fontFamily = fontFamily
-                    , style = MaterialTheme.typography.bodyLarge
-                    , fontSize = 15.sp)
-                OutlinedTextField(value = conPass
-                    , onValueChange = {conPass = it}
-                    , modifier = Modifier.fillMaxWidth()
-                    , singleLine = true
-                    , colors = TextFieldDefaults.outlinedTextFieldColors(unfocusedBorderColor = Color.White
-                        , focusedBorderColor = Color.White)
-                    , trailingIcon = {
-                        IconButton(onClick = { conPassVisible = !conPassVisible }) {
-                            Icon(painter = eyeCon
-                                , contentDescription = "eye_status_2"
-                                , modifier = Modifier.size(28.dp))
-                        }
-                    }
-                    , visualTransformation = if(conPassVisible) PasswordVisualTransformation() else VisualTransformation.None)
-                Divider(color = Color.Black)
-                Spacer(modifier = Modifier.height(8.dp))
-
-                Button(onClick = {
-                                 navController.navigate("homePage")
-                }
-                    , modifier = Modifier.fillMaxWidth()
-                    , colors = ButtonDefaults.buttonColors(Color(0xFFF8B402))) {
-                    Text(text = "Daftar"
-                        , fontWeight = FontWeight.Bold)
-                }
-
-                Spacer(modifier = Modifier.height(8.dp))
-                Row(horizontalArrangement = Arrangement.Center
-                    , modifier = Modifier.fillMaxWidth()) {
                     Text(
-                        text = "Sudah punya akun? "
-                        , fontFamily = fontFamily
-                        , style = MaterialTheme.typography.bodyLarge
-                        , fontSize = 12.sp
+                        text = "Daftar", fontFamily = fontFamily, style = TextStyle(
+                            brush = Brush.linearGradient(
+                                colors = listOf(Color(0xFF387B382), Color(0xFF0C0E0C))
+                            )
+                        ), fontSize = 24.sp, fontWeight = FontWeight.Bold
                     )
-                    ClickableText(
-                        text = buildAnnotatedString { withStyle(style = androidx.compose.ui.text.SpanStyle(
-                                                        fontWeight = FontWeight.Bold,
-                                                        fontFamily = fontFamily,
-                                                        textDecoration = TextDecoration.Underline,
-                                                        color = masukTextColor
-                                                    )){
-                            append("Masuk")
-                        }}
-                        , onClick = {isMasukClicked = !isMasukClicked})
+                    Spacer(modifier = Modifier.height(12.dp))
+
+                    Text(
+                        text = "Nama Pengguna",
+                        fontFamily = fontFamily,
+                        fontSize = 15.sp,
+                        style = MaterialTheme.typography.bodyLarge
+                    )
+                    OutlinedTextField(value = userName,
+                        modifier = Modifier.fillMaxWidth(),
+                        onValueChange = { userName = it },
+                        singleLine = true,
+                        colors = TextFieldDefaults.outlinedTextFieldColors(
+                            unfocusedBorderColor = Color.White, focusedBorderColor = Color.White
+                        ),
+                        trailingIcon = {
+                            Icon(
+                                painter = painterResource(id = R.drawable.user_logo),
+                                contentDescription = "user_logo"
+                            )
+                        })
+                    Divider(color = Color.Black)
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                    Text(
+                        text = "Email",
+                        fontFamily = fontFamily,
+                        style = MaterialTheme.typography.bodyLarge,
+                        fontSize = 15.sp
+                    )
+                    OutlinedTextField(value = email,
+                        onValueChange = { email = it },
+                        modifier = Modifier.fillMaxWidth(),
+                        singleLine = true,
+                        colors = TextFieldDefaults.outlinedTextFieldColors(
+                            unfocusedBorderColor = Color.White, focusedBorderColor = Color.White
+                        ),
+                        trailingIcon = {
+                            Icon(
+                                painter = painterResource(id = R.drawable.mail),
+                                contentDescription = "gmail_logo",
+                                modifier = Modifier.size(28.dp)
+                            )
+                        })
+                    Divider(color = Color.Black)
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                    Text(
+                        text = "Kata Sandi",
+                        fontFamily = fontFamily,
+                        style = MaterialTheme.typography.bodyLarge,
+                        fontSize = 15.sp
+                    )
+                    OutlinedTextField(
+                        value = pass,
+                        onValueChange = { pass = it },
+                        modifier = Modifier.fillMaxWidth(),
+                        singleLine = true,
+                        colors = TextFieldDefaults.outlinedTextFieldColors(
+                            unfocusedBorderColor = Color.White, focusedBorderColor = Color.White
+                        ),
+                        trailingIcon = {
+                            IconButton(onClick = { passVisible = !passVisible }) {
+                                Icon(
+                                    painter = eye,
+                                    contentDescription = "eye_status_1",
+                                    modifier = Modifier.size(28.dp)
+                                )
+                            }
+                        },
+                        visualTransformation = if (passVisible) PasswordVisualTransformation() else VisualTransformation.None
+                    )
+                    Divider(color = Color.Black)
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                    Text(
+                        text = "Konfirmasi Kata Sandi",
+                        fontFamily = fontFamily,
+                        style = MaterialTheme.typography.bodyLarge,
+                        fontSize = 15.sp
+                    )
+                    OutlinedTextField(
+                        value = conPass,
+                        onValueChange = { conPass = it },
+                        modifier = Modifier.fillMaxWidth(),
+                        singleLine = true,
+                        colors = TextFieldDefaults.outlinedTextFieldColors(
+                            unfocusedBorderColor = Color.White, focusedBorderColor = Color.White
+                        ),
+                        trailingIcon = {
+                            IconButton(onClick = { conPassVisible = !conPassVisible }) {
+                                Icon(
+                                    painter = eyeCon,
+                                    contentDescription = "eye_status_2",
+                                    modifier = Modifier.size(28.dp)
+                                )
+                            }
+                        },
+                        visualTransformation = if (conPassVisible) PasswordVisualTransformation() else VisualTransformation.None
+                    )
+                    Divider(color = Color.Black)
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                    Button(
+                        onClick = {
+                            navController.navigate("homePage")
+                        },
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = ButtonDefaults.buttonColors(Color(0xFFF8B402))
+                    ) {
+                        Text(
+                            text = "Daftar", fontWeight = FontWeight.Bold
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Row(
+                        horizontalArrangement = Arrangement.Center,
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text(
+                            text = "Sudah punya akun? ",
+                            fontFamily = fontFamily,
+                            style = MaterialTheme.typography.bodyLarge,
+                            fontSize = 12.sp
+                        )
+                        ClickableText(
+                            text = buildAnnotatedString {
+                                withStyle(
+                                    style = androidx.compose.ui.text.SpanStyle(
+                                        fontWeight = FontWeight.Bold,
+                                        fontFamily = fontFamily,
+                                        textDecoration = TextDecoration.Underline,
+                                        color = masukTextColor
+                                    )
+                                ) {
+                                    append("Masuk")
+                                }
+                            }, onClick = { isMasukClicked = !isMasukClicked })
+                    }
                 }
             }
         }

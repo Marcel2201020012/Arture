@@ -3,11 +3,9 @@ package com.example.arture
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.ui.Alignment
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -28,18 +26,9 @@ class MainActivity : ComponentActivity() {
         installSplashScreen()
         setContent {
             ArtureTheme {
-                val colorList = listOf(
-                    Color(0xFFFAF5E4),
-                    Color(0xFF90A955)
-                )
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
-                        .background(
-                            brush = linearBgBrush(
-                                isVerticalGradient = true, colors = colorList
-                            )
-                        )
                 ) {
                     val navController = rememberNavController()
                     val currentBackStackEntry by navController.currentBackStackEntryAsState()
@@ -65,19 +54,10 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Composable
 fun linearBgBrush(isVerticalGradient: Boolean, colors: List<Color>): Brush {
-    val endOffset = if(isVerticalGradient){
+    val endOffset = if (isVerticalGradient) {
         Offset(0f, Float.POSITIVE_INFINITY)
-    }
-    else{
+    } else {
         Offset(Float.POSITIVE_INFINITY, 0f)
     }
 
@@ -92,6 +72,6 @@ fun linearBgBrush(isVerticalGradient: Boolean, colors: List<Color>): Brush {
 @Composable
 fun GreetingPreview() {
     ArtureTheme {
-        //Greeting("Android")
+
     }
 }

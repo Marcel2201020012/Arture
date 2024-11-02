@@ -48,34 +48,42 @@ fun footerMenuScreen(modifier: Modifier = Modifier) {
         mutableStateOf(false)
     }
 
-    val (berandaIcon, berandaIconText) = if(berandaButtonIsClicked)
+    val (berandaIcon, berandaIconText) = if (berandaButtonIsClicked)
         Pair(R.drawable.footer_home_icon_activated, FontWeight.Bold)
     else
         Pair(R.drawable.footer_home_icon, FontWeight.Normal)
-    val (edukasiIcon, edukasiIconText) = if(edukasiButtonIsClicked)
+    val (edukasiIcon, edukasiIconText) = if (edukasiButtonIsClicked)
         Pair(R.drawable.footer_edukasi_icon_activated, FontWeight.Bold)
     else
         Pair(R.drawable.footer_edukasi_icon, FontWeight.Normal)
-    val (pekerjaanIcon, pekerjaanIconText) = if(pekerjaanButtonIsClicked)
+    val (pekerjaanIcon, pekerjaanIconText) = if (pekerjaanButtonIsClicked)
         Pair(R.drawable.footer_pekerjaan_icon_activated, FontWeight.Bold)
     else
         Pair(R.drawable.footer_pekerjaan_icon, FontWeight.Normal)
-    val (diskusiIcon, diskusiIconText) = if(diskusiButtonIsClicked)
+    val (diskusiIcon, diskusiIconText) = if (diskusiButtonIsClicked)
         Pair(R.drawable.footer_diskusi_icon_activated, FontWeight.Bold)
     else
         Pair(R.drawable.footer_diskusi_icon, FontWeight.Normal)
-    val (akunIcon, akunIconText) = if(akunButtonIsClicked)
+    val (akunIcon, akunIconText) = if (akunButtonIsClicked)
         Pair(R.drawable.footer_akun_icon_activated, FontWeight.Bold)
     else
         Pair(R.drawable.footer_akun_icon, FontWeight.Normal)
 
-    Box(modifier = modifier) {
+    Box(
+        modifier = modifier
+            .height(81.dp)
+            .background(
+                color = Color.LightGray,
+                RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)
+            ),
+        contentAlignment = Alignment.BottomCenter
+    ) {
         Box(
             contentAlignment = Alignment.Center,
             modifier = Modifier
                 .fillMaxWidth()
                 .background(
-                    color = Color.White,
+                    color = Color(0xFFFEFEFE),
                     shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)
                 )
         ) {
@@ -97,7 +105,8 @@ fun footerMenuScreen(modifier: Modifier = Modifier) {
                             edukasiButtonIsClicked = false
                             pekerjaanButtonIsClicked = false
                             diskusiButtonIsClicked = false
-                            akunButtonIsClicked = false },
+                            akunButtonIsClicked = false
+                        },
                         modifier = Modifier.height(16.dp)
                     ) {
                         Icon(
@@ -127,7 +136,8 @@ fun footerMenuScreen(modifier: Modifier = Modifier) {
                             edukasiButtonIsClicked = true
                             pekerjaanButtonIsClicked = false
                             diskusiButtonIsClicked = false
-                            akunButtonIsClicked = false },
+                            akunButtonIsClicked = false
+                        },
                         modifier = Modifier.height(16.dp)
                     ) {
                         Icon(

@@ -50,36 +50,40 @@ import androidx.navigation.NavController
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun testPageScreen() {
-    Column(modifier = Modifier
-        .fillMaxSize()
-        .padding(top = 50.dp)
-        , verticalArrangement = Arrangement.SpaceEvenly
-        , horizontalAlignment = Alignment.CenterHorizontally) {
-        Image(painter = painterResource(id = R.drawable.logo_text),
-            contentDescription = "logo_app"
-            , modifier = Modifier
-                .width(126.dp))
-        Box(modifier = Modifier
-            .scale(0.8f)
-            .clip(shape = RoundedCornerShape(24.dp))
-            .background(Color.White)
-            .width(400.dp)
-            .height(525.dp)
-        ){
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(top = 50.dp),
+        verticalArrangement = Arrangement.SpaceEvenly,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Image(
+            painter = painterResource(id = R.drawable.logo_text),
+            contentDescription = "logo_app", modifier = Modifier
+                .width(126.dp)
+        )
+        Box(
+            modifier = Modifier
+                .scale(0.8f)
+                .clip(shape = RoundedCornerShape(24.dp))
+                .background(Color.White)
+                .width(400.dp)
+                .height(525.dp)
+        ) {
             Column(modifier = Modifier.padding(32.dp)) {
                 var user_name by rememberSaveable { mutableStateOf("") }
                 var email by rememberSaveable { mutableStateOf("") }
                 var pass by rememberSaveable { mutableStateOf("") }
-                var conPass by rememberSaveable { mutableStateOf("")}
+                var conPass by rememberSaveable { mutableStateOf("") }
 
                 var passVisible by remember { mutableStateOf(false) }
-                val eye = if(passVisible)
+                val eye = if (passVisible)
                     painterResource(id = R.drawable.eyeinvisible)
                 else
                     painterResource(id = R.drawable.eye)
 
                 var conPassVisible by remember { mutableStateOf(false) }
-                val eyeCon = if(conPassVisible)
+                val eyeCon = if (conPassVisible)
                     painterResource(id = R.drawable.eyeinvisible)
                 else
                     painterResource(id = R.drawable.eye)
@@ -90,100 +94,116 @@ fun testPageScreen() {
                 else
                     Color.Black
 
-                Text(text = "TestPage"
-                    , fontSize = 24.sp
-                    , fontWeight = FontWeight.Bold)
+                Text(
+                    text = "TestPage", fontSize = 24.sp, fontWeight = FontWeight.Bold
+                )
                 Spacer(modifier = Modifier.height(12.dp))
 
                 Text(text = "Nama Pengguna", fontSize = 15.sp)
-                OutlinedTextField(value = user_name
-                    , modifier = Modifier.fillMaxWidth()
-                    , onValueChange = {user_name = it}
-                    , singleLine = true
-                    , colors = TextFieldDefaults.outlinedTextFieldColors(unfocusedBorderColor = Color.White
-                        , focusedBorderColor = Color.White)
-                    , trailingIcon = {
-                        Icon(painter = painterResource(id = R.drawable.user_logo)
-                            , contentDescription = "user_logo")
+                OutlinedTextField(value = user_name,
+                    modifier = Modifier.fillMaxWidth(),
+                    onValueChange = { user_name = it },
+                    singleLine = true,
+                    colors = TextFieldDefaults.outlinedTextFieldColors(
+                        unfocusedBorderColor = Color.White, focusedBorderColor = Color.White
+                    ),
+                    trailingIcon = {
+                        Icon(
+                            painter = painterResource(id = R.drawable.user_logo),
+                            contentDescription = "user_logo"
+                        )
                     })
                 Divider(color = Color.Black)
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Text(text = "Email", fontSize = 15.sp)
-                OutlinedTextField(value = email
-                    , onValueChange = {email = it}
-                    , modifier = Modifier.fillMaxWidth()
-                    , singleLine = true
-                    , colors = TextFieldDefaults.outlinedTextFieldColors(unfocusedBorderColor = Color.White
-                        , focusedBorderColor = Color.White)
-                    , trailingIcon = {
-                        Icon(painter = painterResource(id = R.drawable.mail)
-                            , contentDescription = "gmail_logo"
-                            , modifier = Modifier.size(28.dp))
+                OutlinedTextField(value = email,
+                    onValueChange = { email = it },
+                    modifier = Modifier.fillMaxWidth(),
+                    singleLine = true,
+                    colors = TextFieldDefaults.outlinedTextFieldColors(
+                        unfocusedBorderColor = Color.White, focusedBorderColor = Color.White
+                    ),
+                    trailingIcon = {
+                        Icon(
+                            painter = painterResource(id = R.drawable.mail),
+                            contentDescription = "gmail_logo",
+                            modifier = Modifier.size(28.dp)
+                        )
                     })
                 Divider(color = Color.Black)
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Text(text = "Kata Sandi", fontSize = 15.sp)
-                OutlinedTextField(value = pass
-                    , onValueChange = {pass = it}
-                    , modifier = Modifier.fillMaxWidth()
-                    , singleLine = true
-                    , colors = TextFieldDefaults.outlinedTextFieldColors(unfocusedBorderColor = Color.White
-                        , focusedBorderColor = Color.White)
-                    , trailingIcon = {
-                        IconButton(onClick = {passVisible = !passVisible}) {
-                            Icon(painter = eye
-                                , contentDescription = "eye_status_1"
-                                , modifier = Modifier.size(28.dp))
+                OutlinedTextField(value = pass,
+                    onValueChange = { pass = it },
+                    modifier = Modifier.fillMaxWidth(),
+                    singleLine = true,
+                    colors = TextFieldDefaults.outlinedTextFieldColors(
+                        unfocusedBorderColor = Color.White, focusedBorderColor = Color.White
+                    ),
+                    trailingIcon = {
+                        IconButton(onClick = { passVisible = !passVisible }) {
+                            Icon(
+                                painter = eye,
+                                contentDescription = "eye_status_1",
+                                modifier = Modifier.size(28.dp)
+                            )
                         }
-                    }
-                    , visualTransformation = if(passVisible) PasswordVisualTransformation() else VisualTransformation.None)
+                    },
+                    visualTransformation = if (passVisible) PasswordVisualTransformation() else VisualTransformation.None)
                 Divider(color = Color.Black)
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Text(text = "Konfirmasi Kata Sandi", fontSize = 15.sp)
-                OutlinedTextField(value = conPass
-                    , onValueChange = {conPass = it}
-                    , modifier = Modifier.fillMaxWidth()
-                    , singleLine = true
-                    , colors = TextFieldDefaults.outlinedTextFieldColors(unfocusedBorderColor = Color.White
-                        , focusedBorderColor = Color.White)
-                    , trailingIcon = {
+                OutlinedTextField(value = conPass,
+                    onValueChange = { conPass = it },
+                    modifier = Modifier.fillMaxWidth(),
+                    singleLine = true,
+                    colors = TextFieldDefaults.outlinedTextFieldColors(
+                        unfocusedBorderColor = Color.White, focusedBorderColor = Color.White
+                    ),
+                    trailingIcon = {
                         IconButton(onClick = { conPassVisible = !conPassVisible }) {
-                            Icon(painter = eyeCon
-                                , contentDescription = "eye_status_2"
-                                , modifier = Modifier.size(28.dp))
+                            Icon(
+                                painter = eyeCon,
+                                contentDescription = "eye_status_2",
+                                modifier = Modifier.size(28.dp)
+                            )
                         }
-                    }
-                    , visualTransformation = if(conPassVisible) PasswordVisualTransformation() else VisualTransformation.None)
+                    },
+                    visualTransformation = if (conPassVisible) PasswordVisualTransformation() else VisualTransformation.None)
                 Divider(color = Color.Black)
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Button(onClick = {
-                }
-                    , modifier = Modifier.fillMaxWidth()
-                    , colors = ButtonDefaults.buttonColors(Color(0xFFF8B402))) {
-                    Text(text = "Daftar"
-                        , fontWeight = FontWeight.Bold)
+                },
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = ButtonDefaults.buttonColors(Color(0xFFF8B402))) {
+                    Text(
+                        text = "Daftar", fontWeight = FontWeight.Bold
+                    )
                 }
 
                 Spacer(modifier = Modifier.height(8.dp))
-                Row(horizontalArrangement = Arrangement.Center
-                    , modifier = Modifier.fillMaxWidth()) {
+                Row(
+                    horizontalArrangement = Arrangement.Center, modifier = Modifier.fillMaxWidth()
+                ) {
                     Text(
-                        text = "Sudah punya akun? "
-                        , fontSize = 12.sp
+                        text = "Sudah punya akun? ", fontSize = 12.sp
                     )
                     ClickableText(
-                        text = buildAnnotatedString { withStyle(style = androidx.compose.ui.text.SpanStyle(
-                            fontWeight = FontWeight.Bold,
-                            textDecoration = TextDecoration.Underline,
-                            color = masukTextColor
-                        )){
-                            append("Masuk")
-                        }}
-                        , onClick = {isMasukClicked = !isMasukClicked})
+                        text = buildAnnotatedString {
+                            withStyle(
+                                style = androidx.compose.ui.text.SpanStyle(
+                                    fontWeight = FontWeight.Bold,
+                                    textDecoration = TextDecoration.Underline,
+                                    color = masukTextColor
+                                )
+                            ) {
+                                append("Masuk")
+                            }
+                        }, onClick = { isMasukClicked = !isMasukClicked })
                 }
             }
         }
