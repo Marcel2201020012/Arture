@@ -69,15 +69,13 @@ fun footerMenuScreen(modifier: Modifier = Modifier) {
     else
         Pair(R.drawable.footer_akun_icon, FontWeight.Normal)
 
-    Box(modifier = modifier.
-    background(
-        color = Color.Black)) {
+    Box(modifier = modifier) {
         Box(
             contentAlignment = Alignment.Center,
             modifier = Modifier
                 .fillMaxWidth()
                 .background(
-                    color = Color.DarkGray,
+                    color = Color.White,
                     shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)
                 )
         ) {
