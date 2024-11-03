@@ -6,3 +6,11 @@ data class ArtikelPopulerCardModel(
     val jam: Int,
     val img: Int
 )
+
+data class LowonganTerbaruCardModel(
+    val judul: String,
+    val pt: String,
+    val alamat: String,
+    val jam: Int,
+    val img: Int
+)

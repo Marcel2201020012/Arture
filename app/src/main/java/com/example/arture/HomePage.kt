@@ -21,8 +21,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -31,6 +31,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.arture.ui.theme.fontFamily
 import model.ArtikelPopulerCardModel
+import model.LowonganTerbaruCardModel
 
 @Composable
 fun homePageScreen() {
@@ -59,7 +60,6 @@ fun homePageScreen() {
         Column(
             modifier = Modifier.fillMaxSize()
         ) {
-            //notification
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -73,9 +73,12 @@ fun homePageScreen() {
                         verticalAlignment = Alignment.CenterVertically,
                         modifier = Modifier.fillMaxWidth()
                     ) {
+
+                        //notification
                         Box(contentAlignment = Alignment.Center, modifier = Modifier
+                            .clip(shape = CircleShape)
                             .background(
-                                color = Color.White, shape = CircleShape
+                                color = Color.White
                             )
                             .size(36.dp)
                             .clickable {
@@ -91,8 +94,9 @@ fun homePageScreen() {
 
                         //profil icon
                         Box(contentAlignment = Alignment.Center, modifier = Modifier
+                            .clip(shape = CircleShape)
                             .background(
-                                color = Color.White, shape = CircleShape
+                                color = Color.White
                             )
                             .size(48.dp)
                             .clickable {
@@ -125,7 +129,6 @@ fun homePageScreen() {
             }
             Spacer(modifier = Modifier.height(20.dp))
 
-            //beranda top buttons
             Box(
                 modifier = Modifier
                     .background(
@@ -144,64 +147,101 @@ fun homePageScreen() {
                             .fillMaxWidth()
                             .background(Color.White)
                     ) {
+
+                        //beranda top buttons
                         Row(
                             modifier = Modifier
                                 .padding(top = 8.dp)
                                 .fillMaxWidth(),
                             horizontalArrangement = Arrangement.SpaceEvenly
                         ) {
-                            Box(contentAlignment = Alignment.Center, modifier = Modifier
-                                .size(
-                                    width = 104.dp, height = 80.dp
-                                )
-                                .background(Color.White)
-                                .shadow(
-                                    elevation = 1.dp,
-                                    shape = RoundedCornerShape(8.dp),
-                                    clip = false,
-                                    ambientColor = Color.White
-                                )
-                                .clickable { /*do stuff*/ }) {
-                                Image(
-                                    painter = painterResource(id = R.drawable.beranda_disimpan_icon),
-                                    contentDescription = "disimpan icon"
-                                )
-                            }
-                            Box(contentAlignment = Alignment.Center, modifier = Modifier
-                                .size(
-                                    width = 104.dp, height = 80.dp
-                                )
-                                .background(Color.White)
-                                .shadow(
-                                    elevation = 1.dp,
-                                    shape = RoundedCornerShape(8.dp),
-                                    clip = false,
-                                    ambientColor = Color.White
-                                )
-                                .clickable { /*do stuff*/ }) {
-                                Image(
-                                    painter = painterResource(id = R.drawable.beranda_status_pekerjaan_icon),
-                                    contentDescription = "status pekerjaan icon"
-                                )
-                            }
-                            Box(contentAlignment = Alignment.Center, modifier = Modifier
-                                .size(
-                                    width = 104.dp, height = 80.dp
-                                )
-                                .background(Color.White)
-                                .shadow(
-                                    elevation = 1.dp,
-                                    shape = RoundedCornerShape(8.dp),
-                                    clip = false,
-                                    ambientColor = Color.White
-                                )
-                                .clickable { /*do stuff*/ }) {
-                                Image(
-                                    painter = painterResource(id = R.drawable.beranda_riwayat_icon),
-                                    contentDescription = "riwayat icon"
-                                )
+
+                            //disimpan
+                            Box(
+                                modifier = Modifier
+                                    .size(
+                                        width = 106.dp,
+                                        height = 82.dp
+                                    )
+                                    .background(
+                                        color = Color.LightGray,
+                                        shape = RoundedCornerShape(16.dp)
+                                    ),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Box(contentAlignment = Alignment.Center, modifier = Modifier
+                                    .size(
+                                        width = 104.dp, height = 80.dp
+                                    )
+                                    .clip(shape = RoundedCornerShape(16.dp))
+                                    .background(
+                                        color = Color.White
+                                    )
+                                    .clickable { /*do stuff*/ }) {
+                                    Image(
+                                        painter = painterResource(id = R.drawable.beranda_disimpan_icon),
+                                        contentDescription = "disimpan icon"
+                                    )
+                                }
                             }
 
+                            //status pekerjaan
+                            Box(
+                                modifier = Modifier
+                                    .size(
+                                        width = 106.dp,
+                                        height = 82.dp
+                                    )
+                                    .background(
+                                        color = Color.LightGray,
+                                        shape = RoundedCornerShape(16.dp)
+                                    ),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Box(contentAlignment = Alignment.Center, modifier = Modifier
+                                    .size(
+                                        width = 104.dp, height = 80.dp
+                                    )
+                                    .clip(shape = RoundedCornerShape(16.dp))
+                                    .background(
+                                        color = Color.White
+                                    )
+                                    .clickable { /*do stuff*/ }) {
+                                    Image(
+                                        painter = painterResource(id = R.drawable.beranda_status_pekerjaan_icon),
+                                        contentDescription = "status pekerjaan icon"
+                                    )
+                                }
+                            }
+
+                            //riwayat
+                            Box(
+                                modifier = Modifier
+                                    .size(
+                                        width = 106.dp,
+                                        height = 82.dp
+                                    )
+                                    .clip(shape = RoundedCornerShape(16.dp))
+                                    .background(
+                                        color = Color.LightGray
+                                    ),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Box(contentAlignment = Alignment.Center, modifier = Modifier
+                                    .size(
+                                        width = 104.dp, height = 80.dp
+                                    )
+                                    .clip(shape = RoundedCornerShape(16.dp))
+                                    .background(
+                                        color = Color.White
+                                    )
+                                    .clickable { /*do stuff*/ }) {
+                                    Image(
+                                        painter = painterResource(id = R.drawable.beranda_riwayat_icon),
+                                        contentDescription = "riwayat icon"
+                                    )
+                                }
+                            }
                         }
                         Spacer(modifier = Modifier.height(12.dp))
 
@@ -224,11 +264,12 @@ fun homePageScreen() {
                         Spacer(modifier = Modifier.height(12.dp))
                     }
 
+                    //Artikel Populer
                     Row {
                         artikelPopulerView()
                     }
 
-                    //lowongan
+                    //lowongan terbaru
                     Column(
                         modifier = Modifier
                             .padding(
@@ -255,6 +296,14 @@ fun homePageScreen() {
                                 modifier = Modifier.clickable { /*do stuff*/ })
                         }
                         Spacer(modifier = Modifier.height(12.dp))
+
+                        //Lowongan Card
+                        Column(
+                            modifier = Modifier
+                                .height(128.dp)
+                        ) {
+                            lowonganTerbaruView()
+                        }
                     }
                 }
             }
@@ -270,16 +319,45 @@ fun artikelPopulerView() {
             "Tutorial Hidroponik Pemula yang Baik...",
             "Hidroponik adalah cara bercocok tanam dengan menggunakan air sebagai media...",
             13,
-            R.drawable.lazy_test
+            R.drawable.artikel_img_test
         ),
         ArtikelPopulerCardModel(
             "Tutorial Hidroponik Pemula yang Baik...",
             "Hidroponik adalah cara bercocok tanam dengan menggunakan air sebagai media...",
             13,
-            R.drawable.lazy_test
+            R.drawable.artikel_img_test
         )
     )
     artikelPopulerGenerator(artikel)
+}
+
+@Composable
+fun lowonganTerbaruView() {
+    val lowongan = listOf(
+        LowonganTerbaruCardModel(
+            "Technical Sales Feedmill",
+            "PT. Sreeya Sewu Indonesia, Tbk",
+            "Blitar, Jawa Timur",
+            13,
+            R.drawable.lowongan_img_test
+        ),
+        LowonganTerbaruCardModel(
+            "Technical Sales Feedmill",
+            "PT. Sreeya Sewu Indonesia, Tbk",
+            "Blitar, Jawa Timur",
+            13,
+            R.drawable.lowongan_img_test
+        ),
+        LowonganTerbaruCardModel(
+            "Technical Sales Feedmill",
+            "PT. Sreeya Sewu Indonesia, Tbk",
+            "Blitar, Jawa Timur",
+            13,
+            R.drawable.lowongan_img_test
+        )
+    )
+
+    lowonganTerbaruGenerator(lowongan)
 }
 
 @Preview(showBackground = true)

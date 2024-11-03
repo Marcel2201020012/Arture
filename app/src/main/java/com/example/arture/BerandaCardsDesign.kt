@@ -9,17 +9,21 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.DividerDefaults.color
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -41,9 +45,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.arture.ui.theme.fontFamily
 import model.ArtikelPopulerCardModel
+import model.LowonganTerbaruCardModel
 
 @Composable
-fun BerandaCardDesign(item: ArtikelPopulerCardModel) {
+fun BerandaArtikelCardDesign(item: ArtikelPopulerCardModel) {
 
     var bookmarkIsClicked by remember {
         mutableStateOf(false)
@@ -72,13 +77,15 @@ fun BerandaCardDesign(item: ArtikelPopulerCardModel) {
                 .size(
                     width = 320.dp, height = 160.dp
                 )
+                .clip(shape = RoundedCornerShape(16.dp))
                 .background(
                     brush = Brush.horizontalGradient(
                         colors = listOf(
                             Color(0xFFFFFFFF), Color(0xFFA1F7AE)
                         )
-                    ), shape = RoundedCornerShape(16.dp)
+                    )
                 )
+                .clickable { /*do stuff*/ }
         ) {
             Column(
                 modifier = Modifier
@@ -106,10 +113,11 @@ fun BerandaCardDesign(item: ArtikelPopulerCardModel) {
                             //jam
                             Row(modifier = Modifier.padding(top = 60.dp)) {
                                 Icon(
-                                    painter = painterResource(id = R.drawable.beranda_artikel_jam_icon),
+                                    painter = painterResource(id = R.drawable.beranda_cards_jam_icon),
                                     contentDescription = "logo jam"
                                 )
-                                Text(text = "  ${item.jam} jam yang lalu", fontSize = 8.sp)
+                                Spacer(modifier = Modifier.width(4.dp))
+                                Text(text = "${item.jam} jam yang lalu", fontSize = 8.sp)
                             }
                         }
 
@@ -150,10 +158,96 @@ fun BerandaCardDesign(item: ArtikelPopulerCardModel) {
                         Icon(painter = painterResource(id = bookmarkIcon),
                             contentDescription = "bookmark",
                             tint = Color.Unspecified,
-                            modifier = Modifier.clickable {
-                                bookmarkIsClicked = !bookmarkIsClicked
-                            })
+                            modifier = Modifier
+                                .size(32.dp)
+                                .clickable {
+                                    bookmarkIsClicked = !bookmarkIsClicked
+                                })
                     }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun BerandaLowonganCardDesign(item: LowonganTerbaruCardModel) {
+    Box(
+        modifier = Modifier
+            .background(
+                color = Color.LightGray,
+                shape = RoundedCornerShape(16.dp)
+            )
+            .size(width = 382.dp, height = 122.dp),
+        contentAlignment = Alignment.Center
+    ) {
+        Box(
+            modifier = Modifier
+                .background(
+                    color = Color.White,
+                    shape = RoundedCornerShape(16.dp)
+                )
+                .size(width = 380.dp, height = 120.dp)
+        ) {
+            Row(
+                modifier = Modifier
+                    .padding(12.dp)
+                    .fillMaxSize(),
+                horizontalArrangement = Arrangement.SpaceEvenly,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.lowongan_img_test),
+                    contentDescription = "Logo PT",
+                    modifier = Modifier.size(86.dp)
+                )
+
+                Column(
+                    verticalArrangement = Arrangement.SpaceEvenly,
+                    modifier = Modifier.fillMaxHeight()
+                ) {
+                    Text(
+                        text = item.judul,
+                        fontFamily = fontFamily,
+                        style = MaterialTheme.typography.bodyLarge,
+                        fontWeight = FontWeight.Bold,
+                        color = Color(0xFF2D786C),
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                    Text(
+                        text = item.pt,
+                        fontFamily = fontFamily,
+                        style = MaterialTheme.typography.bodySmall,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                    Text(
+                        text = item.alamat,
+                        fontFamily = fontFamily,
+                        style = MaterialTheme.typography.bodySmall,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.beranda_cards_jam_icon),
+                            contentDescription = "logo jam"
+                        )
+                        Spacer(modifier = Modifier.width(4.dp))
+                        Text(
+                            text = "${item.jam} jam yang lalu",
+                            fontFamily = fontFamily,
+                            style = MaterialTheme.typography.bodySmall
+                        )
+                    }
+                }
+
+                IconButton(onClick = { /*TODO*/ }) {
+                    Image(
+                        painter = painterResource(id = R.drawable.beranda_lowongan_arrow),
+                        contentDescription = "logo arrow"
+                    )
                 }
             }
         }
@@ -167,7 +261,18 @@ fun artikelPopulerGenerator(cardItem: List<ArtikelPopulerCardModel>) {
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         items(cardItem) { item ->
-            BerandaCardDesign(item)
+            BerandaArtikelCardDesign(item)
+        }
+    }
+}
+
+@Composable
+fun lowonganTerbaruGenerator(cardItem: List<LowonganTerbaruCardModel>) {
+    LazyColumn(
+        verticalArrangement = Arrangement.spacedBy(8.dp)
+    ) {
+        items(cardItem) { item ->
+            BerandaLowonganCardDesign(item)
         }
     }
 }
@@ -175,12 +280,21 @@ fun artikelPopulerGenerator(cardItem: List<ArtikelPopulerCardModel>) {
 @Preview
 @Composable
 fun testBerandaCardDesign() {
-    BerandaCardDesign(
-        item = ArtikelPopulerCardModel(
-            "Tutorial Hidroponik Pemula yang Baik...",
-            "Hidroponik adalah cara bercocok tanam dengan menggunakan air sebagai media...",
+//    BerandaArtikelCardDesign(
+//        item = ArtikelPopulerCardModel(
+//            "Tutorial Hidroponik Pemula yang Baik...",
+//            "Hidroponik adalah cara bercocok tanam dengan menggunakan air sebagai media...",
+//            13,
+//            R.drawable.artikel_img_test
+//        )
+//    )
+    BerandaLowonganCardDesign(
+        item = LowonganTerbaruCardModel(
+            "Technical Sales Feedmill",
+            "PT. Sreeya Sewu Indonesia, Tbk",
+            "Blitar, Jawa Timur",
             13,
-            R.drawable.lazy_test
+            R.drawable.lowongan_img_test
         )
     )
 }
