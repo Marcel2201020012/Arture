@@ -238,7 +238,8 @@ fun BerandaLowonganCardDesign(item: LowonganTerbaruCardModel) {
                         Text(
                             text = "${item.jam} jam yang lalu",
                             fontFamily = fontFamily,
-                            style = MaterialTheme.typography.bodySmall
+                            style = MaterialTheme.typography.bodySmall,
+                            fontSize = 8.sp
                         )
                     }
                 }

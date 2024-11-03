@@ -56,6 +56,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.arture.ui.theme.fontFamily
+import navigation.NavigationRoutes
 
 @Composable
 fun signInScreen(navController: NavController) {
@@ -228,7 +229,11 @@ fun signInScreen(navController: NavController) {
 
                     Button(
                         onClick = {
-                            navController.navigate("homePage")
+                            navController.navigate(NavigationRoutes.beranda){
+                                popUpTo(NavigationRoutes.signIn){
+                                    inclusive = true
+                                }
+                            }
                         },
                         modifier = Modifier.fillMaxWidth(),
                         colors = ButtonDefaults.buttonColors(Color(0xFFF8B402))

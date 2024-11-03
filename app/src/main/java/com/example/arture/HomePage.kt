@@ -331,6 +331,7 @@ fun artikelPopulerView() {
     artikelPopulerGenerator(artikel)
 }
 
+//Lowongan kerja function
 @Composable
 fun lowonganTerbaruView() {
     val lowongan = listOf(
