@@ -7,6 +7,7 @@ package com.example.arture
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -19,7 +20,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Divider
@@ -28,8 +28,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -44,22 +44,16 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.text.style.TextDecoration
-import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
-import com.example.arture.ui.theme.fontFamily
-import navigation.NavigationRoutes
+import com.example.arture.ui.theme.poppinsFont
 
 @Composable
-fun signInScreen(navController: NavController) {
+fun signInScreen() {
     val colorList = listOf(
         Color(0xFFFAF5E4),
         Color(0xFF90A955)
@@ -93,7 +87,7 @@ fun signInScreen(navController: NavController) {
                     .width(400.dp)
                     .height(525.dp)
             ) {
-                Column(modifier = Modifier.padding(32.dp)) {
+                Column(modifier = Modifier.scale(0.9f).padding(24.dp)) {
                     var userName by rememberSaveable { mutableStateOf("") }
                     var email by rememberSaveable { mutableStateOf("") }
                     var pass by rememberSaveable { mutableStateOf("") }
@@ -118,9 +112,9 @@ fun signInScreen(navController: NavController) {
                         Color.Black
 
                     Text(
-                        text = "Daftar", fontFamily = fontFamily, style = TextStyle(
+                        text = "Daftar", fontFamily = poppinsFont, style = TextStyle(
                             brush = Brush.linearGradient(
-                                colors = listOf(Color(0xFF387B382), Color(0xFF0C0E0C))
+                                colors = listOf(Color(0xFF387B38), Color(0xFF0C0E0C))
                             )
                         ), fontSize = 24.sp, fontWeight = FontWeight.Bold
                     )
@@ -128,16 +122,16 @@ fun signInScreen(navController: NavController) {
 
                     Text(
                         text = "Nama Pengguna",
-                        fontFamily = fontFamily,
-                        fontSize = 15.sp,
-                        style = MaterialTheme.typography.bodyLarge
+                        fontFamily = poppinsFont,
+                        fontSize = 15.sp
                     )
                     OutlinedTextField(value = userName,
                         modifier = Modifier.fillMaxWidth(),
                         onValueChange = { userName = it },
                         singleLine = true,
-                        colors = TextFieldDefaults.outlinedTextFieldColors(
-                            unfocusedBorderColor = Color.White, focusedBorderColor = Color.White
+                        colors = OutlinedTextFieldDefaults.colors(
+                            focusedBorderColor = Color.White,
+                            unfocusedBorderColor = Color.White,
                         ),
                         trailingIcon = {
                             Icon(
@@ -150,7 +144,7 @@ fun signInScreen(navController: NavController) {
 
                     Text(
                         text = "Email",
-                        fontFamily = fontFamily,
+                        fontFamily = poppinsFont,
                         style = MaterialTheme.typography.bodyLarge,
                         fontSize = 15.sp
                     )
@@ -158,8 +152,9 @@ fun signInScreen(navController: NavController) {
                         onValueChange = { email = it },
                         modifier = Modifier.fillMaxWidth(),
                         singleLine = true,
-                        colors = TextFieldDefaults.outlinedTextFieldColors(
-                            unfocusedBorderColor = Color.White, focusedBorderColor = Color.White
+                        colors = OutlinedTextFieldDefaults.colors(
+                            focusedBorderColor = Color.White,
+                            unfocusedBorderColor = Color.White,
                         ),
                         trailingIcon = {
                             Icon(
@@ -173,7 +168,7 @@ fun signInScreen(navController: NavController) {
 
                     Text(
                         text = "Kata Sandi",
-                        fontFamily = fontFamily,
+                        fontFamily = poppinsFont,
                         style = MaterialTheme.typography.bodyLarge,
                         fontSize = 15.sp
                     )
@@ -182,8 +177,9 @@ fun signInScreen(navController: NavController) {
                         onValueChange = { pass = it },
                         modifier = Modifier.fillMaxWidth(),
                         singleLine = true,
-                        colors = TextFieldDefaults.outlinedTextFieldColors(
-                            unfocusedBorderColor = Color.White, focusedBorderColor = Color.White
+                        colors = OutlinedTextFieldDefaults.colors(
+                            focusedBorderColor = Color.White,
+                            unfocusedBorderColor = Color.White
                         ),
                         trailingIcon = {
                             IconButton(onClick = { passVisible = !passVisible }) {
@@ -201,7 +197,7 @@ fun signInScreen(navController: NavController) {
 
                     Text(
                         text = "Konfirmasi Kata Sandi",
-                        fontFamily = fontFamily,
+                        fontFamily = poppinsFont,
                         style = MaterialTheme.typography.bodyLarge,
                         fontSize = 15.sp
                     )
@@ -210,8 +206,9 @@ fun signInScreen(navController: NavController) {
                         onValueChange = { conPass = it },
                         modifier = Modifier.fillMaxWidth(),
                         singleLine = true,
-                        colors = TextFieldDefaults.outlinedTextFieldColors(
-                            unfocusedBorderColor = Color.White, focusedBorderColor = Color.White
+                        colors = OutlinedTextFieldDefaults.colors(
+                            focusedBorderColor = Color.White,
+                            unfocusedBorderColor = Color.White,
                         ),
                         trailingIcon = {
                             IconButton(onClick = { conPassVisible = !conPassVisible }) {
@@ -229,11 +226,11 @@ fun signInScreen(navController: NavController) {
 
                     Button(
                         onClick = {
-                            navController.navigate(NavigationRoutes.beranda){
-                                popUpTo(NavigationRoutes.signIn){
-                                    inclusive = true
-                                }
-                            }
+//                            navController.navigate(NavigationRoutes.beranda){
+//                                popUpTo(NavigationRoutes.signIn){
+//                                    inclusive = true
+//                                }
+//                            }
                         },
                         modifier = Modifier.fillMaxWidth(),
                         colors = ButtonDefaults.buttonColors(Color(0xFFF8B402))
@@ -246,27 +243,21 @@ fun signInScreen(navController: NavController) {
                     Spacer(modifier = Modifier.height(8.dp))
                     Row(
                         horizontalArrangement = Arrangement.Center,
+                        verticalAlignment = Alignment.CenterVertically,
                         modifier = Modifier.fillMaxWidth()
                     ) {
                         Text(
                             text = "Sudah punya akun? ",
-                            fontFamily = fontFamily,
-                            style = MaterialTheme.typography.bodyLarge,
+                            fontFamily = poppinsFont,
                             fontSize = 12.sp
                         )
-                        ClickableText(
-                            text = buildAnnotatedString {
-                                withStyle(
-                                    style = androidx.compose.ui.text.SpanStyle(
-                                        fontWeight = FontWeight.Bold,
-                                        fontFamily = fontFamily,
-                                        textDecoration = TextDecoration.Underline,
-                                        color = masukTextColor
-                                    )
-                                ) {
-                                    append("Masuk")
-                                }
-                            }, onClick = { isMasukClicked = !isMasukClicked })
+                        Text(
+                            text = "Masuk",
+                            fontFamily = poppinsFont,
+                            fontWeight = FontWeight.Bold,
+                            style = TextStyle(masukTextColor),
+                            modifier = Modifier.clickable { isMasukClicked = !isMasukClicked }
+                        )
                     }
                 }
             }
@@ -274,8 +265,8 @@ fun signInScreen(navController: NavController) {
     }
 }
 
-//@Preview(showBackground = true)
-//@Composable
-//fun signInView() {
-//    signInScreen()
-//}
+@Preview(showBackground = true)
+@Composable
+fun signInView() {
+    signInScreen()
+}

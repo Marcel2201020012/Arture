@@ -29,7 +29,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.arture.ui.theme.fontFamily
+import com.example.arture.ui.theme.poppinsFont
 import model.ArtikelPopulerCardModel
 import model.LowonganTerbaruCardModel
 
@@ -113,14 +113,14 @@ fun homePageScreen() {
                     //greeting texts
                     Text(
                         text = "Hello,",
-                        fontFamily = fontFamily,
+                        fontFamily = poppinsFont,
                         style = MaterialTheme.typography.bodyLarge,
                         fontSize = 24.sp,
                         color = Color.White
                     )
                     Text(
                         text = "Hi Asep",
-                        fontFamily = fontFamily,
+                        fontFamily = poppinsFont,
                         style = MaterialTheme.typography.bodyLarge,
                         fontSize = 28.sp,
                         color = Color.White
@@ -253,7 +253,7 @@ fun homePageScreen() {
                         ) {
                             Text(
                                 text = "Artikel Yang Lagi Populer",
-                                fontFamily = fontFamily,
+                                fontFamily = poppinsFont,
                                 fontWeight = FontWeight.Bold
                             )
 
@@ -287,7 +287,7 @@ fun homePageScreen() {
                         ) {
                             Text(
                                 text = "Lowongan Terbaru",
-                                fontFamily = fontFamily,
+                                fontFamily = poppinsFont,
                                 fontWeight = FontWeight.Bold
                             )
 

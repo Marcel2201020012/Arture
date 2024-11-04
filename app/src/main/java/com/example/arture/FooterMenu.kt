@@ -26,7 +26,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.arture.ui.theme.fontFamily
+import com.example.arture.ui.theme.poppinsFont
 
 @Composable
 fun footerMenuScreen(modifier: Modifier = Modifier) {
@@ -118,7 +118,7 @@ fun footerMenuScreen(modifier: Modifier = Modifier) {
                     Text(
                         color = Color(0xFF90A955),
                         text = "Beranda",
-                        fontFamily = fontFamily,
+                        fontFamily = poppinsFont,
                         style = MaterialTheme.typography.bodyLarge,
                         fontSize = 8.sp,
                         fontWeight = berandaIconText
@@ -149,7 +149,7 @@ fun footerMenuScreen(modifier: Modifier = Modifier) {
                     Text(
                         color = Color(0xFF90A955),
                         text = "Edukasi",
-                        fontFamily = fontFamily,
+                        fontFamily = poppinsFont,
                         style = MaterialTheme.typography.bodyLarge,
                         fontSize = 8.sp,
                         fontWeight = edukasiIconText
@@ -180,7 +180,7 @@ fun footerMenuScreen(modifier: Modifier = Modifier) {
                     Text(
                         color = Color(0xFF90A955),
                         text = "Pekerjaan",
-                        fontFamily = fontFamily,
+                        fontFamily = poppinsFont,
                         style = MaterialTheme.typography.bodyLarge,
                         fontSize = 8.sp,
                         fontWeight = pekerjaanIconText
@@ -211,7 +211,7 @@ fun footerMenuScreen(modifier: Modifier = Modifier) {
                     Text(
                         color = Color(0xFF90A955),
                         text = "Diskusi",
-                        fontFamily = fontFamily,
+                        fontFamily = poppinsFont,
                         style = MaterialTheme.typography.bodyLarge,
                         fontSize = 8.sp,
                         fontWeight = diskusiIconText
@@ -242,7 +242,7 @@ fun footerMenuScreen(modifier: Modifier = Modifier) {
                     Text(
                         color = Color(0xFF90A955),
                         text = "Akun",
-                        fontFamily = fontFamily,
+                        fontFamily = poppinsFont,
                         style = MaterialTheme.typography.bodyLarge,
                         fontSize = 8.sp,
                         fontWeight = akunIconText
