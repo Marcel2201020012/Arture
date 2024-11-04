@@ -43,7 +43,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.arture.ui.theme.fontFamily
+import com.example.arture.ui.theme.poppinsFont
 import model.ArtikelPopulerCardModel
 import model.LowonganTerbaruCardModel
 
@@ -101,7 +101,7 @@ fun BerandaArtikelCardDesign(item: ArtikelPopulerCardModel) {
                             //judul
                             Text(
                                 text = item.judul,
-                                fontFamily = fontFamily,
+                                fontFamily = poppinsFont,
                                 style = TextStyle(Color(0xFF2D786C)),
                                 fontSize = 16.sp,
                                 fontWeight = FontWeight.Bold,
@@ -149,7 +149,7 @@ fun BerandaArtikelCardDesign(item: ArtikelPopulerCardModel) {
                     ) {
                         Text(
                             text = item.desc,
-                            fontFamily = fontFamily,
+                            fontFamily = poppinsFont,
                             fontSize = 12.sp,
                             maxLines = 2,
                             overflow = TextOverflow.Ellipsis,
@@ -208,7 +208,7 @@ fun BerandaLowonganCardDesign(item: LowonganTerbaruCardModel) {
                 ) {
                     Text(
                         text = item.judul,
-                        fontFamily = fontFamily,
+                        fontFamily = poppinsFont,
                         style = MaterialTheme.typography.bodyLarge,
                         fontWeight = FontWeight.Bold,
                         color = Color(0xFF2D786C),
@@ -217,14 +217,14 @@ fun BerandaLowonganCardDesign(item: LowonganTerbaruCardModel) {
                     )
                     Text(
                         text = item.pt,
-                        fontFamily = fontFamily,
+                        fontFamily = poppinsFont,
                         style = MaterialTheme.typography.bodySmall,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )
                     Text(
                         text = item.alamat,
-                        fontFamily = fontFamily,
+                        fontFamily = poppinsFont,
                         style = MaterialTheme.typography.bodySmall,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
@@ -237,7 +237,7 @@ fun BerandaLowonganCardDesign(item: LowonganTerbaruCardModel) {
                         Spacer(modifier = Modifier.width(4.dp))
                         Text(
                             text = "${item.jam} jam yang lalu",
-                            fontFamily = fontFamily,
+                            fontFamily = poppinsFont,
                             style = MaterialTheme.typography.bodySmall,
                             fontSize = 8.sp
                         )

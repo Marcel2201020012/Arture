@@ -14,11 +14,16 @@ val provider = GoogleFont.Provider(
     certificates = com.example.arture.R.array.com_google_android_gms_fonts_certs
 )
 
-val fontName = GoogleFont("Poppins")
-
-val fontFamily = FontFamily(
+val poppinsFont = FontFamily(
     Font(
-        googleFont = fontName,
+        googleFont = GoogleFont("Poppins"),
+        fontProvider = provider
+    )
+)
+
+val timesNewRomanFont = FontFamily(
+    Font(
+        googleFont = GoogleFont("Times New Roman"),
         fontProvider = provider
     )
 )
@@ -26,7 +31,7 @@ val fontFamily = FontFamily(
 // Set of Material typography styles to start with
 val Typography = Typography(
     bodyLarge = TextStyle(
-        fontFamily = FontFamily.Default,
+        fontFamily = poppinsFont,
         fontWeight = FontWeight.Normal,
         fontSize = 16.sp,
         lineHeight = 24.sp,

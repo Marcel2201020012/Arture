@@ -44,7 +44,7 @@ class MainActivity : ComponentActivity() {
 
                     NavHost(navController = navController, startDestination = NavigationRoutes.signIn, builder = {
                         composable(NavigationRoutes.signIn) {
-                            signInScreen(navController)
+                            signInScreen()
                         }
                         composable(NavigationRoutes.beranda) {
                             homePageScreen()
