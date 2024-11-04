@@ -86,6 +86,5 @@ fun linearBgBrush(isVerticalGradient: Boolean, colors: List<Color>): Brush {
 @Composable
 fun GreetingPreview() {
     ArtureTheme {
-
     }
 }
