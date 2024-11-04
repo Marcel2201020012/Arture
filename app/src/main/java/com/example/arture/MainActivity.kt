@@ -3,21 +3,27 @@ package com.example.arture
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.ui.Alignment
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.LinearGradient
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
 import com.example.arture.ui.theme.ArtureTheme
+import navigation.NavigationRoutes
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,38 +31,44 @@ class MainActivity : ComponentActivity() {
         installSplashScreen()
         setContent {
             ArtureTheme {
-                val colorList = listOf(
-                    Color(0xFFFAF5E4),
-                    Color(0xFF90A955)
-                )
-                Box(modifier = Modifier
-                    .fillMaxSize()
-                    .background(
-                        brush = linearBgBrush(
-                            isVerticalGradient = true, colors = colorList
-                        )
-                    ))
-                signInScreen()
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                ) {
+                    val navController = rememberNavController()
+                    val currentBackStackEntry by navController.currentBackStackEntryAsState()
+                    val currentRoute = currentBackStackEntry?.destination?.route
+                    var showFooterMenu by remember{
+                        mutableStateOf(false)
+                    }
+
+                    NavHost(navController = navController, startDestination = NavigationRoutes.signIn, builder = {
+                        composable(NavigationRoutes.signIn) {
+                            signInScreen(navController)
+                        }
+                        composable(NavigationRoutes.beranda) {
+                            homePageScreen()
+                            LaunchedEffect(Unit){
+                                showFooterMenu = true
+                            }
+                        }
+                    })
+
+                    if (showFooterMenu && currentRoute != NavigationRoutes.signIn)
+                        footerMenuScreen(modifier = Modifier.align(Alignment.BottomCenter))
+                }
+                //signInScreen()
                 //Greeting("Marcel")
-            }
             }
         }
     }
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
 }
 
 @Composable
 fun linearBgBrush(isVerticalGradient: Boolean, colors: List<Color>): Brush {
-    val endOffset = if(isVerticalGradient){
+    val endOffset = if (isVerticalGradient) {
         Offset(0f, Float.POSITIVE_INFINITY)
-    }
-    else{
+    } else {
         Offset(Float.POSITIVE_INFINITY, 0f)
     }
 
@@ -71,6 +83,6 @@ fun linearBgBrush(isVerticalGradient: Boolean, colors: List<Color>): Brush {
 @Composable
 fun GreetingPreview() {
     ArtureTheme {
-        Greeting("Android")
+
     }
 }
