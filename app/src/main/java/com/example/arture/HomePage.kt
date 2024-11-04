@@ -17,13 +17,16 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -156,34 +159,40 @@ fun homePageScreen() {
                             horizontalArrangement = Arrangement.SpaceEvenly
                         ) {
 
-                            //disimpan
-                            Box(
-                                modifier = Modifier
-                                    .size(
-                                        width = 106.dp,
-                                        height = 82.dp
-                                    )
-                                    .background(
-                                        color = Color.LightGray,
-                                        shape = RoundedCornerShape(16.dp)
-                                    ),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                Box(contentAlignment = Alignment.Center, modifier = Modifier
-                                    .size(
-                                        width = 104.dp, height = 80.dp
-                                    )
-                                    .clip(shape = RoundedCornerShape(16.dp))
-                                    .background(
-                                        color = Color.White
-                                    )
-                                    .clickable { /*do stuff*/ }) {
-                                    Image(
-                                        painter = painterResource(id = R.drawable.beranda_disimpan_icon),
-                                        contentDescription = "disimpan icon"
-                                    )
+                            Surface (
+                                shadowElevation = 8.dp,
+                                shape = RoundedCornerShape(16.dp)
+                            ){
+                                //disimpan
+                                Box(
+                                    modifier = Modifier
+                                        .size(
+                                            width = 106.dp,
+                                            height = 82.dp
+                                        )
+                                        .background(
+                                            color = Color.LightGray,
+                                            shape = RoundedCornerShape(16.dp)
+                                        ),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    Box(contentAlignment = Alignment.Center, modifier = Modifier
+                                        .size(
+                                            width = 104.dp, height = 80.dp
+                                        )
+                                        .clip(shape = RoundedCornerShape(16.dp))
+                                        .background(
+                                            color = Color.White
+                                        )
+                                        .clickable { /*do stuff*/ }) {
+                                        Image(
+                                            painter = painterResource(id = R.drawable.beranda_disimpan_icon),
+                                            contentDescription = "disimpan icon"
+                                        )
+                                    }
                                 }
                             }
+
 
                             //status pekerjaan
                             Box(
