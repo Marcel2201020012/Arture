@@ -50,10 +50,12 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.arture.ui.theme.poppinsFont
+import navigation.NavigationRoutes
 
 @Composable
-fun signInScreen() {
+fun signInScreen(navController: NavController) {
     val colorList = listOf(
         Color(0xFFFAF5E4),
         Color(0xFF90A955)
@@ -226,11 +228,11 @@ fun signInScreen() {
 
                     Button(
                         onClick = {
-//                            navController.navigate(NavigationRoutes.beranda){
-//                                popUpTo(NavigationRoutes.signIn){
-//                                    inclusive = true
-//                                }
-//                            }
+                            navController.navigate(NavigationRoutes.logIn){
+                                popUpTo(NavigationRoutes.logIn){
+                                    inclusive = true
+                                }
+                            }
                         },
                         modifier = Modifier.fillMaxWidth(),
                         colors = ButtonDefaults.buttonColors(Color(0xFFF8B402))
@@ -265,8 +267,8 @@ fun signInScreen() {
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun signInView() {
-    signInScreen()
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun signInView() {
+//    signInScreen()
+//}
