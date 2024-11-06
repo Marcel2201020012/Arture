@@ -263,7 +263,7 @@ fun homePageScreen() {
                             Text(
                                 text = "Artikel Yang Lagi Populer",
                                 fontFamily = poppinsFont,
-                                fontWeight = FontWeight.Bold
+                                style = MaterialTheme.typography.bodyLarge
                             )
 
                             Image(painter = painterResource(id = R.drawable.beranda_lihat_semua_text),
@@ -309,7 +309,7 @@ fun homePageScreen() {
                         //Lowongan Card
                         Column(
                             modifier = Modifier
-                                .height(128.dp)
+                                .padding(bottom = 80.dp)
                         ) {
                             lowonganTerbaruView()
                         }

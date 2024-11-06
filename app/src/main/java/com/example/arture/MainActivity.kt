@@ -42,7 +42,10 @@ class MainActivity : ComponentActivity() {
                         mutableStateOf(false)
                     }
 
-                    NavHost(navController = navController, startDestination = NavigationRoutes.signIn, builder = {
+                    NavHost(navController = navController, startDestination = NavigationRoutes.flogIn, builder = {
+                        composable(NavigationRoutes.flogIn) {
+                            FirstLogin(navController)
+                        }
                         composable(NavigationRoutes.signIn) {
                             signInScreen(navController)
                         }
@@ -86,6 +89,6 @@ fun linearBgBrush(isVerticalGradient: Boolean, colors: List<Color>): Brush {
 @Composable
 fun GreetingPreview() {
     ArtureTheme {
-
+        LoginScreen(navController = rememberNavController())
     }
 }
