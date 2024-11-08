@@ -47,7 +47,6 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -229,7 +228,7 @@ fun signInScreen(navController: NavController) {
                     Button(
                         onClick = {
                             navController.navigate(NavigationRoutes.logIn){
-                                popUpTo(NavigationRoutes.logIn){
+                                popUpTo(NavigationRoutes.flogIn){
                                     inclusive = true
                                 }
                             }

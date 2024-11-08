@@ -1,6 +1,5 @@
 package com.example.arture
 
-import android.graphics.drawable.shapes.Shape
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -19,7 +18,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Divider
-import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -27,7 +25,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -50,9 +47,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.arture.ui.theme.poppinsFont
 import navigation.NavigationRoutes
-import org.w3c.dom.Text
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -109,7 +106,7 @@ fun LoginScreen(navController: NavController) {
                         painterResource(id = R.drawable.eye)
 
                     var isDaftarClicked by remember { mutableStateOf(false) }
-                    val DaftarTextColor = if (isDaftarClicked)
+                    val daftarTextColor = if (isDaftarClicked)
                         Color.Red
                     else
                         Color.Black
@@ -131,8 +128,8 @@ fun LoginScreen(navController: NavController) {
                         onValueChange = { email = it },
                         modifier = Modifier.fillMaxWidth(),
                         singleLine = true,
-                        colors = TextFieldDefaults.outlinedTextFieldColors(
-                            unfocusedBorderColor = Color.White, focusedBorderColor = Color.White
+                        colors = OutlinedTextFieldDefaults.colors(
+                            focusedBorderColor = Color.White, unfocusedBorderColor = Color.White
                         ),
                         trailingIcon = {
                             Icon(
@@ -216,7 +213,7 @@ fun LoginScreen(navController: NavController) {
                             Text("Daftar",
                                 fontFamily = poppinsFont,
                                 fontWeight = FontWeight.Bold,
-                                style = TextStyle(DaftarTextColor),
+                                style = TextStyle(daftarTextColor),
                                 modifier = Modifier.clickable {
                                     isDaftarClicked = !isDaftarClicked
                                 })
@@ -257,8 +254,8 @@ fun LoginScreen(navController: NavController) {
 
 }
 
-//    @Preview(showBackground = true)
-//    @Composable
-//    fun Testloginscreen() {
-//        LoginScreen()
-//    }
+    @Preview(showBackground = true)
+    @Composable
+    fun Testloginscreen() {
+        LoginScreen(navController = rememberNavController())
+    }
