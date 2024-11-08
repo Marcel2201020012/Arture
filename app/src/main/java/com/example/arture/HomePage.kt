@@ -315,8 +315,7 @@ fun homePageScreen() {
 
                         //Lowongan Card
                         Column(
-                            modifier = Modifier
-                                .height(128.dp)
+                            modifier = Modifier.padding(bottom = 90.dp)
                         ) {
                             lowonganTerbaruView()
                         }

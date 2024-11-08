@@ -42,7 +42,7 @@ class MainActivity : ComponentActivity() {
                         mutableStateOf(false)
                     }
 
-                    NavHost(navController = navController, startDestination = NavigationRoutes.signIn, builder = {
+                    NavHost(navController = navController, startDestination = NavigationRoutes.disimpanPage, builder = {
                         composable(NavigationRoutes.signIn) {
                             signInScreen(navController)
                         }
@@ -51,6 +51,12 @@ class MainActivity : ComponentActivity() {
                         }
                         composable(NavigationRoutes.beranda) {
                             homePageScreen()
+                            LaunchedEffect(Unit){
+                                showFooterMenu = true
+                            }
+                        }
+                        composable(NavigationRoutes.disimpanPage) {
+                            DisimpanPageScreen()
                             LaunchedEffect(Unit){
                                 showFooterMenu = true
                             }
