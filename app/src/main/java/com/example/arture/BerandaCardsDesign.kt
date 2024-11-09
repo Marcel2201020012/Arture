@@ -24,6 +24,7 @@ import androidx.compose.material3.DividerDefaults.color
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -256,6 +257,103 @@ fun BerandaLowonganCardDesign(item: LowonganTerbaruCardModel) {
 }
 
 @Composable
+fun DisimpanArtikelDesign(item: ArtikelPopulerCardModel) {
+    Surface(
+        shadowElevation = 8.dp,
+        shape = RoundedCornerShape(16.dp)
+    ) {
+        Box(
+            modifier = Modifier
+                .clip(RoundedCornerShape(16.dp))
+                .size(width = 362.dp, height = 162.dp)
+                .background(
+                    brush = Brush.linearGradient(
+                        colors = listOf(
+                            Color(0xFFDADE91),
+                            Color.LightGray
+                        )
+                    )
+                ),
+            contentAlignment = Alignment.Center
+        ) {
+            Box(
+                modifier = Modifier
+                    .clip(RoundedCornerShape(16.dp))
+                    .background(
+                        brush = Brush.horizontalGradient(
+                            colors = listOf(Color(0xFFF2F7A1), Color.White)
+                        )
+                    )
+                    .size(width = 360.dp, height = 160.dp)
+            ) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(8.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Image(
+                        modifier = Modifier.size(120.dp),
+                        painter = painterResource(id = R.drawable.disimapan_artikel_img_test),
+                        contentDescription = "gambar artikel"
+                    )
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(12.dp),
+                        verticalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Text(
+                            text = item.judul,
+                            fontFamily = poppinsFont,
+                            style = TextStyle(Color(0xFF2D786C)),
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight.Bold,
+                            maxLines = 2,
+                            overflow = TextOverflow.Ellipsis,
+                            modifier = Modifier.width(160.dp)
+                        )
+                        Spacer(modifier = Modifier.height(4.dp))
+                        Text(
+                            text = item.desc,
+                            fontFamily = poppinsFont,
+                            fontSize = 12.sp,
+                            maxLines = 2,
+                            overflow = TextOverflow.Ellipsis,
+                            modifier = Modifier.width(240.dp)
+                        )
+                        Row(
+                            modifier = Modifier.fillMaxSize(),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Icon(
+                                    painter = painterResource(id = R.drawable.beranda_cards_jam_icon),
+                                    contentDescription = "logo jam"
+                                )
+                                Spacer(modifier = Modifier.width(4.dp))
+                                Text(text = "${item.jam} jam yang lalu", fontSize = 8.sp)
+                            }
+
+                            Icon(
+                                tint = Color.Unspecified,
+                                painter = painterResource(id = R.drawable.beranda_artikel_bookmark_remove_icon),
+                                contentDescription = "logo bookmark"
+                            )
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+@Composable
 fun artikelPopulerGenerator(cardItem: List<ArtikelPopulerCardModel>) {
     LazyRow(
         contentPadding = PaddingValues(horizontal = 12.dp),
@@ -278,6 +376,15 @@ fun lowonganTerbaruGenerator(cardItem: List<LowonganTerbaruCardModel>) {
     }
 }
 
+@Composable
+fun DisimpanArtikelGenerator(cardItem: List<ArtikelPopulerCardModel>) {
+    LazyColumn(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        items(cardItem){item ->
+            DisimpanArtikelDesign(item)
+        }
+    }
+}
+
 @Preview
 @Composable
 fun testBerandaCardDesign() {
@@ -289,13 +396,21 @@ fun testBerandaCardDesign() {
 //            R.drawable.artikel_img_test
 //        )
 //    )
-    BerandaLowonganCardDesign(
-        item = LowonganTerbaruCardModel(
-            "Technical Sales Feedmill",
-            "PT. Sreeya Sewu Indonesia, Tbk",
-            "Blitar, Jawa Timur",
+//    BerandaLowonganCardDesign(
+//        item = LowonganTerbaruCardModel(
+//            "Technical Sales Feedmill",
+//            "PT. Sreeya Sewu Indonesia, Tbk",
+//            "Blitar, Jawa Timur",
+//            13,
+//            R.drawable.lowongan_img_test
+//        )
+//    )
+    DisimpanArtikelDesign(
+        item = ArtikelPopulerCardModel(
+            "Budidaya Tanaman Jagung dengan...",
+            "Jagung merupakan salah satu komoditas tanaman pangan...",
             13,
-            R.drawable.lowongan_img_test
+            R.drawable.artikel_img_test
         )
     )
 }

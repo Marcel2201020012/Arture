@@ -77,9 +77,10 @@ fun FirstLogin(navController: NavController) {
                     Button(
                         onClick = {
                             navController.navigate(NavigationRoutes.signIn){
-                                popUpTo(NavigationRoutes.signIn){
+                                popUpTo(0){
                                     inclusive = false
                                 }
+                                launchSingleTop = true
                             }
                         }, modifier = Modifier
                             .fillMaxWidth(),

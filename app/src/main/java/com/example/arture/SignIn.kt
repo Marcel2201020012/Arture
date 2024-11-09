@@ -228,9 +228,10 @@ fun signInScreen(navController: NavController) {
                     Button(
                         onClick = {
                             navController.navigate(NavigationRoutes.logIn){
-                                popUpTo(NavigationRoutes.flogIn){
+                                popUpTo(0){
                                     inclusive = true
                                 }
+                                launchSingleTop = true
                             }
                         },
                         modifier = Modifier.fillMaxWidth(),

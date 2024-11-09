@@ -1,6 +1,7 @@
 package com.example.arture
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -26,18 +27,28 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.arture.ui.theme.poppinsFont
+import navigation.NavigationRoutes
 
 @Composable
-fun footerMenuScreen(modifier: Modifier = Modifier) {
+fun footerMenuScreen(
+    modifier: Modifier = Modifier, navController: NavController, currentRoute: String?
+) {
 
     //state
-    var berandaButtonIsClicked by remember {
+    val berandaButtonIsClicked = currentRoute == NavigationRoutes.beranda
+    val edukasiButtonIsClicked = currentRoute == NavigationRoutes.disimpanPage/*val pekerjaanButtonIsClicked = currentRoute == NavigationRoutes.pekerjaan
+    val diskusiButtonIsClicked = currentRoute == NavigationRoutes.diskusi
+    val akunButtonIsClicked = currentRoute == NavigationRoutes.akun*/
+
+    /*var berandaButtonIsClicked by remember {
         mutableStateOf(true)
     }
     var edukasiButtonIsClicked by remember {
         mutableStateOf(false)
-    }
+    }*/
     var pekerjaanButtonIsClicked by remember {
         mutableStateOf(false)
     }
@@ -48,39 +59,41 @@ fun footerMenuScreen(modifier: Modifier = Modifier) {
         mutableStateOf(false)
     }
 
-    val (berandaIcon, berandaIconText) = if (berandaButtonIsClicked)
-        Pair(R.drawable.footer_home_icon_activated, FontWeight.Bold)
-    else
-        Pair(R.drawable.footer_home_icon, FontWeight.Normal)
-    val (edukasiIcon, edukasiIconText) = if (edukasiButtonIsClicked)
-        Pair(R.drawable.footer_edukasi_icon_activated, FontWeight.Bold)
-    else
-        Pair(R.drawable.footer_edukasi_icon, FontWeight.Normal)
-    val (pekerjaanIcon, pekerjaanIconText) = if (pekerjaanButtonIsClicked)
-        Pair(R.drawable.footer_pekerjaan_icon_activated, FontWeight.Bold)
-    else
-        Pair(R.drawable.footer_pekerjaan_icon, FontWeight.Normal)
-    val (diskusiIcon, diskusiIconText) = if (diskusiButtonIsClicked)
-        Pair(R.drawable.footer_diskusi_icon_activated, FontWeight.Bold)
-    else
-        Pair(R.drawable.footer_diskusi_icon, FontWeight.Normal)
-    val (akunIcon, akunIconText) = if (akunButtonIsClicked)
-        Pair(R.drawable.footer_akun_icon_activated, FontWeight.Bold)
-    else
-        Pair(R.drawable.footer_akun_icon, FontWeight.Normal)
+    val (berandaIcon, berandaIconText) = if (berandaButtonIsClicked) Pair(
+        R.drawable.footer_home_icon_activated,
+        FontWeight.Bold
+    )
+    else Pair(R.drawable.footer_home_icon, FontWeight.Normal)
+    val (edukasiIcon, edukasiIconText) = if (edukasiButtonIsClicked) Pair(
+        R.drawable.footer_edukasi_icon_activated,
+        FontWeight.Bold
+    )
+    else Pair(R.drawable.footer_edukasi_icon, FontWeight.Normal)
+    val (pekerjaanIcon, pekerjaanIconText) = if (pekerjaanButtonIsClicked) Pair(
+        R.drawable.footer_pekerjaan_icon_activated,
+        FontWeight.Bold
+    )
+    else Pair(R.drawable.footer_pekerjaan_icon, FontWeight.Normal)
+    val (diskusiIcon, diskusiIconText) = if (diskusiButtonIsClicked) Pair(
+        R.drawable.footer_diskusi_icon_activated,
+        FontWeight.Bold
+    )
+    else Pair(R.drawable.footer_diskusi_icon, FontWeight.Normal)
+    val (akunIcon, akunIconText) = if (akunButtonIsClicked) Pair(
+        R.drawable.footer_akun_icon_activated,
+        FontWeight.Bold
+    )
+    else Pair(R.drawable.footer_akun_icon, FontWeight.Normal)
 
     Box(
         modifier = modifier
             .height(81.dp)
             .background(
-                color = Color.LightGray,
-                RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)
-            ),
-        contentAlignment = Alignment.BottomCenter
+                color = Color.LightGray, RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)
+            ), contentAlignment = Alignment.BottomCenter
     ) {
         Box(
-            contentAlignment = Alignment.Center,
-            modifier = Modifier
+            contentAlignment = Alignment.Center, modifier = Modifier
                 .fillMaxWidth()
                 .background(
                     color = Color(0xFFFEFEFE),
@@ -97,17 +110,21 @@ fun footerMenuScreen(modifier: Modifier = Modifier) {
                 //Beranda
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
-                    modifier = Modifier.scale(1.5f)
+                    modifier = Modifier
+                        .scale(1.5f)
                 ) {
                     IconButton(
                         onClick = {
-                            berandaButtonIsClicked = true
-                            edukasiButtonIsClicked = false
                             pekerjaanButtonIsClicked = false
                             diskusiButtonIsClicked = false
                             akunButtonIsClicked = false
-                        },
-                        modifier = Modifier.height(16.dp)
+                            navController.navigate(NavigationRoutes.beranda) {
+                                popUpTo(0) {
+                                    inclusive = true
+                                }
+                                launchSingleTop = true
+                            }
+                        }, modifier = Modifier.height(16.dp)
                     ) {
                         Icon(
                             painter = painterResource(id = berandaIcon),
@@ -132,13 +149,14 @@ fun footerMenuScreen(modifier: Modifier = Modifier) {
                 ) {
                     IconButton(
                         onClick = {
-                            berandaButtonIsClicked = false
-                            edukasiButtonIsClicked = true
                             pekerjaanButtonIsClicked = false
                             diskusiButtonIsClicked = false
                             akunButtonIsClicked = false
-                        },
-                        modifier = Modifier.height(16.dp)
+                            navController.navigate(NavigationRoutes.disimpanPage) {
+                                popUpTo(NavigationRoutes.disimpanPage) { inclusive = true }
+                                launchSingleTop = true
+                            }
+                        }, modifier = Modifier.height(16.dp)
                     ) {
                         Icon(
                             painter = painterResource(id = edukasiIcon),
@@ -163,13 +181,10 @@ fun footerMenuScreen(modifier: Modifier = Modifier) {
                 ) {
                     IconButton(
                         onClick = {
-                            berandaButtonIsClicked = false
-                            edukasiButtonIsClicked = false
                             pekerjaanButtonIsClicked = true
                             diskusiButtonIsClicked = false
                             akunButtonIsClicked = false
-                        },
-                        modifier = Modifier.height(16.dp)
+                        }, modifier = Modifier.height(16.dp)
                     ) {
                         Icon(
                             painter = painterResource(id = pekerjaanIcon),
@@ -194,13 +209,10 @@ fun footerMenuScreen(modifier: Modifier = Modifier) {
                 ) {
                     IconButton(
                         onClick = {
-                            berandaButtonIsClicked = false
-                            edukasiButtonIsClicked = false
                             pekerjaanButtonIsClicked = false
                             diskusiButtonIsClicked = true
                             akunButtonIsClicked = false
-                        },
-                        modifier = Modifier.height(16.dp)
+                        }, modifier = Modifier.height(16.dp)
                     ) {
                         Icon(
                             painter = painterResource(id = diskusiIcon),
@@ -225,13 +237,10 @@ fun footerMenuScreen(modifier: Modifier = Modifier) {
                 ) {
                     IconButton(
                         onClick = {
-                            berandaButtonIsClicked = false
-                            edukasiButtonIsClicked = false
                             pekerjaanButtonIsClicked = false
                             diskusiButtonIsClicked = false
                             akunButtonIsClicked = true
-                        },
-                        modifier = Modifier.height(16.dp)
+                        }, modifier = Modifier.height(16.dp)
                     ) {
                         Icon(
                             painter = painterResource(id = akunIcon),
@@ -256,5 +265,5 @@ fun footerMenuScreen(modifier: Modifier = Modifier) {
 @Preview(showBackground = true)
 @Composable
 fun testFooterMenu() {
-    footerMenuScreen()
+    footerMenuScreen(modifier = Modifier, rememberNavController(), currentRoute = "")
 }
