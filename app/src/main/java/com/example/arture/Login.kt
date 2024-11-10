@@ -86,7 +86,7 @@ fun LoginScreen(navController: NavController) {
                     .height(525.dp)
             )
             {
-                Column (
+                Column(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(32.dp),
@@ -108,11 +108,13 @@ fun LoginScreen(navController: NavController) {
                     else
                         Color.Black
 
-                    Text(text = "Masuk", fontFamily = poppinsFont, style = TextStyle(
-                        brush = Brush.linearGradient(
-                            colors = listOf(Color(0xFF387B382), Color(0xFF0C0E0C))
-                        )
-                    ), fontSize = 24.sp, fontWeight = FontWeight.Bold)
+                    Text(
+                        text = "Masuk", fontFamily = poppinsFont, style = TextStyle(
+                            brush = Brush.linearGradient(
+                                colors = listOf(Color(0xFF387B382), Color(0xFF0C0E0C))
+                            )
+                        ), fontSize = 24.sp, fontWeight = FontWeight.Bold
+                    )
                     Spacer(modifier = Modifier.height(12.dp))
 
                     Text(
@@ -179,8 +181,8 @@ fun LoginScreen(navController: NavController) {
 
                     Button(
                         onClick = {
-                            navController.navigate(NavigationRoutes.beranda){
-                                popUpTo(0){
+                            navController.navigate(NavigationRoutes.beranda) {
+                                popUpTo(0) {
                                     inclusive = true
                                 }
                                 launchSingleTop = true
@@ -191,7 +193,7 @@ fun LoginScreen(navController: NavController) {
                             containerColor = Color(0xFFF8B402)
                         )
                     ) {
-                        Text("Login")
+                        Text("Login", fontFamily = poppinsFont, color = Color.White)
                     }
 
                     Spacer(modifier = Modifier.height(8.dp))
@@ -240,7 +242,11 @@ fun LoginScreen(navController: NavController) {
                                 modifier = Modifier.size(18.dp),
                                 tint = Color.Unspecified
                             )
-                            Text("  Masuk dengan Google")
+                            Text(
+                                "  Masuk dengan Google",
+                                fontFamily = poppinsFont,
+                                color = Color.White
+                            )
                         }
                     }
                 }
@@ -252,8 +258,8 @@ fun LoginScreen(navController: NavController) {
 
 }
 
-    @Preview(showBackground = true)
-    @Composable
-    fun Testloginscreen() {
-        LoginScreen(navController = rememberNavController())
-    }
+@Preview(showBackground = true)
+@Composable
+fun Testloginscreen() {
+    LoginScreen(navController = rememberNavController())
+}

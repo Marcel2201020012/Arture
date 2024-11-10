@@ -61,11 +61,11 @@ class MainActivity : ComponentActivity() {
                                     showFooterMenu = true
                                 }
                             }
+                            composable(NavigationRoutes.diskusi) {
+                                DiskusiPageScreen(navController)
+                            }
                             composable(NavigationRoutes.disimpanPage) {
                                 DisimpanPageScreen(navController)
-                                LaunchedEffect(Unit) {
-                                    showFooterMenu = true
-                                }
                             }
                         })
 

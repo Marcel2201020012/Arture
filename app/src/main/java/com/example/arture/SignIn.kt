@@ -238,7 +238,7 @@ fun signInScreen(navController: NavController) {
                         colors = ButtonDefaults.buttonColors(Color(0xFFF8B402))
                     ) {
                         Text(
-                            text = "Daftar", fontWeight = FontWeight.Bold
+                            text = "Daftar", fontWeight = FontWeight.Bold, color = Color.White
                         )
                     }
 

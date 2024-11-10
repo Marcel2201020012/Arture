@@ -19,7 +19,10 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DividerDefaults.color
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -46,6 +49,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.arture.ui.theme.poppinsFont
 import model.ArtikelPopulerCardModel
+import model.DiskusiCardModel
 import model.LowonganTerbaruCardModel
 
 @Composable
@@ -352,6 +356,110 @@ fun DisimpanArtikelDesign(item: ArtikelPopulerCardModel) {
     }
 }
 
+@Composable
+fun DiskusiCardDesign(item: DiskusiCardModel) {
+    Box(
+        modifier = Modifier
+            .clip(RoundedCornerShape(16.dp))
+            .background(Color.LightGray)
+            .size(362.dp, 162.dp),
+        contentAlignment = Alignment.Center
+    ) {
+        Box(
+            modifier = Modifier
+                .clip(RoundedCornerShape(16.dp))
+                .background(Color.White)
+                .size(360.dp, 160.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            Column(
+                Modifier
+                    .fillMaxSize()
+                    .padding(16.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                Row {
+                    Box(
+                        contentAlignment = Alignment.Center, modifier = Modifier
+                            .clip(shape = CircleShape)
+                            .background(
+                                color = Color.Gray
+                            )
+                            .size(34.dp)
+                    ) {
+                        Box(
+                            contentAlignment = Alignment.Center, modifier = Modifier
+                                .clip(shape = CircleShape)
+                                .background(
+                                    color = Color.White
+                                )
+                                .size(32.dp)
+                        ) {
+                            Icon(
+                                painter = painterResource(
+                                    id = R.drawable.beranda_profile_picture
+                                ), contentDescription = "profile_picture", tint = Color.Unspecified
+                            )
+                        }
+
+                    }
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Column(
+                        verticalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Text(
+                            text = item.nama,
+                            style = MaterialTheme.typography.labelMedium
+                        )
+                        Text(
+                            text = item.status,
+                            style = MaterialTheme.typography.labelSmall
+                        )
+                    }
+                }
+
+                Text(
+                    text = item.pertanyaan,
+                    style = MaterialTheme.typography.bodySmall,
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis
+                )
+
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    Button(
+                        onClick = { /*TODO*/ },
+                        shape = RoundedCornerShape(8.dp),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = Color(0xFFF8B402)
+                        )
+                    ) {
+                        Text(
+                            text = "Tanya Sekarang",
+                            style = MaterialTheme.typography.bodySmall
+                        )
+                    }
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(4.dp)
+                    ) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.diskusi_jawaban_counter_icon),
+                            contentDescription = "jawaban icon",
+                            tint = Color.Unspecified
+                        )
+                        Text(
+                            text = "${item.jawaban} Jawaban",
+                            fontWeight = FontWeight.ExtraBold
+                        )
+                    }
+                }
+            }
+        }
+    }
+}
 
 @Composable
 fun artikelPopulerGenerator(cardItem: List<ArtikelPopulerCardModel>) {
@@ -379,8 +487,17 @@ fun lowonganTerbaruGenerator(cardItem: List<LowonganTerbaruCardModel>) {
 @Composable
 fun DisimpanArtikelGenerator(cardItem: List<ArtikelPopulerCardModel>) {
     LazyColumn(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-        items(cardItem){item ->
+        items(cardItem) { item ->
             DisimpanArtikelDesign(item)
+        }
+    }
+}
+
+@Composable
+fun DiskusiGenerator(cardItem: List<DiskusiCardModel>) {
+    LazyColumn(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        items(cardItem) { item ->
+            DiskusiCardDesign(item)
         }
     }
 }
@@ -405,12 +522,21 @@ fun testBerandaCardDesign() {
 //            R.drawable.lowongan_img_test
 //        )
 //    )
-    DisimpanArtikelDesign(
-        item = ArtikelPopulerCardModel(
-            "Budidaya Tanaman Jagung dengan...",
-            "Jagung merupakan salah satu komoditas tanaman pangan...",
-            13,
-            R.drawable.artikel_img_test
+//    DisimpanArtikelDesign(
+//        item = ArtikelPopulerCardModel(
+//            "Budidaya Tanaman Jagung dengan...",
+//            "Jagung merupakan salah satu komoditas tanaman pangan...",
+//            13,
+//            R.drawable.artikel_img_test
+//        )
+//    )
+    DiskusiCardDesign(
+        item = DiskusiCardModel(
+            R.drawable.beranda_profile_picture,
+            "Muhammad Sumbul",
+            "Petani",
+            "Halo semua, musim kemarau ini cukup panjang dan saya khawatir dengan irigasi di lahan saya. Ada ya...",
+            25
         )
     )
 }

@@ -1,7 +1,6 @@
 package com.example.arture
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -39,22 +38,23 @@ fun footerMenuScreen(
 
     //state
     val berandaButtonIsClicked = currentRoute == NavigationRoutes.beranda
-    val edukasiButtonIsClicked = currentRoute == NavigationRoutes.disimpanPage/*val pekerjaanButtonIsClicked = currentRoute == NavigationRoutes.pekerjaan
+//    val edukasiButtonIsClicked = currentRoute == NavigationRoutes.edukasi
+//    val pekerjaanButtonIsClicked = currentRoute == NavigationRoutes.pekerjaan
     val diskusiButtonIsClicked = currentRoute == NavigationRoutes.diskusi
-    val akunButtonIsClicked = currentRoute == NavigationRoutes.akun*/
+//    val akunButtonIsClicked = currentRoute == NavigationRoutes.akun
 
-    /*var berandaButtonIsClicked by remember {
-        mutableStateOf(true)
-    }
+//    var berandaButtonIsClicked by remember {
+//        mutableStateOf(true)
+//    }
     var edukasiButtonIsClicked by remember {
         mutableStateOf(false)
-    }*/
+    }
     var pekerjaanButtonIsClicked by remember {
         mutableStateOf(false)
     }
-    var diskusiButtonIsClicked by remember {
-        mutableStateOf(false)
-    }
+//    var diskusiButtonIsClicked by remember {
+//        mutableStateOf(false)
+//    }
     var akunButtonIsClicked by remember {
         mutableStateOf(false)
     }
@@ -116,7 +116,7 @@ fun footerMenuScreen(
                     IconButton(
                         onClick = {
                             pekerjaanButtonIsClicked = false
-                            diskusiButtonIsClicked = false
+                            edukasiButtonIsClicked = false
                             akunButtonIsClicked = false
                             navController.navigate(NavigationRoutes.beranda) {
                                 popUpTo(0) {
@@ -150,12 +150,12 @@ fun footerMenuScreen(
                     IconButton(
                         onClick = {
                             pekerjaanButtonIsClicked = false
-                            diskusiButtonIsClicked = false
+                            edukasiButtonIsClicked = false
                             akunButtonIsClicked = false
-                            navController.navigate(NavigationRoutes.disimpanPage) {
-                                popUpTo(NavigationRoutes.disimpanPage) { inclusive = true }
-                                launchSingleTop = true
-                            }
+//                            navController.navigate(NavigationRoutes.disimpanPage) {
+//                                popUpTo(NavigationRoutes.disimpanPage) { inclusive = true }
+//                                launchSingleTop = true
+//                            }
                         }, modifier = Modifier.height(16.dp)
                     ) {
                         Icon(
@@ -181,8 +181,8 @@ fun footerMenuScreen(
                 ) {
                     IconButton(
                         onClick = {
-                            pekerjaanButtonIsClicked = true
-                            diskusiButtonIsClicked = false
+                            pekerjaanButtonIsClicked = false
+                            edukasiButtonIsClicked = false
                             akunButtonIsClicked = false
                         }, modifier = Modifier.height(16.dp)
                     ) {
@@ -210,8 +210,14 @@ fun footerMenuScreen(
                     IconButton(
                         onClick = {
                             pekerjaanButtonIsClicked = false
-                            diskusiButtonIsClicked = true
+                            edukasiButtonIsClicked = false
                             akunButtonIsClicked = false
+                            navController.navigate(NavigationRoutes.diskusi) {
+                                popUpTo(NavigationRoutes.disimpanPage){
+                                    inclusive = true
+                                }
+                                launchSingleTop = true
+                            }
                         }, modifier = Modifier.height(16.dp)
                     ) {
                         Icon(
@@ -238,8 +244,8 @@ fun footerMenuScreen(
                     IconButton(
                         onClick = {
                             pekerjaanButtonIsClicked = false
-                            diskusiButtonIsClicked = false
-                            akunButtonIsClicked = true
+                            edukasiButtonIsClicked = false
+                            akunButtonIsClicked = false
                         }, modifier = Modifier.height(16.dp)
                     ) {
                         Icon(

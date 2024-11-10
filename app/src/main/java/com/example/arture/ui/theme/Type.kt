@@ -52,7 +52,27 @@ val Typography = Typography(
         fontWeight = FontWeight.Bold,
         fontSize = 16.sp,
         color = Color.White
-    )
+    ),
+    labelLarge = TextStyle(
+        fontFamily = poppinsFont,
+        fontWeight = FontWeight.Bold,
+        fontSize = 16.sp,
+        color = Color(0xFF2D786C)
+    ),
+    labelMedium = TextStyle(
+        fontFamily = poppinsFont,
+        fontSize = 16.sp,
+        color = Color(0xFF246056)
+    ),
+    labelSmall = TextStyle(
+        fontFamily = poppinsFont,
+        fontSize = 12.sp,
+        color = Color(0xFF5B8532)
+    ),
+    bodySmall = TextStyle(
+        fontFamily = poppinsFont,
+        fontSize = 12.sp,
+    ),
         /*
     labelSmall = TextStyle(
         fontFamily = FontFamily.Default,

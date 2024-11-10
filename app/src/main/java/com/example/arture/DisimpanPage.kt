@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -26,6 +27,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -69,50 +71,45 @@ fun DisimpanPageScreen(navController: NavController) {
                         )
                     )
             ) {
-                Row(
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.fillMaxSize()
-                ) {
-                    Text(text = "")
-                    Image(
-                        painter = painterResource(id = R.drawable.disimpan_bg_bookmark_icon),
-                        contentDescription = "bookmark icon"
-                    )
-                }
-
                 Column(
                     modifier = Modifier
-                        .fillMaxSize()
-                        .padding(top = 28.dp),
+                        .fillMaxSize(),
                     verticalArrangement = Arrangement.SpaceBetween,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Row(
                         modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(start = 24.dp),
+                            .fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Icon(
-                            tint = Color.Unspecified,
-                            painter = painterResource(id = R.drawable.back_arrow),
-                            contentDescription = "back arrow",
-                            modifier = Modifier.clickable { navController.navigate(NavigationRoutes.beranda){
+                        IconButton(onClick = {
+                            navController.navigate(NavigationRoutes.beranda) {
                                 popUpTo(0) {
                                     inclusive = true
                                 }
                                 launchSingleTop = true
-                            } }
-                        )
+                            }
+                        }) {
+                            Icon(
+                                tint = Color.Unspecified,
+                                painter = painterResource(id = R.drawable.back_arrow),
+                                contentDescription = "back arrow"
+                            )
+                        }
+
                         //Disimpan Title
                         Text(
                             text = "Disimpan",
                             fontFamily = poppinsFont,
                             style = MaterialTheme.typography.titleLarge
                         )
-                        Text(text = "")
+
+                        Image(
+                            painter = painterResource(id = R.drawable.disimpan_bg_bookmark_icon),
+                            contentDescription = "bookmark icon",
+                            Modifier.scale(0.8f)
+                        )
                     }
 
                     //Disimpan Top Buttons

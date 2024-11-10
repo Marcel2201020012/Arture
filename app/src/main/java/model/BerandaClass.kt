@@ -14,3 +14,11 @@ data class LowonganTerbaruCardModel(
     val jam: Int,
     val img: Int
 )
+
+data class DiskusiCardModel(
+    val profil: Int,
+    val nama: String,
+    val status: String,
+    val pertanyaan: String,
+    val jawaban: Int
+)
