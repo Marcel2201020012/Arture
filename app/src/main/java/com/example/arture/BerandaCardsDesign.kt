@@ -50,6 +50,7 @@ import androidx.compose.ui.unit.sp
 import com.example.arture.ui.theme.poppinsFont
 import model.ArtikelPopulerCardModel
 import model.DiskusiCardModel
+import model.KomentarCardModel
 import model.LowonganTerbaruCardModel
 
 @Composable
@@ -357,7 +358,7 @@ fun DisimpanArtikelDesign(item: ArtikelPopulerCardModel) {
 }
 
 @Composable
-fun DiskusiCardDesign(item: DiskusiCardModel) {
+fun DiskusiCardDesign(item: DiskusiCardModel, onAnswerClick: (DiskusiCardModel) -> Unit) {
     Box(
         modifier = Modifier
             .clip(RoundedCornerShape(16.dp))
@@ -376,7 +377,7 @@ fun DiskusiCardDesign(item: DiskusiCardModel) {
                 Modifier
                     .fillMaxSize()
                     .padding(16.dp),
-                verticalArrangement = Arrangement.spacedBy(12.dp)
+                verticalArrangement = Arrangement.SpaceBetween
             ) {
                 Row {
                     Box(
@@ -430,14 +431,14 @@ fun DiskusiCardDesign(item: DiskusiCardModel) {
                     horizontalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
                     Button(
-                        onClick = { /*TODO*/ },
+                        onClick = { onAnswerClick(item) },
                         shape = RoundedCornerShape(8.dp),
                         colors = ButtonDefaults.buttonColors(
                             containerColor = Color(0xFFF8B402)
                         )
                     ) {
                         Text(
-                            text = "Tanya Sekarang",
+                            text = "Lihat Selengkapnya",
                             style = MaterialTheme.typography.bodySmall
                         )
                     }
@@ -452,10 +453,83 @@ fun DiskusiCardDesign(item: DiskusiCardModel) {
                         )
                         Text(
                             text = "${item.jawaban} Jawaban",
-                            fontWeight = FontWeight.ExtraBold
+                            style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.Bold)
                         )
                     }
                 }
+            }
+        }
+    }
+}
+
+@Composable
+fun KomentarCardDesign(item: KomentarCardModel) {
+    Box(
+        modifier = Modifier
+            .clip(RoundedCornerShape(16.dp))
+            .background(Color.LightGray)
+            .size(362.dp, 102.dp),
+        contentAlignment = Alignment.Center
+    ) {
+        Box(
+            modifier = Modifier
+                .clip(RoundedCornerShape(16.dp))
+                .background(Color.White)
+                .size(360.dp, 100.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            Column(
+                Modifier
+                    .fillMaxSize()
+                    .padding(16.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                Row {
+                    Box(
+                        contentAlignment = Alignment.Center, modifier = Modifier
+                            .clip(shape = CircleShape)
+                            .background(
+                                color = Color.Gray
+                            )
+                            .size(34.dp)
+                    ) {
+                        Box(
+                            contentAlignment = Alignment.Center, modifier = Modifier
+                                .clip(shape = CircleShape)
+                                .background(
+                                    color = Color.White
+                                )
+                                .size(32.dp)
+                        ) {
+                            Icon(
+                                painter = painterResource(
+                                    id = R.drawable.beranda_profile_picture
+                                ), contentDescription = "profile_picture", tint = Color.Unspecified
+                            )
+                        }
+
+                    }
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Column(
+                        verticalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Text(
+                            text = item.nama,
+                            style = MaterialTheme.typography.labelMedium
+                        )
+                        Text(
+                            text = item.status,
+                            style = MaterialTheme.typography.labelSmall
+                        )
+                    }
+                }
+
+                Text(
+                    text = item.komentar,
+                    style = MaterialTheme.typography.bodySmall,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
             }
         }
     }
@@ -494,10 +568,19 @@ fun DisimpanArtikelGenerator(cardItem: List<ArtikelPopulerCardModel>) {
 }
 
 @Composable
-fun DiskusiGenerator(cardItem: List<DiskusiCardModel>) {
+fun DiskusiGenerator(cardItem: List<DiskusiCardModel>, onAnswerClick: (DiskusiCardModel) -> Unit) {
     LazyColumn(verticalArrangement = Arrangement.spacedBy(8.dp)) {
         items(cardItem) { item ->
-            DiskusiCardDesign(item)
+            DiskusiCardDesign(item, onAnswerClick)
+        }
+    }
+}
+
+@Composable
+fun KomentarGenerator(cardItem: List<KomentarCardModel>){
+    LazyColumn(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        items(cardItem) { item ->
+            KomentarCardDesign(item)
         }
     }
 }
@@ -536,7 +619,18 @@ fun testBerandaCardDesign() {
             "Muhammad Sumbul",
             "Petani",
             "Halo semua, musim kemarau ini cukup panjang dan saya khawatir dengan irigasi di lahan saya. Ada ya...",
-            25
-        )
+            25,
+            13
+        ),
+        onAnswerClick = {}
     )
+//    KomentarCardDesign(
+//        item =
+//        KomentarCardModel(
+//            R.drawable.beranda_profile_picture,
+//            "Muhammad Sumbul",
+//            "Petani",
+//            "Sama mas tempat saya juga begitu😥"
+//        )
+//    )
 }

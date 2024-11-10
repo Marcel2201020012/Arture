@@ -20,5 +20,13 @@ data class DiskusiCardModel(
     val nama: String,
     val status: String,
     val pertanyaan: String,
-    val jawaban: Int
+    val jawaban: Int,
+    val jam: Int
+)
+
+data class KomentarCardModel(
+    val profil: Int,
+    val nama: String,
+    val status: String,
+    val komentar: String
 )
