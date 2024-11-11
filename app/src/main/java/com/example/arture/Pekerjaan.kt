@@ -57,9 +57,10 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.arture.ui.theme.poppinsFont
+import navigation.NavigationRoutes
 
 @Composable
-fun Pekerjaan() {
+fun Pekerjaan(navController: NavController) {
     val colorList = listOf(
         Color(0xFF90A956), Color(0xFFECF39E)
     )
@@ -97,7 +98,14 @@ fun Pekerjaan() {
                             //horizontalArrangement = Arrangement.SpaceBetween,
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            IconButton(onClick = { /*TODO*/ }) {
+                            IconButton(onClick = {
+                                navController.navigate(NavigationRoutes.beranda) {
+                                    popUpTo(NavigationRoutes.beranda) {
+                                        inclusive = true
+                                    }
+                                    launchSingleTop = true
+                                }
+                            }) {
                                 Image(
                                     painter = painterResource(id = R.drawable.statuspekerjaan_arrow_back_icon),
                                     contentDescription = "logo arrow"
@@ -111,7 +119,7 @@ fun Pekerjaan() {
                                 horizontalArrangement = Arrangement.Absolute.Center
                             ) {
                                 Text(
-                                    text = "Status Pekerjaan",
+                                    text = "Pekerjaan",
                                     style = MaterialTheme.typography.titleLarge
                                 )
                             }
@@ -253,9 +261,9 @@ fun Pekerjaan() {
 //                            }
                                 var selected by remember { mutableStateOf(false) }
 
-                                LazyRow (
+                                LazyRow(
                                     horizontalArrangement = Arrangement.spacedBy(4.dp)
-                                ){
+                                ) {
                                     items(4) { index ->
                                         FilterChip(
                                             onClick = { selected = !selected },
@@ -303,7 +311,7 @@ fun Pekerjaan() {
                     modifier = Modifier
                         .padding(bottom = 80.dp)
                 ) {
-                    lowonganTerbaruView()
+                    lowonganTerbaruView(navController)
                 }
             }
         }
@@ -316,6 +324,6 @@ fun Pekerjaan() {
 @Preview
 @Composable
 private fun PekerjaanView() {
-    Pekerjaan()
+    Pekerjaan(rememberNavController())
 
 }

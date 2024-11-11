@@ -39,10 +39,11 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.arture.ui.theme.poppinsFont
+import navigation.NavigationRoutes
 import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
 
 @Composable
-fun DetailPekerjaan() {
+fun DetailPekerjaan(navController: NavController) {
     var bookmarkIsClicked by remember {
         mutableStateOf(false)
     }
@@ -87,7 +88,14 @@ fun DetailPekerjaan() {
                             //horizontalArrangement = Arrangement.SpaceBetween,
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            IconButton(onClick = { /*TODO*/ }) {
+                            IconButton(onClick = {
+                                navController.navigate(NavigationRoutes.beranda) {
+                                    popUpTo(NavigationRoutes.beranda) {
+                                        inclusive = true
+                                    }
+                                    launchSingleTop = true
+                                }
+                            }) {
                                 Image(
                                     painter = painterResource(id = R.drawable.statuspekerjaan_arrow_back_icon),
                                     contentDescription = "logo arrow"
@@ -101,7 +109,7 @@ fun DetailPekerjaan() {
                                 horizontalArrangement = Arrangement.Absolute.Center
                             ) {
                                 Text(
-                                    text = "Status Pekerjaan",
+                                    text = "Pekerjaan",
                                     style = MaterialTheme.typography.titleLarge
                                 )
                             }
@@ -154,10 +162,10 @@ fun DetailPekerjaan() {
                                                 shape = RoundedCornerShape(16.dp)
                                             ),
                                     ) {
-                                        Column (
+                                        Column(
                                             modifier = Modifier
                                                 .padding(start = 25.dp, end = 25.dp)
-                                        ){
+                                        ) {
                                             Row(
                                                 horizontalArrangement = Arrangement.End,
                                                 modifier = Modifier
@@ -306,8 +314,6 @@ fun DetailPekerjaan() {
                                             }
 
 
-
-
                                         }
                                     }
                                 }
@@ -424,10 +430,10 @@ fun DetailPekerjaan() {
                                                 shape = RoundedCornerShape(16.dp)
                                             ),
                                     ) {
-                                        Column (
+                                        Column(
 //                                            modifier = Modifier
 //                                                .width(270.dp)
-                                        ){
+                                        ) {
                                             Row(
                                                 horizontalArrangement = Arrangement.End,
                                                 modifier = Modifier
@@ -504,11 +510,12 @@ fun DetailPekerjaan() {
                                                     .fillMaxSize()
                                             )
                                         }
-                                        }
+                                    }
 
                                 }
 
                             }
+
                             else -> Text("Item lainnya", color = Color.White)
                         }
                     }
@@ -527,6 +534,6 @@ fun DetailPekerjaan() {
 @Preview
 @Composable
 private fun PekerjaanView() {
-    DetailPekerjaan()
+    DetailPekerjaan(rememberNavController())
 
 }

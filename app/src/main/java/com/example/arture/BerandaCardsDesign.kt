@@ -47,11 +47,14 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.arture.ui.theme.poppinsFont
 import model.ArtikelPopulerCardModel
 import model.DiskusiCardModel
 import model.KomentarCardModel
 import model.LowonganTerbaruCardModel
+import navigation.NavigationRoutes
 
 @Composable
 fun BerandaArtikelCardDesign(item: ArtikelPopulerCardModel) {
@@ -177,7 +180,7 @@ fun BerandaArtikelCardDesign(item: ArtikelPopulerCardModel) {
 }
 
 @Composable
-fun BerandaLowonganCardDesign(item: LowonganTerbaruCardModel) {
+fun BerandaLowonganCardDesign(item: LowonganTerbaruCardModel, navController: NavController) {
     Box(
         modifier = Modifier
             .background(
@@ -250,7 +253,7 @@ fun BerandaLowonganCardDesign(item: LowonganTerbaruCardModel) {
                     }
                 }
 
-                IconButton(onClick = { /*TODO*/ }) {
+                IconButton(onClick = { navController.navigate(NavigationRoutes.detailPekerjaan) }) {
                     Image(
                         painter = painterResource(id = R.drawable.beranda_lowongan_arrow),
                         contentDescription = "logo arrow"
@@ -548,12 +551,12 @@ fun artikelPopulerGenerator(cardItem: List<ArtikelPopulerCardModel>) {
 }
 
 @Composable
-fun lowonganTerbaruGenerator(cardItem: List<LowonganTerbaruCardModel>) {
+fun lowonganTerbaruGenerator(cardItem: List<LowonganTerbaruCardModel>, navController: NavController) {
     LazyColumn(
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         items(cardItem) { item ->
-            BerandaLowonganCardDesign(item)
+            BerandaLowonganCardDesign(item, navController)
         }
     }
 }

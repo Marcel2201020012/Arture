@@ -1,5 +1,6 @@
 package com.example.arture
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -54,10 +55,20 @@ class DiskusiViewModel: ViewModel() {
 
 @Composable
 fun DiskusiPageScreen(navController: NavController) {
+    val viewModel: DiskusiViewModel = remember { DiskusiViewModel() }
 
     //page state
     var currentPage by remember {
         mutableStateOf("main")
+    }
+
+    //backhandler untuk mencegah user back ke homepage kalau bukan di layout main
+    BackHandler {
+        if (currentPage != "main") {
+            currentPage = "main"
+        } else {
+            navController.popBackStack()
+        }
     }
 
     var selectedItem by remember { mutableStateOf<DiskusiCardModel?>(null) }
@@ -123,7 +134,7 @@ fun DiskusiPageScreen(navController: NavController) {
                     onAnswerClick = { item ->
                         selectedItem = item
                         currentPage = "jawaban"
-                    }, DiskusiViewModel()
+                    }, viewModel
                 )
 
                 "pertanyaan" -> MasukkanPertanyaanScreen()
@@ -131,7 +142,6 @@ fun DiskusiPageScreen(navController: NavController) {
                     JawabanScreen(item)
                 }
             }
-
         }
     }
 }
@@ -139,25 +149,19 @@ fun DiskusiPageScreen(navController: NavController) {
 @Composable
 fun MainDiskusiScreen(onAskClick: () -> Unit, onAnswerClick: (DiskusiCardModel) -> Unit, viewModel: DiskusiViewModel) {
     //filter state
-    var filterText = viewModel.filterText
-
-    var populerIsClicked by remember { mutableStateOf(true) }
-    var terbaruIsClicked by remember { mutableStateOf(false) }
-    var relevanIsClicked by remember { mutableStateOf(false) }
-
-    val populerIcon = if (populerIsClicked) {
+    val populerIcon = if (viewModel.filterText == "Populer") {
         R.drawable.diskusi_filter_populer_active
     } else {
         R.drawable.diskusi_filter_populer_non_active
     }
 
-    val terbaruIcon = if (terbaruIsClicked) {
+    val terbaruIcon = if (viewModel.filterText == "Terbaru") {
         R.drawable.diskusi_filter_terbaru_active
     } else {
         R.drawable.diskusi_filter_terbaru_non_active
     }
 
-    val relevanIcon = if (relevanIsClicked) {
+    val relevanIcon = if (viewModel.filterText == "Relevan") {
         R.drawable.diskusi_filter_relevan_active
     } else {
         R.drawable.diskusi_filter_relevan_non_active
@@ -248,9 +252,6 @@ fun MainDiskusiScreen(onAskClick: () -> Unit, onAnswerClick: (DiskusiCardModel) 
                         modifier = Modifier
                             .clip(RoundedCornerShape(8.dp))
                             .clickable {
-                                populerIsClicked = true
-                                terbaruIsClicked = false
-                                relevanIsClicked = false
                                 viewModel.filterText = "Populer"
                             })
                     Text(text = " | ")
@@ -260,9 +261,6 @@ fun MainDiskusiScreen(onAskClick: () -> Unit, onAnswerClick: (DiskusiCardModel) 
                         modifier = Modifier
                             .clip(RoundedCornerShape(8.dp))
                             .clickable {
-                                populerIsClicked = false
-                                terbaruIsClicked = true
-                                relevanIsClicked = false
                                 viewModel.filterText = "Terbaru"
                             })
                     Text(text = " | ")
@@ -272,9 +270,6 @@ fun MainDiskusiScreen(onAskClick: () -> Unit, onAnswerClick: (DiskusiCardModel) 
                         modifier = Modifier
                             .clip(RoundedCornerShape(8.dp))
                             .clickable {
-                                populerIsClicked = false
-                                terbaruIsClicked = false
-                                relevanIsClicked = true
                                 viewModel.filterText = "Relevan"
                             }
 
@@ -291,14 +286,14 @@ fun MainDiskusiScreen(onAskClick: () -> Unit, onAnswerClick: (DiskusiCardModel) 
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
-            text = "Diskusi $filterText", style = MaterialTheme.typography.bodyLarge
+            text = "Diskusi ${viewModel.filterText}", style = MaterialTheme.typography.bodyLarge
         )
         Text(text = "")
     }
 
     //konten Diskusi
     Column {
-        DiskusiCardView(onAnswerClick, filterText)
+        DiskusiCardView(onAnswerClick, viewModel.filterText)
     }
 }
 

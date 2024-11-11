@@ -68,19 +68,19 @@ class MainActivity : ComponentActivity() {
                                 }
                             }
                             composable(NavigationRoutes.statusPekerjaan) {
-                                StatusPekerjaan()
+                                StatusPekerjaan(navController)
                                 LaunchedEffect(Unit) {
                                     showFooterMenu = true
                                 }
                             }
                             composable(NavigationRoutes.pekerjaan) {
-                                Pekerjaan()
+                                Pekerjaan(navController)
                                 LaunchedEffect(Unit) {
                                     showFooterMenu = true
                                 }
                             }
                             composable(NavigationRoutes.detailPekerjaan) {
-                                DetailPekerjaan()
+                                DetailPekerjaan(navController)
                                 LaunchedEffect(Unit) {
                                     showFooterMenu = true
                                 }

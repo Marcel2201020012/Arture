@@ -26,9 +26,10 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import model.StatusPekerjaanCardModel
+import navigation.NavigationRoutes
 
 @Composable
-fun StatusPekerjaan() {
+fun StatusPekerjaan(navController: NavController) {
     val colorList = listOf(
         Color(0xFF90A956), Color(0xFFECF39E)
     )
@@ -69,7 +70,12 @@ fun StatusPekerjaan() {
                         //horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        IconButton(onClick = { /*TODO*/ }) {
+                        IconButton(onClick = {navController.navigate(NavigationRoutes.beranda) {
+                            popUpTo(NavigationRoutes.beranda) {
+                                inclusive = true
+                            }
+                            launchSingleTop = true
+                        }}) {
                             Image(
                                 painter = painterResource(id = R.drawable.statuspekerjaan_arrow_back_icon),
                                 contentDescription = "logo arrow"

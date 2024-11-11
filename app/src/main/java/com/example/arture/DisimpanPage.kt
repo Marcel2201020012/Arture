@@ -188,7 +188,7 @@ fun DisimpanPageScreen(navController: NavController) {
                     .padding(top = 20.dp, start = 20.dp, end = 20.dp, bottom = 100.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                if (edukasiIsClicked) DisimpanArtikelView() else lowonganTerbaruView()
+                if (edukasiIsClicked) DisimpanArtikelView() else lowonganTerbaruView(navController)
             }
         }
     }

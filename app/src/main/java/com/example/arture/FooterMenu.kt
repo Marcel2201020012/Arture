@@ -39,7 +39,7 @@ fun footerMenuScreen(
     //state
     val berandaButtonIsClicked = currentRoute == NavigationRoutes.beranda
 //    val edukasiButtonIsClicked = currentRoute == NavigationRoutes.edukasi
-//    val pekerjaanButtonIsClicked = currentRoute == NavigationRoutes.pekerjaan
+    val pekerjaanButtonIsClicked = currentRoute == NavigationRoutes.pekerjaan
     val diskusiButtonIsClicked = currentRoute == NavigationRoutes.diskusi
 //    val akunButtonIsClicked = currentRoute == NavigationRoutes.akun
 
@@ -49,9 +49,9 @@ fun footerMenuScreen(
     var edukasiButtonIsClicked by remember {
         mutableStateOf(false)
     }
-    var pekerjaanButtonIsClicked by remember {
-        mutableStateOf(false)
-    }
+//    var pekerjaanButtonIsClicked by remember {
+//        mutableStateOf(false)
+//    }
 //    var diskusiButtonIsClicked by remember {
 //        mutableStateOf(false)
 //    }
@@ -115,7 +115,6 @@ fun footerMenuScreen(
                 ) {
                     IconButton(
                         onClick = {
-                            pekerjaanButtonIsClicked = false
                             edukasiButtonIsClicked = false
                             akunButtonIsClicked = false
                             navController.navigate(NavigationRoutes.beranda) {
@@ -149,7 +148,6 @@ fun footerMenuScreen(
                 ) {
                     IconButton(
                         onClick = {
-                            pekerjaanButtonIsClicked = false
                             edukasiButtonIsClicked = false
                             akunButtonIsClicked = false
 //                            navController.navigate(NavigationRoutes.disimpanPage) {
@@ -181,9 +179,14 @@ fun footerMenuScreen(
                 ) {
                     IconButton(
                         onClick = {
-                            pekerjaanButtonIsClicked = false
                             edukasiButtonIsClicked = false
                             akunButtonIsClicked = false
+                            navController.navigate(NavigationRoutes.pekerjaan) {
+                                popUpTo(NavigationRoutes.beranda){
+                                    inclusive = false
+                                }
+                                launchSingleTop = true
+                            }
                         }, modifier = Modifier.height(16.dp)
                     ) {
                         Icon(
@@ -209,12 +212,11 @@ fun footerMenuScreen(
                 ) {
                     IconButton(
                         onClick = {
-                            pekerjaanButtonIsClicked = false
                             edukasiButtonIsClicked = false
                             akunButtonIsClicked = false
                             navController.navigate(NavigationRoutes.diskusi) {
-                                popUpTo(NavigationRoutes.disimpanPage){
-                                    inclusive = true
+                                popUpTo(NavigationRoutes.beranda){
+                                    inclusive = false
                                 }
                                 launchSingleTop = true
                             }
@@ -243,7 +245,6 @@ fun footerMenuScreen(
                 ) {
                     IconButton(
                         onClick = {
-                            pekerjaanButtonIsClicked = false
                             edukasiButtonIsClicked = false
                             akunButtonIsClicked = false
                         }, modifier = Modifier.height(16.dp)

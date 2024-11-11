@@ -219,7 +219,7 @@ fun homePageScreen(navController: NavController) {
                                         .background(
                                             color = Color.White
                                         )
-                                        .clickable { /*do stuff*/ }) {
+                                        .clickable {navController.navigate(NavigationRoutes.statusPekerjaan)}) {
                                         Image(
                                             painter = painterResource(id = R.drawable.beranda_status_pekerjaan_icon),
                                             contentDescription = "status pekerjaan icon"
@@ -322,7 +322,7 @@ fun homePageScreen(navController: NavController) {
                             modifier = Modifier
                                 .padding(bottom = 80.dp)
                         ) {
-                            lowonganTerbaruView()
+                            lowonganTerbaruView(navController)
                         }
                     }
                 }
@@ -353,7 +353,7 @@ fun artikelPopulerView() {
 
 //Lowongan kerja function
 @Composable
-fun lowonganTerbaruView() {
+fun lowonganTerbaruView(navController: NavController) {
     val lowongan = listOf(
         LowonganTerbaruCardModel(
             "Technical Sales Feedmill",
@@ -386,7 +386,7 @@ fun lowonganTerbaruView() {
 
     )
 
-    lowonganTerbaruGenerator(lowongan)
+    lowonganTerbaruGenerator(lowongan, navController)
 }
 
 @Preview(showBackground = true)
