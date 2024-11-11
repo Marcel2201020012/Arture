@@ -40,11 +40,17 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.arture.ui.theme.poppinsFont
 import model.DiskusiCardModel
 import model.KomentarCardModel
 import navigation.NavigationRoutes
+
+class DiskusiViewModel: ViewModel() {
+    var filterText by mutableStateOf("Populer")
+}
 
 @Composable
 fun DiskusiPageScreen(navController: NavController) {
@@ -117,7 +123,8 @@ fun DiskusiPageScreen(navController: NavController) {
                     onAnswerClick = { item ->
                         selectedItem = item
                         currentPage = "jawaban"
-                    })
+                    }, DiskusiViewModel()
+                )
 
                 "pertanyaan" -> MasukkanPertanyaanScreen()
                 "jawaban" -> selectedItem?.let { item ->
@@ -130,9 +137,9 @@ fun DiskusiPageScreen(navController: NavController) {
 }
 
 @Composable
-fun MainDiskusiScreen(onAskClick: () -> Unit, onAnswerClick: (DiskusiCardModel) -> Unit) {
+fun MainDiskusiScreen(onAskClick: () -> Unit, onAnswerClick: (DiskusiCardModel) -> Unit, viewModel: DiskusiViewModel) {
     //filter state
-    var filterText by remember { mutableStateOf("Populer") }
+    var filterText = viewModel.filterText
 
     var populerIsClicked by remember { mutableStateOf(true) }
     var terbaruIsClicked by remember { mutableStateOf(false) }
@@ -244,7 +251,7 @@ fun MainDiskusiScreen(onAskClick: () -> Unit, onAnswerClick: (DiskusiCardModel) 
                                 populerIsClicked = true
                                 terbaruIsClicked = false
                                 relevanIsClicked = false
-                                filterText = "Populer"
+                                viewModel.filterText = "Populer"
                             })
                     Text(text = " | ")
                     Icon(tint = Color.Unspecified,
@@ -256,7 +263,7 @@ fun MainDiskusiScreen(onAskClick: () -> Unit, onAnswerClick: (DiskusiCardModel) 
                                 populerIsClicked = false
                                 terbaruIsClicked = true
                                 relevanIsClicked = false
-                                filterText = "Terbaru"
+                                viewModel.filterText = "Terbaru"
                             })
                     Text(text = " | ")
                     Icon(tint = Color.Unspecified,
@@ -268,7 +275,7 @@ fun MainDiskusiScreen(onAskClick: () -> Unit, onAnswerClick: (DiskusiCardModel) 
                                 populerIsClicked = false
                                 terbaruIsClicked = false
                                 relevanIsClicked = true
-                                filterText = "Relevan"
+                                viewModel.filterText = "Relevan"
                             }
 
                     )
@@ -291,7 +298,7 @@ fun MainDiskusiScreen(onAskClick: () -> Unit, onAnswerClick: (DiskusiCardModel) 
 
     //konten Diskusi
     Column {
-        DiskusiCardView(onAnswerClick)
+        DiskusiCardView(onAnswerClick, filterText)
     }
 }
 
@@ -546,39 +553,46 @@ fun JawabanScreen(item: DiskusiCardModel) {
 }
 
 @Composable
-fun DiskusiCardView(onAnswerClick: (DiskusiCardModel) -> Unit) {
+fun DiskusiCardView(onAnswerClick: (DiskusiCardModel) -> Unit, filterText: String) {
     val diskusi = listOf(
         DiskusiCardModel(
             R.drawable.beranda_profile_picture,
             "Muhammad Sumbul",
             "Petani",
             "Halo semua, musim kemarau ini cukup panjang dan saya khawatir dengan irigasi di lahan saya. Ada ya...",
-            25,
-            13
+            12,
+            10
         ), DiskusiCardModel(
             R.drawable.beranda_profile_picture,
             "Tekad",
             "Petani",
             "Halo semua, musim kemarau ini cukup panjang dan saya khawatir dengan irigasi di lahan saya. Ada ya...",
-            25,
-            13
+            1,
+            2
         ), DiskusiCardModel(
             R.drawable.beranda_profile_picture,
             "Muhammad Lumba",
             "Petani",
             "Halo semua, musim kemarau ini cukup panjang dan saya khawatir dengan irigasi di lahan saya. Ada ya...",
-            25,
-            13
+            2,
+            5
         ), DiskusiCardModel(
             R.drawable.beranda_profile_picture,
             "Muhammad Radzi",
             "Petani",
             "Halo semua, musim kemarau ini cukup panjang dan saya khawatir dengan irigasi di lahan saya. Ada ya...",
-            25,
-            13
+            12,
+            20
         )
     )
-    DiskusiGenerator(diskusi, onAnswerClick)
+
+    val sortedDiskusiCard = when (filterText){
+        "Populer" -> diskusi.sortedByDescending { it.jawaban }
+        "Terbaru" -> diskusi.sortedBy { it.jam }
+        else -> diskusi
+    }
+
+    DiskusiGenerator(sortedDiskusiCard, onAnswerClick)
 }
 
 @Composable
@@ -609,19 +623,19 @@ fun KomentarCardView() {
 @Preview
 @Composable
 fun TestDiskusiPage() {
-    val dummy = DiskusiCardModel(
-        R.drawable.beranda_profile_picture,
-        "Muhammad Tegur",
-        "Petani",
-        "Halo semua, musim kemarau ini cukup panjang dan saya khawatir dengan irigasi di lahan saya. Ada ya...",
-        25,
-        13
-    )
+//    val dummy = DiskusiCardModel(
+//        R.drawable.beranda_profile_picture,
+//        "Muhammad Tegur",
+//        "Petani",
+//        "Halo semua, musim kemarau ini cukup panjang dan saya khawatir dengan irigasi di lahan saya. Ada ya...",
+//        25,
+//        13
+//    )
 
     Box {
-        //DiskusiPageScreen(rememberNavController())
+        DiskusiPageScreen(rememberNavController())
         //MasukkanPertanyaanScreen()
-        JawabanScreen(dummy)
+//        JawabanScreen(dummy)
 //        footerMenuScreen(
 //            modifier = Modifier.align(Alignment.BottomCenter),
 //            rememberNavController(),
