@@ -50,7 +50,7 @@ fun FirstLogin(navController: NavController) {
             modifier = Modifier
                 .fillMaxSize(),
 
-            verticalArrangement = Arrangement.SpaceBetween,
+            verticalArrangement = Arrangement.SpaceAround,
             horizontalAlignment = Alignment.CenterHorizontally
 
         ) {
@@ -58,7 +58,7 @@ fun FirstLogin(navController: NavController) {
                 painter = painterResource(id = R.drawable.logo_text), contentDescription = "logo",
                 modifier = Modifier
                     .width(126.dp)
-                    //.padding(bottom = 130.dp)
+                    .padding(bottom = 130.dp)
             )
             Box(modifier = Modifier
                 .scale(0.8f)
@@ -97,10 +97,10 @@ fun FirstLogin(navController: NavController) {
                     OutlinedButton(
                         onClick = {
                             navController.navigate(NavigationRoutes.logIn){
-                            popUpTo(NavigationRoutes.logIn){
-                                inclusive = true
+                                popUpTo(NavigationRoutes.logIn){
+                                    inclusive = true
+                                }
                             }
-                        }
 
                         }, modifier = Modifier
                             .fillMaxWidth(),
