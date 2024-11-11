@@ -372,7 +372,15 @@ fun lowonganTerbaruView() {
             "Blitar, Jawa Timur",
             13,
             R.drawable.lowongan_img_test
+        ),
+        LowonganTerbaruCardModel(
+            "Technical Sales Feedmill",
+            "PT. Sreeya Sewu Indonesia, Tbk",
+            "Blitar, Jawa Timur",
+            13,
+            R.drawable.lowongan_img_test
         )
+
     )
 
     lowonganTerbaruGenerator(lowongan)

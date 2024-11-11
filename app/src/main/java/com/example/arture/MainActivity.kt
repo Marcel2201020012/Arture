@@ -44,7 +44,7 @@ class MainActivity : ComponentActivity() {
 
                     /*NavHost(navController = navController, startDestination = NavigationRoutes.disimpanPage, builder = {*/
 
-                    NavHost(navController = navController, startDestination = NavigationRoutes.flogIn, builder = {
+                    NavHost(navController = navController, startDestination = NavigationRoutes.pekerjaan, builder = {
                         composable(NavigationRoutes.flogIn) {
                             FirstLogin(navController)
                         }
@@ -62,6 +62,24 @@ class MainActivity : ComponentActivity() {
                         }
                         composable(NavigationRoutes.disimpanPage) {
                             DisimpanPageScreen()
+                            LaunchedEffect(Unit){
+                                showFooterMenu = true
+                            }
+                        }
+                        composable(NavigationRoutes.statusPekerjaan) {
+                            StatusPekerjaan()
+                            LaunchedEffect(Unit){
+                                showFooterMenu = true
+                            }
+                        }
+                        composable(NavigationRoutes.pekerjaan) {
+                            Pekerjaan()
+                            LaunchedEffect(Unit){
+                                showFooterMenu = true
+                            }
+                        }
+                        composable(NavigationRoutes.detailPekerjaan) {
+                            DetailPekerjaan()
                             LaunchedEffect(Unit){
                                 showFooterMenu = true
                             }
