@@ -5,6 +5,7 @@ object NavigationRoutes {
     var signIn = "SignIn"
     var logIn = "LogIn"
     var beranda = "HomePage"
+    var diskusi = "Diskusi"
     var disimpanPage = "DisimpanPage"
     var statusPekerjaan = "StatusPekerjaan"
     var pekerjaan = "Pekerjaan"

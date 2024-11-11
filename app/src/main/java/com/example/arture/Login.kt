@@ -18,14 +18,12 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Divider
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -51,7 +49,6 @@ import androidx.navigation.compose.rememberNavController
 import com.example.arture.ui.theme.poppinsFont
 import navigation.NavigationRoutes
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginScreen(navController: NavController) {
     val colorList = listOf(
@@ -89,7 +86,7 @@ fun LoginScreen(navController: NavController) {
                     .height(525.dp)
             )
             {
-                Column (
+                Column(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(32.dp),
@@ -111,11 +108,13 @@ fun LoginScreen(navController: NavController) {
                     else
                         Color.Black
 
-                    Text(text = "Masuk", fontFamily = poppinsFont, style = TextStyle(
-                        brush = Brush.linearGradient(
-                            colors = listOf(Color(0xFF387B382), Color(0xFF0C0E0C))
-                        )
-                    ), fontSize = 24.sp, fontWeight = FontWeight.Bold)
+                    Text(
+                        text = "Masuk", fontFamily = poppinsFont, style = TextStyle(
+                            brush = Brush.linearGradient(
+                                colors = listOf(Color(0xFF387B382), Color(0xFF0C0E0C))
+                            )
+                        ), fontSize = 24.sp, fontWeight = FontWeight.Bold
+                    )
                     Spacer(modifier = Modifier.height(12.dp))
 
                     Text(
@@ -182,10 +181,11 @@ fun LoginScreen(navController: NavController) {
 
                     Button(
                         onClick = {
-                            navController.navigate(NavigationRoutes.beranda){
-                                popUpTo(NavigationRoutes.signIn){
+                            navController.navigate(NavigationRoutes.beranda) {
+                                popUpTo(0) {
                                     inclusive = true
                                 }
+                                launchSingleTop = true
                             }
                         }, modifier = Modifier
                             .fillMaxWidth(),
@@ -193,7 +193,7 @@ fun LoginScreen(navController: NavController) {
                             containerColor = Color(0xFFF8B402)
                         )
                     ) {
-                        Text("Login")
+                        Text("Login", fontFamily = poppinsFont, color = Color.White)
                     }
 
                     Spacer(modifier = Modifier.height(8.dp))
@@ -242,7 +242,11 @@ fun LoginScreen(navController: NavController) {
                                 modifier = Modifier.size(18.dp),
                                 tint = Color.Unspecified
                             )
-                            Text("  Masuk dengan Google")
+                            Text(
+                                "  Masuk dengan Google",
+                                fontFamily = poppinsFont,
+                                color = Color.White
+                            )
                         }
                     }
                 }
@@ -254,8 +258,8 @@ fun LoginScreen(navController: NavController) {
 
 }
 
-    @Preview(showBackground = true)
-    @Composable
-    fun Testloginscreen() {
-        LoginScreen(navController = rememberNavController())
-    }
+@Preview(showBackground = true)
+@Composable
+fun Testloginscreen() {
+    LoginScreen(navController = rememberNavController())
+}

@@ -19,11 +19,15 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DividerDefaults.color
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -45,6 +49,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.arture.ui.theme.poppinsFont
 import model.ArtikelPopulerCardModel
+import model.DiskusiCardModel
+import model.KomentarCardModel
 import model.LowonganTerbaruCardModel
 
 @Composable
@@ -256,6 +262,280 @@ fun BerandaLowonganCardDesign(item: LowonganTerbaruCardModel) {
 }
 
 @Composable
+fun DisimpanArtikelDesign(item: ArtikelPopulerCardModel) {
+    Surface(
+        shadowElevation = 8.dp,
+        shape = RoundedCornerShape(16.dp)
+    ) {
+        Box(
+            modifier = Modifier
+                .clip(RoundedCornerShape(16.dp))
+                .size(width = 362.dp, height = 162.dp)
+                .background(
+                    brush = Brush.linearGradient(
+                        colors = listOf(
+                            Color(0xFFDADE91),
+                            Color.LightGray
+                        )
+                    )
+                ),
+            contentAlignment = Alignment.Center
+        ) {
+            Box(
+                modifier = Modifier
+                    .clip(RoundedCornerShape(16.dp))
+                    .background(
+                        brush = Brush.horizontalGradient(
+                            colors = listOf(Color(0xFFF2F7A1), Color.White)
+                        )
+                    )
+                    .size(width = 360.dp, height = 160.dp)
+            ) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(8.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Image(
+                        modifier = Modifier.size(120.dp),
+                        painter = painterResource(id = R.drawable.disimapan_artikel_img_test),
+                        contentDescription = "gambar artikel"
+                    )
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(12.dp),
+                        verticalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Text(
+                            text = item.judul,
+                            fontFamily = poppinsFont,
+                            style = TextStyle(Color(0xFF2D786C)),
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight.Bold,
+                            maxLines = 2,
+                            overflow = TextOverflow.Ellipsis,
+                            modifier = Modifier.width(160.dp)
+                        )
+                        Spacer(modifier = Modifier.height(4.dp))
+                        Text(
+                            text = item.desc,
+                            fontFamily = poppinsFont,
+                            fontSize = 12.sp,
+                            maxLines = 2,
+                            overflow = TextOverflow.Ellipsis,
+                            modifier = Modifier.width(240.dp)
+                        )
+                        Row(
+                            modifier = Modifier.fillMaxSize(),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Icon(
+                                    painter = painterResource(id = R.drawable.beranda_cards_jam_icon),
+                                    contentDescription = "logo jam"
+                                )
+                                Spacer(modifier = Modifier.width(4.dp))
+                                Text(text = "${item.jam} jam yang lalu", fontSize = 8.sp)
+                            }
+
+                            Icon(
+                                tint = Color.Unspecified,
+                                painter = painterResource(id = R.drawable.beranda_artikel_bookmark_remove_icon),
+                                contentDescription = "logo bookmark"
+                            )
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun DiskusiCardDesign(item: DiskusiCardModel, onAnswerClick: (DiskusiCardModel) -> Unit) {
+    Box(
+        modifier = Modifier
+            .clip(RoundedCornerShape(16.dp))
+            .background(Color.LightGray)
+            .size(362.dp, 162.dp),
+        contentAlignment = Alignment.Center
+    ) {
+        Box(
+            modifier = Modifier
+                .clip(RoundedCornerShape(16.dp))
+                .background(Color.White)
+                .size(360.dp, 160.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            Column(
+                Modifier
+                    .fillMaxSize()
+                    .padding(16.dp),
+                verticalArrangement = Arrangement.SpaceBetween
+            ) {
+                Row {
+                    Box(
+                        contentAlignment = Alignment.Center, modifier = Modifier
+                            .clip(shape = CircleShape)
+                            .background(
+                                color = Color.Gray
+                            )
+                            .size(34.dp)
+                    ) {
+                        Box(
+                            contentAlignment = Alignment.Center, modifier = Modifier
+                                .clip(shape = CircleShape)
+                                .background(
+                                    color = Color.White
+                                )
+                                .size(32.dp)
+                        ) {
+                            Icon(
+                                painter = painterResource(
+                                    id = R.drawable.beranda_profile_picture
+                                ), contentDescription = "profile_picture", tint = Color.Unspecified
+                            )
+                        }
+
+                    }
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Column(
+                        verticalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Text(
+                            text = item.nama,
+                            style = MaterialTheme.typography.labelMedium
+                        )
+                        Text(
+                            text = item.status,
+                            style = MaterialTheme.typography.labelSmall
+                        )
+                    }
+                }
+
+                Text(
+                    text = item.pertanyaan,
+                    style = MaterialTheme.typography.bodySmall,
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis
+                )
+
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    Button(
+                        onClick = { onAnswerClick(item) },
+                        shape = RoundedCornerShape(8.dp),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = Color(0xFFF8B402)
+                        )
+                    ) {
+                        Text(
+                            text = "Lihat Selengkapnya",
+                            style = MaterialTheme.typography.bodySmall
+                        )
+                    }
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(4.dp)
+                    ) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.diskusi_jawaban_counter_icon),
+                            contentDescription = "jawaban icon",
+                            tint = Color.Unspecified
+                        )
+                        Text(
+                            text = "${item.jawaban} Jawaban",
+                            style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.Bold)
+                        )
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun KomentarCardDesign(item: KomentarCardModel) {
+    Box(
+        modifier = Modifier
+            .clip(RoundedCornerShape(16.dp))
+            .background(Color.LightGray)
+            .size(362.dp, 102.dp),
+        contentAlignment = Alignment.Center
+    ) {
+        Box(
+            modifier = Modifier
+                .clip(RoundedCornerShape(16.dp))
+                .background(Color.White)
+                .size(360.dp, 100.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            Column(
+                Modifier
+                    .fillMaxSize()
+                    .padding(16.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                Row {
+                    Box(
+                        contentAlignment = Alignment.Center, modifier = Modifier
+                            .clip(shape = CircleShape)
+                            .background(
+                                color = Color.Gray
+                            )
+                            .size(34.dp)
+                    ) {
+                        Box(
+                            contentAlignment = Alignment.Center, modifier = Modifier
+                                .clip(shape = CircleShape)
+                                .background(
+                                    color = Color.White
+                                )
+                                .size(32.dp)
+                        ) {
+                            Icon(
+                                painter = painterResource(
+                                    id = R.drawable.beranda_profile_picture
+                                ), contentDescription = "profile_picture", tint = Color.Unspecified
+                            )
+                        }
+
+                    }
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Column(
+                        verticalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Text(
+                            text = item.nama,
+                            style = MaterialTheme.typography.labelMedium
+                        )
+                        Text(
+                            text = item.status,
+                            style = MaterialTheme.typography.labelSmall
+                        )
+                    }
+                }
+
+                Text(
+                    text = item.komentar,
+                    style = MaterialTheme.typography.bodySmall,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+            }
+        }
+    }
+}
+
+@Composable
 fun artikelPopulerGenerator(cardItem: List<ArtikelPopulerCardModel>) {
     LazyRow(
         contentPadding = PaddingValues(horizontal = 12.dp),
@@ -278,6 +558,33 @@ fun lowonganTerbaruGenerator(cardItem: List<LowonganTerbaruCardModel>) {
     }
 }
 
+@Composable
+fun DisimpanArtikelGenerator(cardItem: List<ArtikelPopulerCardModel>) {
+    LazyColumn(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        items(cardItem) { item ->
+            DisimpanArtikelDesign(item)
+        }
+    }
+}
+
+@Composable
+fun DiskusiGenerator(cardItem: List<DiskusiCardModel>, onAnswerClick: (DiskusiCardModel) -> Unit) {
+    LazyColumn(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        items(cardItem) { item ->
+            DiskusiCardDesign(item, onAnswerClick)
+        }
+    }
+}
+
+@Composable
+fun KomentarGenerator(cardItem: List<KomentarCardModel>){
+    LazyColumn(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        items(cardItem) { item ->
+            KomentarCardDesign(item)
+        }
+    }
+}
+
 @Preview
 @Composable
 fun testBerandaCardDesign() {
@@ -289,13 +596,41 @@ fun testBerandaCardDesign() {
 //            R.drawable.artikel_img_test
 //        )
 //    )
-    BerandaLowonganCardDesign(
-        item = LowonganTerbaruCardModel(
-            "Technical Sales Feedmill",
-            "PT. Sreeya Sewu Indonesia, Tbk",
-            "Blitar, Jawa Timur",
-            13,
-            R.drawable.lowongan_img_test
-        )
+//    BerandaLowonganCardDesign(
+//        item = LowonganTerbaruCardModel(
+//            "Technical Sales Feedmill",
+//            "PT. Sreeya Sewu Indonesia, Tbk",
+//            "Blitar, Jawa Timur",
+//            13,
+//            R.drawable.lowongan_img_test
+//        )
+//    )
+//    DisimpanArtikelDesign(
+//        item = ArtikelPopulerCardModel(
+//            "Budidaya Tanaman Jagung dengan...",
+//            "Jagung merupakan salah satu komoditas tanaman pangan...",
+//            13,
+//            R.drawable.artikel_img_test
+//        )
+//    )
+    DiskusiCardDesign(
+        item = DiskusiCardModel(
+            R.drawable.beranda_profile_picture,
+            "Muhammad Sumbul",
+            "Petani",
+            "Halo semua, musim kemarau ini cukup panjang dan saya khawatir dengan irigasi di lahan saya. Ada ya...",
+            25,
+            13
+        ),
+        onAnswerClick = {}
     )
+//    KomentarCardDesign(
+//        item =
+//        KomentarCardModel(
+//            R.drawable.beranda_profile_picture,
+//            "Muhammad Sumbul",
+//            "Petani",
+//            "Sama mas tempat saya juga begitu😥"
+//        )
+//    )
 }

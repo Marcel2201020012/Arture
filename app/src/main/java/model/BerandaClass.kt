@@ -24,3 +24,19 @@ data class StatusPekerjaanCardModel(
     val img: Int,
     val status: JobStatus
 )
+
+data class DiskusiCardModel(
+    val profil: Int,
+    val nama: String,
+    val status: String,
+    val pertanyaan: String,
+    val jawaban: Int,
+    val jam: Int
+)
+
+data class KomentarCardModel(
+    val profil: Int,
+    val nama: String,
+    val status: String,
+    val komentar: String
+)

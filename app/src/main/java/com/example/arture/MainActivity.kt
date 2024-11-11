@@ -38,59 +38,65 @@ class MainActivity : ComponentActivity() {
                     val navController = rememberNavController()
                     val currentBackStackEntry by navController.currentBackStackEntryAsState()
                     val currentRoute = currentBackStackEntry?.destination?.route
-                    var showFooterMenu by remember{
+                    var showFooterMenu by remember {
                         mutableStateOf(false)
                     }
 
-                    /*NavHost(navController = navController, startDestination = NavigationRoutes.disimpanPage, builder = {*/
-
-                    NavHost(navController = navController, startDestination = NavigationRoutes.pekerjaan, builder = {
-                        composable(NavigationRoutes.flogIn) {
-                            FirstLogin(navController)
-                        }
-                        composable(NavigationRoutes.signIn) {
-                            signInScreen(navController)
-                        }
-                        composable(NavigationRoutes.logIn) {
-                            LoginScreen(navController)
-                        }
-                        composable(NavigationRoutes.beranda) {
-                            homePageScreen()
-                            LaunchedEffect(Unit){
-                                showFooterMenu = true
+                    NavHost(
+                        navController = navController,
+                        startDestination = NavigationRoutes.flogIn,
+                        builder = {
+                            composable(NavigationRoutes.flogIn) {
+                                FirstLogin(navController)
                             }
-                        }
-                        composable(NavigationRoutes.disimpanPage) {
-                            DisimpanPageScreen()
-                            LaunchedEffect(Unit){
-                                showFooterMenu = true
+                            composable(NavigationRoutes.signIn) {
+                                signInScreen(navController)
                             }
-                        }
-                        composable(NavigationRoutes.statusPekerjaan) {
-                            StatusPekerjaan()
-                            LaunchedEffect(Unit){
-                                showFooterMenu = true
+                            composable(NavigationRoutes.logIn) {
+                                LoginScreen(navController)
                             }
-                        }
-                        composable(NavigationRoutes.pekerjaan) {
-                            Pekerjaan()
-                            LaunchedEffect(Unit){
-                                showFooterMenu = true
+                            composable(NavigationRoutes.beranda) {
+                                homePageScreen(navController)
+                                LaunchedEffect(Unit) {
+                                    showFooterMenu = true
+                                }
                             }
-                        }
-                        composable(NavigationRoutes.detailPekerjaan) {
-                            DetailPekerjaan()
-                            LaunchedEffect(Unit){
-                                showFooterMenu = true
+                            composable(NavigationRoutes.disimpanPage) {
+                                DisimpanPageScreen(navController)
+                                LaunchedEffect(Unit) {
+                                    showFooterMenu = true
+                                }
                             }
-                        }
-                    })
+                            composable(NavigationRoutes.statusPekerjaan) {
+                                StatusPekerjaan()
+                                LaunchedEffect(Unit) {
+                                    showFooterMenu = true
+                                }
+                            }
+                            composable(NavigationRoutes.pekerjaan) {
+                                Pekerjaan()
+                                LaunchedEffect(Unit) {
+                                    showFooterMenu = true
+                                }
+                            }
+                            composable(NavigationRoutes.detailPekerjaan) {
+                                DetailPekerjaan()
+                                LaunchedEffect(Unit) {
+                                    showFooterMenu = true
+                                }
+                            }
+                            composable(NavigationRoutes.diskusi) {
+                                DiskusiPageScreen(navController)
+                            }
+                        })
 
                     if (showFooterMenu && currentRoute != NavigationRoutes.signIn)
-                        footerMenuScreen(modifier = Modifier.align(Alignment.BottomCenter))
+                        footerMenuScreen(
+                            modifier = Modifier.align(Alignment.BottomCenter),
+                            navController,
+                            currentRoute
+                        )
                 }
-                //signInScreen()
-                //Greeting("Marcel")
             }
         }
     }

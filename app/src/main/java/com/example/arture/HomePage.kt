@@ -30,12 +30,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.arture.ui.theme.poppinsFont
 import model.ArtikelPopulerCardModel
 import model.LowonganTerbaruCardModel
+import navigation.NavigationRoutes
 
 @Composable
-fun homePageScreen() {
+fun homePageScreen(navController: NavController) {
     val colorList = listOf(
         Color(0xFF90A955), Color(0xFFECF39E)
     )
@@ -157,10 +160,10 @@ fun homePageScreen() {
                             horizontalArrangement = Arrangement.SpaceEvenly
                         ) {
 
-                            Surface (
+                            Surface(
                                 shadowElevation = 8.dp,
                                 shape = RoundedCornerShape(16.dp)
-                            ){
+                            ) {
                                 //disimpan
                                 Box(
                                     modifier = Modifier
@@ -182,7 +185,7 @@ fun homePageScreen() {
                                         .background(
                                             color = Color.White
                                         )
-                                        .clickable { /*do stuff*/ }) {
+                                        .clickable { navController.navigate(NavigationRoutes.disimpanPage) }) {
                                         Image(
                                             painter = painterResource(id = R.drawable.beranda_disimpan_icon),
                                             contentDescription = "disimpan icon"
@@ -390,7 +393,7 @@ fun lowonganTerbaruView() {
 @Composable
 fun test() {
     Box {
-        homePageScreen()
-        footerMenuScreen(modifier = Modifier.align(Alignment.BottomCenter))
+        homePageScreen(rememberNavController())
+        footerMenuScreen(modifier = Modifier.align(Alignment.BottomCenter), rememberNavController(), currentRoute = null)
     }
 }

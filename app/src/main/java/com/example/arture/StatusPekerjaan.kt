@@ -147,11 +147,11 @@ fun StatusPekerjaanView() {
 }
 
 
-@Preview
-@Composable
-fun StatusPekerjaanTest() {
-    Box {
-        StatusPekerjaan()
-        footerMenuScreen(modifier = Modifier.align(Alignment.BottomCenter))
-    }
-}
+//@Preview
+//@Composable
+//fun StatusPekerjaanTest() {
+//    Box {
+//        StatusPekerjaan()
+//        footerMenuScreen(modifier = Modifier.align(Alignment.BottomCenter))
+//    }
+//}

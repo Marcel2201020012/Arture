@@ -28,6 +28,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.arture.ui.theme.poppinsFont
 import navigation.NavigationRoutes
 
 @Composable
@@ -77,9 +78,10 @@ fun FirstLogin(navController: NavController) {
                     Button(
                         onClick = {
                             navController.navigate(NavigationRoutes.signIn){
-                                popUpTo(NavigationRoutes.signIn){
+                                popUpTo(0){
                                     inclusive = false
                                 }
+                                launchSingleTop = true
                             }
                         }, modifier = Modifier
                             .fillMaxWidth(),
@@ -87,7 +89,7 @@ fun FirstLogin(navController: NavController) {
                             containerColor = Color(0xFFF8B402)
                         )
                     ) {
-                        Text("Daftar")
+                        Text("Daftar", fontFamily = poppinsFont, color = Color.White)
                     }
 
                     Spacer(modifier = Modifier.height(8.dp))
