@@ -230,7 +230,7 @@ fun signInScreen(navController: NavController) {
                     Button(
                         onClick = {
                             navController.navigate(NavigationRoutes.logIn){
-                                popUpTo(0){
+                                popUpTo(NavigationRoutes.signIn){
                                     inclusive = true
                                 }
                                 launchSingleTop = true

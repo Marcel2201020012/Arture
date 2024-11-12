@@ -1,6 +1,7 @@
 package navigation
 
 object NavigationRoutes {
+    var loginCheck = "LoginCheck"
     var flogIn = "FLogIn"
     var signIn = "SignIn"
     var logIn = "LogIn"

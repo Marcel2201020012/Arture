@@ -1,5 +1,6 @@
 package com.example.arture
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -28,6 +29,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -36,6 +38,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -46,7 +49,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.arture.data.DataStore
 import com.example.arture.ui.theme.poppinsFont
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import navigation.NavigationRoutes
 
 @Composable
@@ -55,6 +61,13 @@ fun LoginScreen(navController: NavController) {
         Color(0xFFFAF5E4),
         Color(0xFF90A955)
     )
+
+    //Data store
+    val context = LocalContext.current
+    val coroutineScope = rememberCoroutineScope()
+
+    val dataStore = DataStore(context)
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -93,7 +106,7 @@ fun LoginScreen(navController: NavController) {
                     //verticalArrangement = Arrangement.Center,
                     //horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    var email by rememberSaveable { mutableStateOf("") }
+                    var userName by rememberSaveable { mutableStateOf("") }
                     var pass by rememberSaveable { mutableStateOf("") }
 
                     var passVisible by remember { mutableStateOf(false) }
@@ -111,20 +124,20 @@ fun LoginScreen(navController: NavController) {
                     Text(
                         text = "Masuk", fontFamily = poppinsFont, style = TextStyle(
                             brush = Brush.linearGradient(
-                                colors = listOf(Color(0xFF387B382), Color(0xFF0C0E0C))
+                                colors = listOf(Color(0xFF387A38), Color(0xFF0C0E0C))
                             )
                         ), fontSize = 24.sp, fontWeight = FontWeight.Bold
                     )
                     Spacer(modifier = Modifier.height(12.dp))
 
                     Text(
-                        text = "Email",
+                        text = "Nama Pengguna",
                         fontFamily = poppinsFont,
                         style = MaterialTheme.typography.bodyLarge,
                         fontSize = 15.sp
                     )
-                    OutlinedTextField(value = email,
-                        onValueChange = { email = it },
+                    OutlinedTextField(value = userName,
+                        onValueChange = { userName = it },
                         modifier = Modifier.fillMaxWidth(),
                         singleLine = true,
                         colors = OutlinedTextFieldDefaults.colors(
@@ -181,11 +194,23 @@ fun LoginScreen(navController: NavController) {
 
                     Button(
                         onClick = {
-                            navController.navigate(NavigationRoutes.beranda) {
-                                popUpTo(0) {
-                                    inclusive = true
+                            if (userName.isBlank() || pass.isBlank()) {
+                                Toast.makeText(
+                                    context,
+                                    "Nama dan Password Wajib Diisi",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            } else {
+                                coroutineScope.launch {
+                                    dataStore.saveStatus(true)
+                                    dataStore.saveUserName(userName)
+                                    delay(50L)
+                                    navController.navigate(NavigationRoutes.beranda) {
+                                        popUpTo(NavigationRoutes.logIn) {
+                                            inclusive = true
+                                        }
+                                    }
                                 }
-                                launchSingleTop = true
                             }
                         }, modifier = Modifier
                             .fillMaxWidth(),
@@ -230,7 +255,12 @@ fun LoginScreen(navController: NavController) {
                         Spacer(modifier = Modifier.height(8.dp))
 
                         Button(
-                            onClick = { }, modifier = Modifier
+                            onClick = {
+                                Toast.makeText(
+                                    context,
+                                    "DON'T TOUCH THIS, NANTI BACKEND-NYA!!", Toast.LENGTH_SHORT
+                                ).show()
+                            }, modifier = Modifier
                                 .fillMaxWidth(),
                             colors = ButtonDefaults.buttonColors(
                                 containerColor = Color(0xFFF8B402)

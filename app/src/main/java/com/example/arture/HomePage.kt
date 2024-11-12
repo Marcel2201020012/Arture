@@ -15,11 +15,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -32,297 +35,309 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.arture.data.DataStore
 import com.example.arture.ui.theme.poppinsFont
 import model.ArtikelPopulerCardModel
 import model.LowonganTerbaruCardModel
 import navigation.NavigationRoutes
 
 @Composable
-fun homePageScreen(navController: NavController) {
+fun homePageScreen(navController: NavController, dataStore: DataStore) {
+
+    val userName by dataStore.getUserName.collectAsState(initial = "")
+
     val colorList = listOf(
         Color(0xFF90A955), Color(0xFFECF39E)
     )
 
-    //bg
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(
-                brush = linearBgBrush(
-                    isVerticalGradient = false, colors = colorList
+    // Show a loading state until the username is fetched
+    if (userName?.isBlank() == true) {
+        // Show a loading spinner or placeholder
+        CircularProgressIndicator(color = Color.White)
+    } else {
+        //bg
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(
+                    brush = linearBgBrush(
+                        isVerticalGradient = false, colors = colorList
+                    )
                 )
-            )
-    ) {
-        //bg icon
-        Image(
-            modifier = Modifier.align(Alignment.TopEnd),
-            painter = painterResource(id = R.drawable.beranda_bg_icon),
-            contentDescription = "beranda_bg_icon"
-        )
-
-        //header
-        Column(
-            modifier = Modifier.fillMaxSize()
         ) {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(
-                        top = 24.dp, start = 16.dp, end = 16.dp
-                    )
+            //bg icon
+            Image(
+                modifier = Modifier.align(Alignment.TopEnd),
+                painter = painterResource(id = R.drawable.beranda_bg_icon),
+                contentDescription = "beranda_bg_icon"
+            )
+
+            //header
+            Column(
+                modifier = Modifier.fillMaxSize()
             ) {
-                Column {
-                    Row(
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier.fillMaxWidth()
-                    ) {
-
-                        //notification
-                        Box(contentAlignment = Alignment.Center, modifier = Modifier
-                            .clip(shape = CircleShape)
-                            .background(
-                                color = Color.White
-                            )
-                            .size(36.dp)
-                            .clickable {
-                                //do stuff
-                            }) {
-                            Icon(
-                                painter = painterResource(id = R.drawable.beranda_notif_icon),
-                                contentDescription = "notif_icon",
-                                tint = Color.Unspecified,
-                                modifier = Modifier.scale(0.9f)
-                            )
-                        }
-
-                        //profil icon
-                        Box(contentAlignment = Alignment.Center, modifier = Modifier
-                            .clip(shape = CircleShape)
-                            .background(
-                                color = Color.White
-                            )
-                            .size(48.dp)
-                            .clickable {
-                                //do stuff
-                            }) {
-                            Icon(
-                                painter = painterResource(
-                                    id = R.drawable.beranda_profile_picture
-                                ), contentDescription = "profile_picture", tint = Color.Unspecified
-                            )
-                        }
-                    }
-
-                    //greeting texts
-                    Text(
-                        text = "Hello,",
-                        fontFamily = poppinsFont,
-                        style = MaterialTheme.typography.bodyLarge,
-                        fontSize = 24.sp,
-                        color = Color.White
-                    )
-                    Text(
-                        text = "Hi Asep",
-                        fontFamily = poppinsFont,
-                        style = MaterialTheme.typography.bodyLarge,
-                        fontSize = 28.sp,
-                        color = Color.White
-                    )
-                }
-            }
-            Spacer(modifier = Modifier.height(20.dp))
-
-            Box(
-                modifier = Modifier
-                    .background(
-                        color = Color(0xFFFAFFFD), shape = RoundedCornerShape(
-                            topStart = 12.dp, topEnd = 12.dp
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(
+                            top = 24.dp, start = 16.dp, end = 16.dp
                         )
-                    )
-                    .fillMaxSize()
-            ) {
-                Column(modifier = Modifier.fillMaxSize()) {
-                    Column(
-                        modifier = Modifier
-                            .padding(
-                                top = 16.dp, end = 16.dp, start = 16.dp
-                            )
-                            .fillMaxWidth()
-                            .background(Color.White)
-                    ) {
-
-                        //beranda top buttons
-                        Row(
-                            modifier = Modifier
-                                .padding(top = 8.dp)
-                                .fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceEvenly
-                        ) {
-
-                            Surface(
-                                shadowElevation = 8.dp,
-                                shape = RoundedCornerShape(16.dp)
-                            ) {
-                                //disimpan
-                                Box(
-                                    modifier = Modifier
-                                        .size(
-                                            width = 106.dp,
-                                            height = 82.dp
-                                        )
-                                        .background(
-                                            color = Color.LightGray,
-                                            shape = RoundedCornerShape(16.dp)
-                                        ),
-                                    contentAlignment = Alignment.Center
-                                ) {
-                                    Box(contentAlignment = Alignment.Center, modifier = Modifier
-                                        .size(
-                                            width = 104.dp, height = 80.dp
-                                        )
-                                        .clip(shape = RoundedCornerShape(16.dp))
-                                        .background(
-                                            color = Color.White
-                                        )
-                                        .clickable { navController.navigate(NavigationRoutes.disimpanPage) }) {
-                                        Image(
-                                            painter = painterResource(id = R.drawable.beranda_disimpan_icon),
-                                            contentDescription = "disimpan icon"
-                                        )
-                                    }
-                                }
-                            }
-
-                            Surface(
-                                shadowElevation = 8.dp,
-                                shape = RoundedCornerShape(16.dp)
-                            ) {
-                                //status pekerjaan
-                                Box(
-                                    modifier = Modifier
-                                        .size(
-                                            width = 106.dp,
-                                            height = 82.dp
-                                        )
-                                        .background(
-                                            color = Color.LightGray,
-                                            shape = RoundedCornerShape(16.dp)
-                                        ),
-                                    contentAlignment = Alignment.Center
-                                ) {
-                                    Box(contentAlignment = Alignment.Center, modifier = Modifier
-                                        .size(
-                                            width = 104.dp, height = 80.dp
-                                        )
-                                        .clip(shape = RoundedCornerShape(16.dp))
-                                        .background(
-                                            color = Color.White
-                                        )
-                                        .clickable {navController.navigate(NavigationRoutes.statusPekerjaan)}) {
-                                        Image(
-                                            painter = painterResource(id = R.drawable.beranda_status_pekerjaan_icon),
-                                            contentDescription = "status pekerjaan icon"
-                                        )
-                                    }
-                                }
-                            }
-
-                            Surface(
-                                shadowElevation = 8.dp,
-                                shape = RoundedCornerShape(16.dp)
-                            ) {
-                                //riwayat
-                                Box(
-                                    modifier = Modifier
-                                        .size(
-                                            width = 106.dp,
-                                            height = 82.dp
-                                        )
-                                        .clip(shape = RoundedCornerShape(16.dp))
-                                        .background(
-                                            color = Color.LightGray
-                                        ),
-                                    contentAlignment = Alignment.Center
-                                ) {
-                                    Box(contentAlignment = Alignment.Center, modifier = Modifier
-                                        .size(
-                                            width = 104.dp, height = 80.dp
-                                        )
-                                        .clip(shape = RoundedCornerShape(16.dp))
-                                        .background(
-                                            color = Color.White
-                                        )
-                                        .clickable { /*do stuff*/ }) {
-                                        Image(
-                                            painter = painterResource(id = R.drawable.beranda_riwayat_icon),
-                                            contentDescription = "riwayat icon"
-                                        )
-                                    }
-                                }
-                            }
-                        }
-                        Spacer(modifier = Modifier.height(12.dp))
-
-                        //artikel
+                ) {
+                    Column {
                         Row(
                             horizontalArrangement = Arrangement.SpaceBetween,
                             verticalAlignment = Alignment.CenterVertically,
                             modifier = Modifier.fillMaxWidth()
                         ) {
-                            Text(
-                                text = "Artikel Yang Lagi Populer",
-                                fontFamily = poppinsFont,
-                                style = MaterialTheme.typography.bodyLarge
-                            )
 
-                            Image(painter = painterResource(id = R.drawable.beranda_lihat_semua_text),
-                                contentDescription = "lihat semua",
-                                modifier = Modifier.clickable { /*do stuff*/ })
+                            //notification
+                            Box(contentAlignment = Alignment.Center, modifier = Modifier
+                                .clip(shape = CircleShape)
+                                .background(
+                                    color = Color.White
+                                )
+                                .size(36.dp)
+                                .clickable {
+                                    //do stuff
+                                }) {
+                                Icon(
+                                    painter = painterResource(id = R.drawable.beranda_notif_icon),
+                                    contentDescription = "notif_icon",
+                                    tint = Color.Unspecified,
+                                    modifier = Modifier.scale(0.9f)
+                                )
+                            }
+
+                            //profil icon
+                            Box(contentAlignment = Alignment.Center, modifier = Modifier
+                                .clip(shape = CircleShape)
+                                .background(
+                                    color = Color.White
+                                )
+                                .size(48.dp)
+                                .clickable {
+                                    //do stuff
+                                }) {
+                                Icon(
+                                    painter = painterResource(
+                                        id = R.drawable.beranda_profile_picture
+                                    ),
+                                    contentDescription = "profile_picture",
+                                    tint = Color.Unspecified
+                                )
+                            }
                         }
-                        Spacer(modifier = Modifier.height(12.dp))
+
+                        //greeting texts
+                        Text(
+                            text = "Hello,",
+                            fontFamily = poppinsFont,
+                            style = MaterialTheme.typography.bodyLarge,
+                            fontSize = 24.sp,
+                            color = Color.White
+                        )
+                        Text(
+                            text = "Hi $userName",
+                            fontFamily = poppinsFont,
+                            style = MaterialTheme.typography.bodyLarge,
+                            fontSize = 28.sp,
+                            color = Color.White
+                        )
                     }
+                }
+                Spacer(modifier = Modifier.height(20.dp))
 
-                    //Artikel Populer
-                    Row {
-                        artikelPopulerView()
-                    }
-
-                    //lowongan terbaru
-                    Column(
-                        modifier = Modifier
-                            .padding(
-                                end = 16.dp, start = 16.dp
+                Box(
+                    modifier = Modifier
+                        .background(
+                            color = Color(0xFFFAFFFD), shape = RoundedCornerShape(
+                                topStart = 12.dp, topEnd = 12.dp
                             )
-                            .fillMaxWidth()
-                            .background(Color.White)
-                    ) {
-                        Spacer(modifier = Modifier.height(12.dp))
-
-                        Row(
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                            verticalAlignment = Alignment.CenterVertically,
-                            modifier = Modifier.fillMaxWidth()
-                        ) {
-                            Text(
-                                text = "Lowongan Terbaru",
-                                fontFamily = poppinsFont,
-                                fontWeight = FontWeight.Bold
-                            )
-
-                            Image(painter = painterResource(id = R.drawable.beranda_lihat_semua_text),
-                                contentDescription = "lihat semua",
-                                modifier = Modifier.clickable { /*do stuff*/ })
-                        }
-                        Spacer(modifier = Modifier.height(12.dp))
-
-                        //Lowongan Card
+                        )
+                        .fillMaxSize()
+                ) {
+                    Column(modifier = Modifier.fillMaxSize()) {
                         Column(
-                            //modifier = Modifier.padding(bottom = 90.dp)
                             modifier = Modifier
-                                .padding(bottom = 80.dp)
+                                .padding(
+                                    top = 16.dp, end = 16.dp, start = 16.dp
+                                )
+                                .fillMaxWidth()
+                                .background(Color.White)
                         ) {
-                            lowonganTerbaruView(navController)
+
+                            //beranda top buttons
+                            Row(
+                                modifier = Modifier
+                                    .padding(top = 8.dp)
+                                    .fillMaxWidth(),
+                                horizontalArrangement = Arrangement.SpaceEvenly
+                            ) {
+
+                                Surface(
+                                    shadowElevation = 8.dp,
+                                    shape = RoundedCornerShape(16.dp)
+                                ) {
+                                    //disimpan
+                                    Box(
+                                        modifier = Modifier
+                                            .size(
+                                                width = 106.dp,
+                                                height = 82.dp
+                                            )
+                                            .background(
+                                                color = Color.LightGray,
+                                                shape = RoundedCornerShape(16.dp)
+                                            ),
+                                        contentAlignment = Alignment.Center
+                                    ) {
+                                        Box(contentAlignment = Alignment.Center, modifier = Modifier
+                                            .size(
+                                                width = 104.dp, height = 80.dp
+                                            )
+                                            .clip(shape = RoundedCornerShape(16.dp))
+                                            .background(
+                                                color = Color.White
+                                            )
+                                            .clickable { navController.navigate(NavigationRoutes.disimpanPage) }) {
+                                            Image(
+                                                painter = painterResource(id = R.drawable.beranda_disimpan_icon),
+                                                contentDescription = "disimpan icon"
+                                            )
+                                        }
+                                    }
+                                }
+
+                                Surface(
+                                    shadowElevation = 8.dp,
+                                    shape = RoundedCornerShape(16.dp)
+                                ) {
+                                    //status pekerjaan
+                                    Box(
+                                        modifier = Modifier
+                                            .size(
+                                                width = 106.dp,
+                                                height = 82.dp
+                                            )
+                                            .background(
+                                                color = Color.LightGray,
+                                                shape = RoundedCornerShape(16.dp)
+                                            ),
+                                        contentAlignment = Alignment.Center
+                                    ) {
+                                        Box(contentAlignment = Alignment.Center, modifier = Modifier
+                                            .size(
+                                                width = 104.dp, height = 80.dp
+                                            )
+                                            .clip(shape = RoundedCornerShape(16.dp))
+                                            .background(
+                                                color = Color.White
+                                            )
+                                            .clickable { navController.navigate(NavigationRoutes.statusPekerjaan) }) {
+                                            Image(
+                                                painter = painterResource(id = R.drawable.beranda_status_pekerjaan_icon),
+                                                contentDescription = "status pekerjaan icon"
+                                            )
+                                        }
+                                    }
+                                }
+
+                                Surface(
+                                    shadowElevation = 8.dp,
+                                    shape = RoundedCornerShape(16.dp)
+                                ) {
+                                    //riwayat
+                                    Box(
+                                        modifier = Modifier
+                                            .size(
+                                                width = 106.dp,
+                                                height = 82.dp
+                                            )
+                                            .clip(shape = RoundedCornerShape(16.dp))
+                                            .background(
+                                                color = Color.LightGray
+                                            ),
+                                        contentAlignment = Alignment.Center
+                                    ) {
+                                        Box(contentAlignment = Alignment.Center, modifier = Modifier
+                                            .size(
+                                                width = 104.dp, height = 80.dp
+                                            )
+                                            .clip(shape = RoundedCornerShape(16.dp))
+                                            .background(
+                                                color = Color.White
+                                            )
+                                            .clickable { /*do stuff*/ }) {
+                                            Image(
+                                                painter = painterResource(id = R.drawable.beranda_riwayat_icon),
+                                                contentDescription = "riwayat icon"
+                                            )
+                                        }
+                                    }
+                                }
+                            }
+                            Spacer(modifier = Modifier.height(12.dp))
+
+                            //artikel
+                            Row(
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                verticalAlignment = Alignment.CenterVertically,
+                                modifier = Modifier.fillMaxWidth()
+                            ) {
+                                Text(
+                                    text = "Artikel Yang Lagi Populer",
+                                    fontFamily = poppinsFont,
+                                    style = MaterialTheme.typography.bodyLarge
+                                )
+
+                                Image(painter = painterResource(id = R.drawable.beranda_lihat_semua_text),
+                                    contentDescription = "lihat semua",
+                                    modifier = Modifier.clickable { /*do stuff*/ })
+                            }
+                            Spacer(modifier = Modifier.height(12.dp))
+                        }
+
+                        //Artikel Populer
+                        Row {
+                            artikelPopulerView()
+                        }
+
+                        //lowongan terbaru
+                        Column(
+                            modifier = Modifier
+                                .padding(
+                                    end = 16.dp, start = 16.dp
+                                )
+                                .fillMaxWidth()
+                                .background(Color.White)
+                        ) {
+                            Spacer(modifier = Modifier.height(12.dp))
+
+                            Row(
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                verticalAlignment = Alignment.CenterVertically,
+                                modifier = Modifier.fillMaxWidth()
+                            ) {
+                                Text(
+                                    text = "Lowongan Terbaru",
+                                    fontFamily = poppinsFont,
+                                    fontWeight = FontWeight.Bold
+                                )
+
+                                Image(painter = painterResource(id = R.drawable.beranda_lihat_semua_text),
+                                    contentDescription = "lihat semua",
+                                    modifier = Modifier.clickable { /*do stuff*/ })
+                            }
+                            Spacer(modifier = Modifier.height(12.dp))
+
+                            //Lowongan Card
+                            Column(
+                                //modifier = Modifier.padding(bottom = 90.dp)
+                                modifier = Modifier
+                                    .padding(bottom = 80.dp)
+                            ) {
+                                lowonganTerbaruView(navController)
+                            }
                         }
                     }
                 }
@@ -393,7 +408,11 @@ fun lowonganTerbaruView(navController: NavController) {
 @Composable
 fun test() {
     Box {
-        homePageScreen(rememberNavController())
-        footerMenuScreen(modifier = Modifier.align(Alignment.BottomCenter), rememberNavController(), currentRoute = null)
+        //homePageScreen(rememberNavController())
+        footerMenuScreen(
+            modifier = Modifier.align(Alignment.BottomCenter),
+            rememberNavController(),
+            currentRoute = null
+        )
     }
 }

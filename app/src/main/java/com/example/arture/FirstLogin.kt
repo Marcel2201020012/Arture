@@ -97,7 +97,7 @@ fun FirstLogin(navController: NavController) {
                     OutlinedButton(
                         onClick = {
                             navController.navigate(NavigationRoutes.logIn){
-                                popUpTo(NavigationRoutes.logIn){
+                                popUpTo(NavigationRoutes.flogIn){
                                     inclusive = true
                                 }
                             }

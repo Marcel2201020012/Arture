@@ -62,6 +62,7 @@ dependencies {
     implementation("androidx.core:core-splashscreen:1.0.1")
     implementation("androidx.navigation:navigation-compose:2.8.3")
     implementation("androidx.compose.ui:ui-text-google-fonts:1.4.3")
+    implementation("androidx.datastore:datastore-preferences-android:1.1.1")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.2.1")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
