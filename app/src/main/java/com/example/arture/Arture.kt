@@ -67,15 +67,11 @@ fun ArtureScreen() {
                 }
                 composable(NavigationRoutes.disimpanPage) {
                     DisimpanPageScreen(navController)
-                    LaunchedEffect(Unit) {
-                        showFooterMenu = true
-                    }
+                    showFooterMenu = false
                 }
                 composable(NavigationRoutes.statusPekerjaan) {
                     StatusPekerjaan(navController)
-                    LaunchedEffect(Unit) {
-                        showFooterMenu = true
-                    }
+                    showFooterMenu = false
                 }
                 composable(NavigationRoutes.pekerjaan) {
                     Pekerjaan(navController)
@@ -85,12 +81,12 @@ fun ArtureScreen() {
                 }
                 composable(NavigationRoutes.detailPekerjaan) {
                     DetailPekerjaan(navController)
-                    LaunchedEffect(Unit) {
-                        showFooterMenu = true
-                    }
+                    showFooterMenu = false
                 }
                 composable(NavigationRoutes.diskusi) {
-                    DiskusiPageScreen(navController)
+                    DiskusiPageScreen(navController, showFooterMenu = { isVisible ->
+                        showFooterMenu = isVisible
+                    })
                 }
             })
 

@@ -183,7 +183,7 @@ fun DisimpanPageScreen(navController: NavController) {
             //List Artikel
             Column(
                 modifier = Modifier
-                    .padding(top = 20.dp, start = 20.dp, end = 20.dp, bottom = 100.dp),
+                    .padding(top = 20.dp, start = 20.dp, end = 20.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 if (edukasiIsClicked) DisimpanArtikelView() else lowonganTerbaruView(navController)

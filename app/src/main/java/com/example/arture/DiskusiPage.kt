@@ -49,17 +49,32 @@ import model.DiskusiCardModel
 import model.KomentarCardModel
 import navigation.NavigationRoutes
 
-class DiskusiViewModel: ViewModel() {
+class DiskusiViewModel : ViewModel() {
     var filterText by mutableStateOf("Populer")
 }
 
 @Composable
-fun DiskusiPageScreen(navController: NavController) {
+fun DiskusiPageScreen(navController: NavController, showFooterMenu: (Boolean) -> Unit) {
     val viewModel: DiskusiViewModel = remember { DiskusiViewModel() }
 
     //page state
     var currentPage by remember {
         mutableStateOf("main")
+    }
+    var bottomPadding by remember {
+        mutableStateOf(0.dp)
+    }
+
+    when (currentPage) {
+        "main" -> {
+            showFooterMenu(true)
+            bottomPadding = 80.dp
+        }
+
+        "pertanyaan", "jawaban" -> {
+            showFooterMenu(false)
+            bottomPadding = 0.dp
+        }
     }
 
     //backhandler untuk mencegah user back ke homepage kalau bukan di layout main
@@ -81,7 +96,7 @@ fun DiskusiPageScreen(navController: NavController) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(bottom = 80.dp)
+                .padding(bottom = bottomPadding)
                 .background(Color.White),
             verticalArrangement = Arrangement.spacedBy(12.dp),
             horizontalAlignment = Alignment.CenterHorizontally
@@ -129,8 +144,10 @@ fun DiskusiPageScreen(navController: NavController) {
                     )
                 }
             }
+
             when (currentPage) {
-                "main" -> MainDiskusiScreen(onAskClick = { currentPage = "pertanyaan" },
+                "main" -> MainDiskusiScreen(
+                    onAskClick = { currentPage = "pertanyaan" },
                     onAnswerClick = { item ->
                         selectedItem = item
                         currentPage = "jawaban"
@@ -147,7 +164,11 @@ fun DiskusiPageScreen(navController: NavController) {
 }
 
 @Composable
-fun MainDiskusiScreen(onAskClick: () -> Unit, onAnswerClick: (DiskusiCardModel) -> Unit, viewModel: DiskusiViewModel) {
+fun MainDiskusiScreen(
+    onAskClick: () -> Unit,
+    onAnswerClick: (DiskusiCardModel) -> Unit,
+    viewModel: DiskusiViewModel
+) {
     //filter state
     val populerIcon = if (viewModel.filterText == "Populer") {
         R.drawable.diskusi_filter_populer_active
@@ -324,7 +345,10 @@ fun MasukkanPertanyaanScreen() {
                 verticalArrangement = Arrangement.spacedBy(8.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text(text = "Masukkan Pertanyaan", style = MaterialTheme.typography.labelLarge.copy(Color.Gray))
+                Text(
+                    text = "Masukkan Pertanyaan",
+                    style = MaterialTheme.typography.labelLarge.copy(Color.Gray)
+                )
 
                 Divider()
 
@@ -581,7 +605,7 @@ fun DiskusiCardView(onAnswerClick: (DiskusiCardModel) -> Unit, filterText: Strin
         )
     )
 
-    val sortedDiskusiCard = when (filterText){
+    val sortedDiskusiCard = when (filterText) {
         "Populer" -> diskusi.sortedByDescending { it.jawaban }
         "Terbaru" -> diskusi.sortedBy { it.jam }
         else -> diskusi
@@ -628,7 +652,7 @@ fun TestDiskusiPage() {
 //    )
 
     Box {
-        DiskusiPageScreen(rememberNavController())
+        DiskusiPageScreen(rememberNavController(), showFooterMenu = {})
         //MasukkanPertanyaanScreen()
 //        JawabanScreen(dummy)
 //        footerMenuScreen(
