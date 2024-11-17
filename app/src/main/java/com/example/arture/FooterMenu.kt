@@ -41,7 +41,7 @@ fun footerMenuScreen(
 //    val edukasiButtonIsClicked = currentRoute == NavigationRoutes.edukasi
     val pekerjaanButtonIsClicked = currentRoute == NavigationRoutes.pekerjaan
     val diskusiButtonIsClicked = currentRoute == NavigationRoutes.diskusi
-//    val akunButtonIsClicked = currentRoute == NavigationRoutes.akun
+    val akunButtonIsClicked = currentRoute == NavigationRoutes.akun
 
 //    var berandaButtonIsClicked by remember {
 //        mutableStateOf(true)
@@ -55,9 +55,9 @@ fun footerMenuScreen(
 //    var diskusiButtonIsClicked by remember {
 //        mutableStateOf(false)
 //    }
-    var akunButtonIsClicked by remember {
-        mutableStateOf(false)
-    }
+//    var akunButtonIsClicked by remember {
+//        mutableStateOf(false)
+//    }
 
     val (berandaIcon, berandaIconText) = if (berandaButtonIsClicked) Pair(
         R.drawable.footer_home_icon_activated,
@@ -116,7 +116,6 @@ fun footerMenuScreen(
                     IconButton(
                         onClick = {
                             edukasiButtonIsClicked = false
-                            akunButtonIsClicked = false
                             navController.navigate(NavigationRoutes.beranda) {
                                 popUpTo(0) {
                                     inclusive = true
@@ -149,7 +148,6 @@ fun footerMenuScreen(
                     IconButton(
                         onClick = {
                             edukasiButtonIsClicked = false
-                            akunButtonIsClicked = false
 //                            navController.navigate(NavigationRoutes.disimpanPage) {
 //                                popUpTo(NavigationRoutes.disimpanPage) { inclusive = true }
 //                                launchSingleTop = true
@@ -180,7 +178,6 @@ fun footerMenuScreen(
                     IconButton(
                         onClick = {
                             edukasiButtonIsClicked = false
-                            akunButtonIsClicked = false
                             navController.navigate(NavigationRoutes.pekerjaan) {
                                 popUpTo(NavigationRoutes.beranda){
                                     inclusive = false
@@ -213,7 +210,6 @@ fun footerMenuScreen(
                     IconButton(
                         onClick = {
                             edukasiButtonIsClicked = false
-                            akunButtonIsClicked = false
                             navController.navigate(NavigationRoutes.diskusi) {
                                 popUpTo(NavigationRoutes.beranda){
                                     inclusive = false
@@ -246,7 +242,12 @@ fun footerMenuScreen(
                     IconButton(
                         onClick = {
                             edukasiButtonIsClicked = false
-                            akunButtonIsClicked = false
+                            navController.navigate(NavigationRoutes.akun) {
+                                popUpTo(NavigationRoutes.beranda){
+                                    inclusive = false
+                                }
+                                launchSingleTop = true
+                            }
                         }, modifier = Modifier.height(16.dp)
                     ) {
                         Icon(

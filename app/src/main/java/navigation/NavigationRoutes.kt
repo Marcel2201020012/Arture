@@ -7,8 +7,11 @@ object NavigationRoutes {
     var logIn = "LogIn"
     var beranda = "HomePage"
     var diskusi = "Diskusi"
+    var akun = "Akunpage"
+
     var disimpanPage = "DisimpanPage"
     var statusPekerjaan = "StatusPekerjaan"
     var pekerjaan = "Pekerjaan"
     var detailPekerjaan = "DetailPekerjaan"
+    var editAkun = "EditAkunPage/{page}/{title}/{desc}"
 }

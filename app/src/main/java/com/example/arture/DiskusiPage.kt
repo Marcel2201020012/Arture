@@ -117,7 +117,7 @@ fun DiskusiPageScreen(navController: NavController, showFooterMenu: (Boolean) ->
                 Row(
                     Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.Absolute.SpaceBetween
+                    horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     IconButton(onClick = {
                         if (currentPage == "main") navController.navigate(NavigationRoutes.beranda) {
@@ -652,8 +652,8 @@ fun TestDiskusiPage() {
 //    )
 
     Box {
-        DiskusiPageScreen(rememberNavController(), showFooterMenu = {})
-        //MasukkanPertanyaanScreen()
+        //DiskusiPageScreen(rememberNavController(), showFooterMenu = {})
+        MasukkanPertanyaanScreen()
 //        JawabanScreen(dummy)
 //        footerMenuScreen(
 //            modifier = Modifier.align(Alignment.BottomCenter),

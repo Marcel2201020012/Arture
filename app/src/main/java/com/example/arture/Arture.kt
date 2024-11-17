@@ -15,10 +15,12 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.arture.data.DataStore
 import com.example.arture.ui.theme.ArtureTheme
 import navigation.NavigationRoutes
@@ -43,7 +45,7 @@ fun ArtureScreen() {
 
         NavHost(
             navController = navController,
-            startDestination = NavigationRoutes.loginCheck,
+            startDestination = NavigationRoutes.flogIn,
             builder = {
                 composable(NavigationRoutes.loginCheck) {
                     LoginCheckScreen(navController)
@@ -87,6 +89,30 @@ fun ArtureScreen() {
                     DiskusiPageScreen(navController, showFooterMenu = { isVisible ->
                         showFooterMenu = isVisible
                     })
+                }
+                composable(NavigationRoutes.akun) {
+                    AkunPageScreen(navController)
+                    showFooterMenu = true
+                }
+                composable(
+                    route = "EditAkunPage/{page}/{title}/{desc}",
+                    arguments = listOf(
+                        navArgument("page") { type = NavType.StringType },
+                        navArgument("title") { type = NavType.StringType },
+                        navArgument("desc") { type = NavType.StringType }
+                    )
+                ) { backStackEntry ->
+                    val page = backStackEntry.arguments?.getString("page") ?: ""
+                    val title = backStackEntry.arguments?.getString("title")
+                    val desc = backStackEntry.arguments?.getString("desc")
+
+                    EditAkunPageScreen(
+                        page = page,
+                        title = title,
+                        desc = desc,
+                        navController = navController
+                    )
+                    showFooterMenu = false
                 }
             })
 
