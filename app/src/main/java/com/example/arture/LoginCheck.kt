@@ -32,7 +32,7 @@ fun LoginCheckScreen(navController: NavController) {
     LaunchedEffect(
         key1 = true,
         block = {
-            delay(500L)
+            delay(1000L)
             if (statusLogIn.value) {
                 navController.navigate(NavigationRoutes.beranda) {
                     popUpTo(NavigationRoutes.loginCheck) {

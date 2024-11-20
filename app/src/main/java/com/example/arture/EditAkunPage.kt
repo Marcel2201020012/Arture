@@ -2,6 +2,7 @@ package com.example.arture
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -27,6 +28,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -62,8 +64,8 @@ fun EditAkunPageScreen(page: String, title: String?, desc: String?, navControlle
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 IconButton(onClick = {
-                    navController.navigate(NavigationRoutes.akun){
-                        popUpTo(NavigationRoutes.akun){
+                    navController.navigate(NavigationRoutes.akun) {
+                        popUpTo(NavigationRoutes.akun) {
                             inclusive = true
                         }
                         launchSingleTop = true
@@ -121,15 +123,24 @@ fun EditBiodataPage() {
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(4.dp)
             ) {
-                Spacer(Modifier.width(180.dp))
-                Icon(
-                    painter = painterResource(id = R.drawable.akun_edit_icon),
-                    contentDescription = "edit icon"
-                )
-                Text(
-                    text = "Edit Biodata Saya",
-                    style = MaterialTheme.typography.bodySmall
-                )
+                Spacer(Modifier.width(45.dp))
+                Box(
+                    Modifier
+                        .clip(CircleShape)
+                        .size(30.dp)
+                        .background(brush = linearBgBrush(
+                            isVerticalGradient = false,
+                            colors = listOf(Color(0xFF90A955), Color(0xFFECF39E))
+                        ))
+                        .clickable { /*do something*/ }, contentAlignment = Alignment.Center
+                ) {
+                    Icon(
+                        modifier = Modifier.scale(0.7f),
+                        painter = painterResource(id = R.drawable.akun_camera_icon),
+                        contentDescription = "edit profil",
+                        tint = Color.Unspecified
+                    )
+                }
             }
         }
     }
@@ -229,8 +240,10 @@ fun EditInformasiTambahanPage(title: String?, desc: String?) {
             )
         }
         desc?.let {
-            Text(text = desc,
-                style = MaterialTheme.typography.bodySmall)
+            Text(
+                text = desc,
+                style = MaterialTheme.typography.bodySmall
+            )
         }
 
         OutlinedTextField(
@@ -266,7 +279,12 @@ fun EditInformasiTambahanPage(title: String?, desc: String?) {
 @Composable
 fun TestEditAkunPage() {
     Box {
-        EditAkunPageScreen(page = "biodata", title = "", desc = "", navController = rememberNavController())
+        EditAkunPageScreen(
+            page = "biodata",
+            title = "",
+            desc = "",
+            navController = rememberNavController()
+        )
         //EditBiodataPage()
         //EditInformasiTambahanPage("Tentang Saya", "Beritahu tentang dirimu!")
         footerMenuScreen(

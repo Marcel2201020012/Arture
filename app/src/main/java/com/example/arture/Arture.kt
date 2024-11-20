@@ -45,7 +45,7 @@ fun ArtureScreen() {
 
         NavHost(
             navController = navController,
-            startDestination = NavigationRoutes.flogIn,
+            startDestination = NavigationRoutes.loginCheck,
             builder = {
                 composable(NavigationRoutes.loginCheck) {
                     LoginCheckScreen(navController)
