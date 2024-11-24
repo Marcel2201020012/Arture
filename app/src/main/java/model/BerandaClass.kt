@@ -1,6 +1,6 @@
 package model
 
-import com.example.arture.JobStatus
+import com.example.arture.app.home.component.JobStatus
 
 data class ArtikelPopulerCardModel(
     val judul: String,
@@ -10,11 +10,14 @@ data class ArtikelPopulerCardModel(
 )
 
 data class LowonganTerbaruCardModel(
+    val id: Int,
     val judul: String,
     val pt: String,
     val alamat: String,
     val jam: Int,
-    val img: Int
+    val img: Int,
+    val kualifikasi: String,
+    val pertanyaan: String
 )
 
 data class StatusPekerjaanCardModel(

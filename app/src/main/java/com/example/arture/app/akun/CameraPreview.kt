@@ -1,4 +1,4 @@
-package com.example.arture
+package com.example.arture.app.akun
 
 import android.content.Context
 import android.graphics.Bitmap
@@ -19,7 +19,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
@@ -125,19 +124,25 @@ fun CameraPreviewScreen(navController: NavController, dataStore: DataStore) {
                 }
             }
         } else {
-            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+            Column(
+                modifier = Modifier.fillMaxHeight(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.SpaceBetween
+            ) {
                 Image(
                     bitmap = foto!!.asImageBitmap(),
                     contentDescription = "foto",
-                    modifier = Modifier.fillMaxSize(),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(1f)
+                        .padding(bottom = 32.dp),
                     contentScale = ContentScale.Crop
                 )
 
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .align(Alignment.BottomCenter)
-                        .padding(bottom = 16.dp),
+                        .padding(bottom = 32.dp),
                     horizontalArrangement = Arrangement.SpaceAround
                 ) {
                     IconButton(onClick = {
@@ -157,7 +162,8 @@ fun CameraPreviewScreen(navController: NavController, dataStore: DataStore) {
                         }
                     }) {
                         Icon(
-                            imageVector = Icons.Default.Check, contentDescription = "Accept Button",
+                            imageVector = Icons.Default.Check,
+                            contentDescription = "Accept Button",
                             tint = Color.White
                         )
                     }

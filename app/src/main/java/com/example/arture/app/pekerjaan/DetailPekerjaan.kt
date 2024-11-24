@@ -1,4 +1,4 @@
-package com.example.arture
+package com.example.arture.app.pekerjaan
 
 
 import androidx.compose.foundation.Image
@@ -38,12 +38,33 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.arture.ui.theme.poppinsFont
+import com.example.arture.R
+import com.example.arture.app.linearBgBrush
+import com.example.arture.data.DummyData
+import model.LowonganTerbaruCardModel
 import navigation.NavigationRoutes
-import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
 
 @Composable
-fun DetailPekerjaan(navController: NavController) {
+fun DetailPekerjaan(
+    navController: NavController,
+    lowongansId: Int?
+) {
+    val newLowonganList = DummyData.lowongancard.filter { lowongan ->
+        lowongan.id == lowongansId
+    }
+    Column {
+        DetailPekerjaanContent(
+            newLowonganList = newLowonganList,
+            navController = navController
+        )
+    }
+}
+
+@Composable
+fun DetailPekerjaanContent(
+    navController: NavController,
+    newLowonganList: List<LowonganTerbaruCardModel>
+) {
     var bookmarkIsClicked by remember {
         mutableStateOf(false)
     }
@@ -85,16 +106,11 @@ fun DetailPekerjaan(navController: NavController) {
                             modifier = Modifier
                                 //.background(color = Color.White)
                                 .fillMaxWidth(),
-                            //horizontalArrangement = Arrangement.SpaceBetween,
+                            horizontalArrangement = Arrangement.SpaceBetween,
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             IconButton(onClick = {
-                                navController.navigate(NavigationRoutes.beranda) {
-                                    popUpTo(NavigationRoutes.beranda) {
-                                        inclusive = true
-                                    }
-                                    launchSingleTop = true
-                                }
+                                navController.navigateUp()
                             }) {
                                 Image(
                                     painter = painterResource(id = R.drawable.statuspekerjaan_arrow_back_icon),
@@ -102,17 +118,12 @@ fun DetailPekerjaan(navController: NavController) {
                                 )
                             }
 
-                            Row(
-                                modifier = Modifier
-                                    .fillMaxWidth(),
-                                //verticalAlignment = Alignment.CenterVertically,
-                                horizontalArrangement = Arrangement.Absolute.Center
-                            ) {
-                                Text(
-                                    text = "Pekerjaan",
-                                    style = MaterialTheme.typography.titleLarge
-                                )
-                            }
+                            Text(
+                                text = "Pekerjaan",
+                                style = MaterialTheme.typography.titleLarge
+                            )
+
+                            Spacer(modifier = Modifier.width(45.dp))
 
                         }
                     }
@@ -184,7 +195,7 @@ fun DetailPekerjaan(navController: NavController) {
                                                         })
                                             }
                                             Text(
-                                                text = "Technical Sales Feedmill",
+                                                text = newLowonganList[0].judul,
                                                 style = MaterialTheme.typography.bodyLarge,
                                                 color = Color(0xFF2D786C),
                                             )
@@ -219,100 +230,21 @@ fun DetailPekerjaan(navController: NavController) {
                                                 style = MaterialTheme.typography.bodyLarge,
                                                 color = Color(0xFF2D786C),
                                             )
-                                            Row {
-                                                Text("•", modifier = Modifier.padding(end = 8.dp))
-                                                Text(
-                                                    text = "Candidate must posses at least Bachelor degree in Animal Husbandry / Veterinarian",
-                                                    style = MaterialTheme.typography.bodyMedium,
-                                                    color = Color(0xFF566533)
-                                                )
-                                            }
-                                            Row {
-                                                Text("•", modifier = Modifier.padding(end = 8.dp))
-                                                Text(
-                                                    text = "Candidate must posses at least Bachelor degree in Animal Husbandry / Veterinarian",
-                                                    style = MaterialTheme.typography.bodyMedium,
-                                                    color = Color(0xFF566533)
-                                                )
-                                            }
-                                            Row {
-                                                Text("•", modifier = Modifier.padding(end = 8.dp))
-                                                Text(
-                                                    text = "Candidate must posses at least Bachelor degree in Animal Husbandry / Veterinarian",
-                                                    style = MaterialTheme.typography.bodyMedium,
-                                                    color = Color(0xFF566533)
-                                                )
-                                            }
-                                            Row {
-                                                Text("•", modifier = Modifier.padding(end = 8.dp))
-                                                Text(
-                                                    text = "Candidate must posses at least Bachelor degree in Animal Husbandry / Veterinarian",
-                                                    style = MaterialTheme.typography.bodyMedium,
-                                                    color = Color(0xFF566533)
-                                                )
-                                            }
-                                            Row {
-                                                Text("•", modifier = Modifier.padding(end = 8.dp))
-                                                Text(
-                                                    text = "Candidate must posses at least Bachelor degree in Animal Husbandry / Veterinarian",
-                                                    style = MaterialTheme.typography.bodyMedium,
-                                                    color = Color(0xFF566533)
-                                                )
-                                            }
+                                            Text(
+                                                text = newLowonganList[0].kualifikasi,
+                                                style = MaterialTheme.typography.bodyMedium,
+                                                color = Color(0xFF566533)
+                                            )
                                             Text(
                                                 text = "\nPertanyaan dari perusahaan",
                                                 style = MaterialTheme.typography.bodyLarge,
                                                 color = Color(0xFF2D786C),
                                             )
-                                            Row {
-                                                Text("•", modifier = Modifier.padding(end = 8.dp))
-                                                Text(
-                                                    text = "Which of the following types of qualifications do you have?",
-                                                    style = MaterialTheme.typography.bodyMedium,
-                                                    color = Color(0xFF566533)
-                                                )
-                                            }
-                                            Row {
-                                                Text("•", modifier = Modifier.padding(end = 8.dp))
-                                                Text(
-                                                    text = "Do you have a current Indonesian driver's licence?",
-                                                    style = MaterialTheme.typography.bodyMedium,
-                                                    color = Color(0xFF566533)
-                                                )
-                                            }
-                                            Row {
-                                                Text("•", modifier = Modifier.padding(end = 8.dp))
-                                                Text(
-                                                    text = "What's your expected monthly basic salary?",
-                                                    style = MaterialTheme.typography.bodyMedium,
-                                                    color = Color(0xFF566533)
-                                                )
-                                            }
-                                            Row {
-                                                Text("•", modifier = Modifier.padding(end = 8.dp))
-                                                Text(
-                                                    text = "Do you have experience in a sales role?",
-                                                    style = MaterialTheme.typography.bodyMedium,
-                                                    color = Color(0xFF566533)
-                                                )
-                                            }
-                                            Row {
-                                                Text("•", modifier = Modifier.padding(end = 8.dp))
-                                                Text(
-                                                    text = "What's your expected monthly basic salary?",
-                                                    style = MaterialTheme.typography.bodyMedium,
-                                                    color = Color(0xFF566533)
-                                                )
-                                            }
-                                            Row {
-                                                Text("•", modifier = Modifier.padding(end = 8.dp))
-                                                Text(
-                                                    text = "Do you have a Bachelor Degree?",
-                                                    style = MaterialTheme.typography.bodyMedium,
-                                                    color = Color(0xFF566533)
-                                                )
-                                            }
-
+                                            Text(
+                                                text = newLowonganList[0].pertanyaan,
+                                                style = MaterialTheme.typography.bodyMedium,
+                                                color = Color(0xFF566533)
+                                            )
 
                                         }
                                     }
@@ -534,6 +466,9 @@ fun DetailPekerjaan(navController: NavController) {
 @Preview
 @Composable
 private fun PekerjaanView() {
-    DetailPekerjaan(rememberNavController())
+    DetailPekerjaanContent(
+        newLowonganList = DummyData.lowongancard,
+        navController = rememberNavController()
+    )
 
 }

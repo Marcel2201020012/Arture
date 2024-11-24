@@ -1,10 +1,7 @@
-@file:OptIn(
-    ExperimentalMaterial3Api::class, ExperimentalMaterial3Api::class,
-    ExperimentalMaterial3Api::class
-)
+package com.example.arture.app.home
 
-package com.example.arture
-
+import android.content.Context
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -23,7 +20,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Divider
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -34,6 +30,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -42,6 +39,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -52,15 +50,24 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.arture.R
+import com.example.arture.app.linearBgBrush
+import com.example.arture.data.DataStore
 import com.example.arture.ui.theme.poppinsFont
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import navigation.NavigationRoutes
 
 @Composable
-fun signInScreen(navController: NavController) {
+fun LoginScreen(navController: NavController, context: Context, dataStore: DataStore) {
     val colorList = listOf(
         Color(0xFFFAF5E4),
         Color(0xFF90A955)
     )
+
+    //Data store
+    val coroutineScope = rememberCoroutineScope()
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -76,10 +83,11 @@ fun signInScreen(navController: NavController) {
                 .padding(top = 50.dp),
             verticalArrangement = Arrangement.SpaceEvenly,
             horizontalAlignment = Alignment.CenterHorizontally
+
         ) {
             Image(
-                painter = painterResource(id = R.drawable.logo_text),
-                contentDescription = "logo_app", modifier = Modifier
+                painter = painterResource(id = R.drawable.logo_text), contentDescription = "logo",
+                modifier = Modifier
                     .width(126.dp)
             )
             Box(
@@ -89,12 +97,17 @@ fun signInScreen(navController: NavController) {
                     .background(Color.White)
                     .width(400.dp)
                     .height(525.dp)
-            ) {
-                Column(modifier = Modifier.scale(0.9f).padding(24.dp)) {
+            )
+            {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(32.dp),
+                    //verticalArrangement = Arrangement.Center,
+                    //horizontalAlignment = Alignment.CenterHorizontally
+                ) {
                     var userName by rememberSaveable { mutableStateOf("") }
-                    var email by rememberSaveable { mutableStateOf("") }
                     var pass by rememberSaveable { mutableStateOf("") }
-                    var conPass by rememberSaveable { mutableStateOf("") }
 
                     var passVisible by remember { mutableStateOf(false) }
                     val eye = if (passVisible)
@@ -102,22 +115,16 @@ fun signInScreen(navController: NavController) {
                     else
                         painterResource(id = R.drawable.eye)
 
-                    var conPassVisible by remember { mutableStateOf(false) }
-                    val eyeCon = if (conPassVisible)
-                        painterResource(id = R.drawable.eyeinvisible)
-                    else
-                        painterResource(id = R.drawable.eye)
-
-                    var isMasukClicked by remember { mutableStateOf(false) }
-                    val masukTextColor = if (isMasukClicked)
+                    var isDaftarClicked by remember { mutableStateOf(false) }
+                    val daftarTextColor = if (isDaftarClicked)
                         Color.Red
                     else
                         Color.Black
 
                     Text(
-                        text = "Daftar", fontFamily = poppinsFont, style = TextStyle(
+                        text = "Masuk", fontFamily = poppinsFont, style = TextStyle(
                             brush = Brush.linearGradient(
-                                colors = listOf(Color(0xFF387B38), Color(0xFF0C0E0C))
+                                colors = listOf(Color(0xFF387A38), Color(0xFF0C0E0C))
                             )
                         ), fontSize = 24.sp, fontWeight = FontWeight.Bold
                     )
@@ -126,38 +133,15 @@ fun signInScreen(navController: NavController) {
                     Text(
                         text = "Nama Pengguna",
                         fontFamily = poppinsFont,
-                        fontSize = 15.sp
-                    )
-                    OutlinedTextField(value = userName,
-                        modifier = Modifier.fillMaxWidth(),
-                        onValueChange = { userName = it },
-                        singleLine = true,
-                        colors = OutlinedTextFieldDefaults.colors(
-                            focusedBorderColor = Color.White,
-                            unfocusedBorderColor = Color.White,
-                        ),
-                        trailingIcon = {
-                            Icon(
-                                painter = painterResource(id = R.drawable.user_logo),
-                                contentDescription = "user_logo"
-                            )
-                        })
-                    Divider(color = Color.Black)
-                    Spacer(modifier = Modifier.height(8.dp))
-
-                    Text(
-                        text = "Email",
-                        fontFamily = poppinsFont,
                         style = MaterialTheme.typography.bodyLarge,
                         fontSize = 15.sp
                     )
-                    OutlinedTextField(value = email,
-                        onValueChange = { email = it },
+                    OutlinedTextField(value = userName,
+                        onValueChange = { userName = it },
                         modifier = Modifier.fillMaxWidth(),
                         singleLine = true,
                         colors = OutlinedTextFieldDefaults.colors(
-                            focusedBorderColor = Color.White,
-                            unfocusedBorderColor = Color.White,
+                            focusedBorderColor = Color.White, unfocusedBorderColor = Color.White
                         ),
                         trailingIcon = {
                             Icon(
@@ -182,7 +166,7 @@ fun signInScreen(navController: NavController) {
                         singleLine = true,
                         colors = OutlinedTextFieldDefaults.colors(
                             focusedBorderColor = Color.White,
-                            unfocusedBorderColor = Color.White
+                            unfocusedBorderColor = Color.White,
                         ),
                         trailingIcon = {
                             IconButton(onClick = { passVisible = !passVisible }) {
@@ -198,79 +182,114 @@ fun signInScreen(navController: NavController) {
                     Divider(color = Color.Black)
                     Spacer(modifier = Modifier.height(8.dp))
 
+
                     Text(
-                        text = "Konfirmasi Kata Sandi",
-                        fontFamily = poppinsFont,
-                        style = MaterialTheme.typography.bodyLarge,
-                        fontSize = 15.sp
-                    )
-                    OutlinedTextField(
-                        value = conPass,
-                        onValueChange = { conPass = it },
-                        modifier = Modifier.fillMaxWidth(),
-                        singleLine = true,
-                        colors = OutlinedTextFieldDefaults.colors(
-                            focusedBorderColor = Color.White,
-                            unfocusedBorderColor = Color.White,
-                        ),
-                        trailingIcon = {
-                            IconButton(onClick = { conPassVisible = !conPassVisible }) {
-                                Icon(
-                                    painter = eyeCon,
-                                    contentDescription = "eye_status_2",
-                                    modifier = Modifier.size(28.dp)
-                                )
-                            }
-                        },
-                        visualTransformation = if (conPassVisible) PasswordVisualTransformation() else VisualTransformation.None
-                    )
-                    Divider(color = Color.Black)
-                    Spacer(modifier = Modifier.height(8.dp))
+                        "Lupa kata sandi?",
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier.clickable {
+
+                        })
+
+                    Spacer(modifier = Modifier.height(16.dp))
 
                     Button(
                         onClick = {
-                            navController.navigate(NavigationRoutes.logIn){
-                                popUpTo(NavigationRoutes.signIn){
-                                    inclusive = true
+                            if (userName.isBlank() || pass.isBlank()) {
+                                Toast.makeText(
+                                    context,
+                                    "Nama dan Password Wajib Diisi",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            } else {
+                                coroutineScope.launch {
+                                    dataStore.saveStatus(true)
+                                    dataStore.saveUserName(userName)
+                                    delay(50L)
+                                    navController.navigate(NavigationRoutes.beranda) {
+                                        popUpTo(NavigationRoutes.logIn) {
+                                            inclusive = true
+                                        }
+                                    }
                                 }
-                                launchSingleTop = true
                             }
-                        },
-                        modifier = Modifier.fillMaxWidth(),
-                        colors = ButtonDefaults.buttonColors(Color(0xFFF8B402))
-                    ) {
-                        Text(
-                            text = "Daftar", fontWeight = FontWeight.Bold, color = Color.White
+                        }, modifier = Modifier
+                            .fillMaxWidth(),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = Color(0xFFF8B402)
                         )
+                    ) {
+                        Text("Login", fontFamily = poppinsFont, color = Color.White)
                     }
 
                     Spacer(modifier = Modifier.height(8.dp))
-                    Row(
-                        horizontalArrangement = Arrangement.Center,
-                        verticalAlignment = Alignment.CenterVertically,
+
+                    Column(
+                        verticalArrangement = Arrangement.Center,
+                        horizontalAlignment = Alignment.CenterHorizontally,
                         modifier = Modifier.fillMaxWidth()
                     ) {
+                        Row {
+                            Text(
+                                "belum punya akun? ",
+                                fontFamily = poppinsFont,
+                                fontSize = 12.sp
+                            )
+
+                            Text("Daftar",
+                                fontFamily = poppinsFont,
+                                fontWeight = FontWeight.Bold,
+                                style = TextStyle(daftarTextColor),
+                                modifier = Modifier.clickable {
+                                    isDaftarClicked = !isDaftarClicked
+                                })
+                        }
+
+                        Spacer(modifier = Modifier.height(8.dp))
+
                         Text(
-                            text = "Sudah punya akun? ",
+                            "atau",
                             fontFamily = poppinsFont,
                             fontSize = 12.sp
                         )
-                        Text(
-                            text = "Masuk",
-                            fontFamily = poppinsFont,
-                            fontWeight = FontWeight.Bold,
-                            style = TextStyle(masukTextColor),
-                            modifier = Modifier.clickable { isMasukClicked = !isMasukClicked }
-                        )
+
+                        Spacer(modifier = Modifier.height(8.dp))
+
+                        Button(
+                            onClick = {
+                                Toast.makeText(
+                                    context,
+                                    "DON'T TOUCH THIS, NANTI BACKEND-NYA!!", Toast.LENGTH_SHORT
+                                ).show()
+                            }, modifier = Modifier
+                                .fillMaxWidth(),
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = Color(0xFFF8B402)
+                            )
+                        ) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.login_google_icon),
+                                contentDescription = "google",
+                                modifier = Modifier.size(18.dp),
+                                tint = Color.Unspecified
+                            )
+                            Text(
+                                "  Masuk dengan Google",
+                                fontFamily = poppinsFont,
+                                color = Color.White
+                            )
+                        }
                     }
                 }
+
+
             }
         }
     }
+
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
-fun signInView() {
-    signInScreen(navController = rememberNavController())
+fun Testloginscreen() {
+    //LoginScreen(navController = rememberNavController())
 }

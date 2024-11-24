@@ -1,4 +1,4 @@
-package com.example.arture
+package com.example.arture.app.home
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateDpAsState
@@ -32,6 +32,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.arture.R
+import com.example.arture.app.home.component.DisimpanArtikelGenerator
+import com.example.arture.app.linearBgBrush
 import com.example.arture.ui.theme.poppinsFont
 import model.ArtikelPopulerCardModel
 import navigation.NavigationRoutes

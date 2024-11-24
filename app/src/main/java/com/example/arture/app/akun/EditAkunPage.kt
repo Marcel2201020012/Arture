@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
-package com.example.arture
+package com.example.arture.app.akun
 
 import android.Manifest
 import android.content.Context
@@ -63,6 +63,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.arture.data.DataStore
+import com.example.arture.R
+import com.example.arture.app.linearBgBrush
 import com.example.arture.ui.theme.poppinsFont
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -430,6 +432,7 @@ fun EditBiodataPage(navController: NavController, dataStore: DataStore, context:
                             galleryPhotoLauncher.launch(
                                 PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
                             )
+                            isSheetOpen = false
                         }) {
                             Icon(
                                 painter = painterResource(id = R.drawable.akun_gallery_icon),

@@ -1,4 +1,4 @@
-package com.example.arture
+package com.example.arture.app.akun
 
 import android.graphics.BitmapFactory
 import android.net.Uri
@@ -43,6 +43,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.arture.data.DataStore
 import kotlinx.coroutines.launch
+import com.example.arture.R
+import com.example.arture.app.linearBgBrush
 import navigation.NavigationRoutes
 
 @Composable

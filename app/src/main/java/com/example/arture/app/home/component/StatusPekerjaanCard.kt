@@ -1,4 +1,4 @@
-package com.example.arture
+package com.example.arture.app.home.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -18,7 +18,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -30,6 +29,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.arture.R
 import com.example.arture.ui.theme.poppinsFont
 import model.StatusPekerjaanCardModel
 
@@ -132,7 +132,9 @@ fun StatusPekerjaanCardDesign(item: StatusPekerjaanCardModel) {
     }
 }
 enum class JobStatus(val text: String, val color: Color, val icon: Int) {
-    WAITING_APPROVAL(" Menunggu Persetujuan", Color(0xFF4A90E2), R.drawable.statuspekerjaan_menunggu_icon),
+    WAITING_APPROVAL(" Menunggu Persetujuan", Color(0xFF4A90E2),
+        R.drawable.statuspekerjaan_menunggu_icon
+    ),
     REJECTED(" Lamaran Anda Ditolak", Color.Red, R.drawable.statuspekerjaan_ditolak_icon),
     ACCEPTED(" Lamaran Anda Diterima", Color.Green, R.drawable.statuspekerjaan_diterima_icon)
 }
