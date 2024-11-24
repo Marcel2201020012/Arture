@@ -55,7 +55,7 @@ fun DetailPekerjaan(
     Column {
         DetailPekerjaanContent(
             newLowonganList = newLowonganList,
-            navController = rememberNavController()
+            navController = navController
         )
     }
 }
@@ -110,12 +110,7 @@ fun DetailPekerjaanContent(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             IconButton(onClick = {
-                                navController.navigate(NavigationRoutes.beranda) {
-                                    popUpTo(NavigationRoutes.beranda) {
-                                        inclusive = true
-                                    }
-                                    launchSingleTop = true
-                                }
+                                navController.navigateUp()
                             }) {
                                 Image(
                                     painter = painterResource(id = R.drawable.statuspekerjaan_arrow_back_icon),
