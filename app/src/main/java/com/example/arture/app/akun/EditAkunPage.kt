@@ -70,6 +70,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import navigation.NavigationRoutes
+import java.io.File
+import java.io.FileOutputStream
 
 @Composable
 fun EditAkunPageScreen(
@@ -137,7 +139,7 @@ fun EditAkunPageScreen(
 fun EditBiodataPage(navController: NavController, dataStore: DataStore, context: Context) {
 
     //data store
-    val fotoProfil by dataStore.fotoProil.collectAsState(initial = null)
+    val fotoProfil by dataStore.fotoProfil.collectAsState(initial = null)
     val userName by dataStore.getUserName.collectAsState(initial = "")
 
     //user profil data
@@ -160,8 +162,12 @@ fun EditBiodataPage(navController: NavController, dataStore: DataStore, context:
             galleryImage = uri
 
             uri?.let {
-                CoroutineScope(Dispatchers.IO).launch {
-                    dataStore.saveFotoProfil(it.toString())
+                val filePath = copyUriToFile(it, context)
+                filePath?.let {
+                    CoroutineScope(Dispatchers.IO).launch {
+                        // Save the file path in DataStore
+                        dataStore.saveFotoProfil(filePath)
+                    }
                 }
             }
         })
@@ -206,7 +212,7 @@ fun EditBiodataPage(navController: NavController, dataStore: DataStore, context:
                     .size(90.dp),
                 contentAlignment = Alignment.Center
             ) {
-                if (fotoProfil != null) {
+                if (fotoProfil != "") {
                     val bitmap = BitmapFactory.decodeFile(fotoProfil)
                     if (bitmap != null) {
                         Image(
@@ -394,7 +400,12 @@ fun EditBiodataPage(navController: NavController, dataStore: DataStore, context:
                         text = "Edit Profil",
                         style = MaterialTheme.typography.bodyLarge
                     )
-                    IconButton(onClick = { /*TODO*/ }) {
+                    IconButton(onClick = {
+                        CoroutineScope(Dispatchers.IO).launch {
+                            dataStore.saveFotoProfil("")
+                        }
+                        isSheetOpen = false
+                    }) {
                         Icon(
                             imageVector = Icons.Default.Delete,
                             contentDescription = "delete icon"
@@ -449,6 +460,19 @@ fun EditBiodataPage(navController: NavController, dataStore: DataStore, context:
             }
         }
 
+}
+
+fun copyUriToFile(uri: Uri, context: Context): String? {
+    val inputStream = context.contentResolver.openInputStream(uri)
+    val tempFile = File(context.cacheDir, "foto_profil_${System.currentTimeMillis()}.jpg")
+
+    inputStream?.use { input ->
+        FileOutputStream(tempFile).use { output ->
+            input.copyTo(output)
+        }
+    }
+
+    return if (tempFile.exists()) tempFile.absolutePath else null
 }
 
 @Composable

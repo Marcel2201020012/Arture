@@ -79,5 +79,6 @@ val Typography = Typography(
     bodySmall = TextStyle(
         fontFamily = poppinsFont,
         fontSize = 12.sp,
+        color = Color.Black
     )
 )

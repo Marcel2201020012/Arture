@@ -29,9 +29,10 @@ class DataStore (private val context: Context) {
     }
 
     //flow foto profil
-    val fotoProil: Flow<String?> = context.dataStore.data.map { preferences ->
+    val fotoProfil: Flow<String?> = context.dataStore.data.map { preferences ->
         preferences[FOTO_PROFIL_KEY]
     }
+
     suspend fun saveStatus(isLogin: Boolean) = context.dataStore.edit { preferences ->
         preferences[STATUS_LOGIN_KEY] = isLogin
     }

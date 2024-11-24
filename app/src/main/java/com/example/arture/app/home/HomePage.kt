@@ -47,14 +47,13 @@ import com.example.arture.data.DataStore
 import com.example.arture.data.DummyData
 import com.example.arture.ui.theme.poppinsFont
 import model.ArtikelPopulerCardModel
-import model.LowonganTerbaruCardModel
 import navigation.NavigationRoutes
 
 @Composable
 fun homePageScreen(navController: NavController, dataStore: DataStore) {
 
     val userName by dataStore.getUserName.collectAsState(initial = "")
-    val fotoProfil by dataStore.fotoProil.collectAsState(initial = null)
+    val fotoProfil by dataStore.fotoProfil.collectAsState(initial = null)
 
     val colorList = listOf(
         Color(0xFF90A955), Color(0xFFECF39E)
@@ -128,7 +127,7 @@ fun homePageScreen(navController: NavController, dataStore: DataStore) {
                                 .clickable {
                                     navController.navigate(NavigationRoutes.akun)
                                 }) {
-                                if (fotoProfil != null) {
+                                if (fotoProfil != "") {
                                     val bitmap = BitmapFactory.decodeFile(fotoProfil)
                                     if (bitmap != null) {
                                         Image(
