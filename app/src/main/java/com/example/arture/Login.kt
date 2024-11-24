@@ -1,5 +1,6 @@
 package com.example.arture
 
+import android.content.Context
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -56,17 +57,14 @@ import kotlinx.coroutines.launch
 import navigation.NavigationRoutes
 
 @Composable
-fun LoginScreen(navController: NavController) {
+fun LoginScreen(navController: NavController, context: Context, dataStore: DataStore) {
     val colorList = listOf(
         Color(0xFFFAF5E4),
         Color(0xFF90A955)
     )
 
     //Data store
-    val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
-
-    val dataStore = DataStore(context)
 
     Box(
         modifier = Modifier
@@ -291,5 +289,5 @@ fun LoginScreen(navController: NavController) {
 @Preview(showBackground = true)
 @Composable
 fun Testloginscreen() {
-    LoginScreen(navController = rememberNavController())
+    //LoginScreen(navController = rememberNavController())
 }

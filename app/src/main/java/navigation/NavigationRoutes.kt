@@ -14,4 +14,6 @@ object NavigationRoutes {
     var pekerjaan = "Pekerjaan"
     var detailPekerjaan = "DetailPekerjaan"
     var editAkun = "EditAkunPage/{page}/{title}/{desc}"
+
+    var camera = "CameraPreview"
 }

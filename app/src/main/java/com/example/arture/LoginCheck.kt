@@ -16,10 +16,7 @@ import kotlinx.coroutines.delay
 import navigation.NavigationRoutes
 
 @Composable
-fun LoginCheckScreen(navController: NavController) {
-    val context = LocalContext.current
-    val dataStore = DataStore(context)
-
+fun LoginCheckScreen(navController: NavController, dataStore: DataStore) {
     val statusLogIn = dataStore.getStatusLogin.collectAsState(initial = false)
 
     Box(

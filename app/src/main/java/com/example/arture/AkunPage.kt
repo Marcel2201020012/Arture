@@ -1,5 +1,6 @@
 package com.example.arture
 
+import android.graphics.BitmapFactory
 import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -26,20 +27,32 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
+import com.example.arture.data.DataStore
+import kotlinx.coroutines.launch
 import navigation.NavigationRoutes
 
 @Composable
-fun AkunPageScreen(navController: NavController) {
+fun AkunPageScreen(navController: NavController, dataStore: DataStore) {
+
+    val fotoProfil by dataStore.fotoProil.collectAsState(initial = null)
+    val userName by dataStore.getUserName.collectAsState(initial = "")
+
+    val coroutineScope = rememberCoroutineScope()
+
     //Bg
     Box(
         Modifier
@@ -96,17 +109,33 @@ fun AkunPageScreen(navController: NavController) {
                             .size(90.dp),
                         contentAlignment = Alignment.Center
                     ) {
-                        Image(
-                            painter = painterResource(id = R.drawable.akun_profil_image),
-                            contentDescription = "profil image",
-                            Modifier.size(84.dp)
-                        )
+                        if (fotoProfil != null) {
+                            val bitmap = BitmapFactory.decodeFile(fotoProfil)
+                            if (bitmap != null) {
+                                Image(
+                                    bitmap = bitmap.asImageBitmap(),
+                                    contentDescription = "profil image",
+                                    Modifier
+                                        .fillMaxSize()
+                                        .clip(CircleShape),
+                                    contentScale = ContentScale.Crop
+                                )
+                            }
+                        } else {
+                            Image(
+                                painter = painterResource(id = R.drawable.beranda_profile_picture),
+                                contentDescription = "profil image",
+                                Modifier.size(84.dp)
+                            )
+                        }
                     }
 
-                    Text(
-                        text = "Asep Setiawan",
-                        style = MaterialTheme.typography.labelLarge.copy(Color.White)
-                    )
+                    userName?.let {
+                        Text(
+                            text = it,
+                            style = MaterialTheme.typography.labelLarge.copy(Color.White)
+                        )
+                    }
                     Text(
                         text = "asepseptiawan31@gmail.com",
                         style = MaterialTheme.typography.bodySmall.copy(Color.White)
@@ -191,7 +220,7 @@ fun AkunPageScreen(navController: NavController) {
                                 )
                                 Text(
                                     text = "Asep Setiawan",
-                                    style = MaterialTheme.typography.bodySmall.copy(Color.Gray)
+                                    style = MaterialTheme.typography.bodySmall.copy(Color.DarkGray)
                                 )
                             }
                             Divider(Modifier.fillMaxWidth())
@@ -207,7 +236,7 @@ fun AkunPageScreen(navController: NavController) {
                                 )
                                 Text(
                                     text = "asepsetiawan31@gmail.com",
-                                    style = MaterialTheme.typography.bodySmall.copy(Color.Gray)
+                                    style = MaterialTheme.typography.bodySmall.copy(Color.DarkGray)
                                 )
                             }
                             Divider(Modifier.fillMaxWidth())
@@ -223,7 +252,7 @@ fun AkunPageScreen(navController: NavController) {
                                 )
                                 Text(
                                     text = "Cianjur, Jawa Barat",
-                                    style = MaterialTheme.typography.bodySmall.copy(Color.Gray)
+                                    style = MaterialTheme.typography.bodySmall.copy(Color.DarkGray)
                                 )
                             }
                             Divider(Modifier.fillMaxWidth())
@@ -239,7 +268,7 @@ fun AkunPageScreen(navController: NavController) {
                                 )
                                 Text(
                                     text = "0857-2733-7927",
-                                    style = MaterialTheme.typography.bodySmall.copy(Color.Gray)
+                                    style = MaterialTheme.typography.bodySmall.copy(Color.DarkGray)
                                 )
                             }
                             Divider(Modifier.fillMaxWidth())
@@ -255,7 +284,7 @@ fun AkunPageScreen(navController: NavController) {
                                 )
                                 Text(
                                     text = "S1-Pertanian",
-                                    style = MaterialTheme.typography.bodySmall.copy(Color.Gray)
+                                    style = MaterialTheme.typography.bodySmall.copy(Color.DarkGray)
                                 )
                             }
                             Divider(Modifier.fillMaxWidth())
@@ -271,7 +300,7 @@ fun AkunPageScreen(navController: NavController) {
                                 )
                                 Text(
                                     text = "-",
-                                    style = MaterialTheme.typography.bodySmall.copy(Color.Gray)
+                                    style = MaterialTheme.typography.bodySmall.copy(Color.DarkGray)
                                 )
                             }
                             Divider(Modifier.fillMaxWidth())
@@ -346,7 +375,7 @@ fun AkunPageScreen(navController: NavController) {
                             Text(
                                 text =
                                 "Nama saya Asep Setiawan, saya berusia 24 tahun dan merupakan lulusan Sarjana Pertanian. Meskipun saya belum memiliki pengalaman kerja formal, saya memiliki pengetahuan akademis yang solid di bidang pertanian dan telah mengembangkan keterampilan kepemimpinan serta kemampuan sebagai seorang supervisor. Saya bersemangat untuk menerapkan keahlian ini dalam lingkungan kerja yang nyata.",
-                                style = MaterialTheme.typography.bodySmall.copy(Color.Gray)
+                                style = MaterialTheme.typography.bodySmall.copy(Color.DarkGray)
                             )
                         }
                     }
@@ -402,7 +431,7 @@ fun AkunPageScreen(navController: NavController) {
                             Divider(Modifier.fillMaxWidth())
                             Text(
                                 "Lorem ipsum dolor sit amet consectetur. Etiam habitant tortor proin facilisis non viverra. Suscipit posuere sit fringilla iaculis semper varius. Bibendum turpis urna sed id dignissim elementum scelerisque. Posuere mi auctor eget at.",
-                                style = MaterialTheme.typography.bodySmall.copy(Color.Gray)
+                                style = MaterialTheme.typography.bodySmall.copy(Color.DarkGray)
                             )
                         }
                     }
@@ -459,7 +488,7 @@ fun AkunPageScreen(navController: NavController) {
                             Divider(Modifier.fillMaxWidth())
                             Text(
                                 "Lorem ipsum dolor sit amet consectetur. Etiam habitant tortor proin facilisis non viverra. Suscipit posuere sit fringilla iaculis semper varius. Bibendum turpis urna sed id dignissim elementum scelerisque. Posuere mi auctor eget at.",
-                                style = MaterialTheme.typography.bodySmall.copy(Color.Gray)
+                                style = MaterialTheme.typography.bodySmall.copy(Color.DarkGray)
                             )
                         }
                     }
@@ -516,7 +545,7 @@ fun AkunPageScreen(navController: NavController) {
                             Divider(Modifier.fillMaxWidth())
                             Text(
                                 "Lorem ipsum dolor sit amet consectetur. Etiam habitant tortor proin facilisis non viverra. Suscipit posuere sit fringilla iaculis semper varius. Bibendum turpis urna sed id dignissim elementum scelerisque. Posuere mi auctor eget at.",
-                                style = MaterialTheme.typography.bodySmall.copy(Color.Gray)
+                                style = MaterialTheme.typography.bodySmall.copy(Color.DarkGray)
                             )
                         }
                     }
@@ -528,7 +557,16 @@ fun AkunPageScreen(navController: NavController) {
                         .clip(RoundedCornerShape(8.dp))
                         .fillMaxWidth()
                         .background(Color(0xFFEF3939))
-                        .clickable {/*do something*/ }
+                        .clickable {
+                            coroutineScope.launch {
+                                dataStore.clearStatus()
+                            }
+                            navController.navigate(NavigationRoutes.loginCheck) {
+                                popUpTo(0) {
+                                    inclusive = true
+                                }
+                            }
+                        }
                 ) {
                     Row(
                         Modifier
@@ -561,12 +599,12 @@ fun AkunPageScreen(navController: NavController) {
 @Preview
 @Composable
 fun TestAkunPageScreen() {
-    Box {
-        AkunPageScreen(rememberNavController())
-        footerMenuScreen(
-            Modifier.align(Alignment.BottomCenter),
-            rememberNavController(),
-            currentRoute = ""
-        )
-    }
+//    Box {
+//        AkunPageScreen(rememberNavController())
+//        footerMenuScreen(
+//            Modifier.align(Alignment.BottomCenter),
+//            rememberNavController(),
+//            currentRoute = ""
+//        )
+//    }
 }

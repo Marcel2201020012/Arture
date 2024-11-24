@@ -10,11 +10,12 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import utils.PreferenceKey.STATUS_LOGIN_KEY
 
-class DataStore(private val context: Context) {
+class DataStore (private val context: Context) {
     companion object {
         private val Context.dataStore: DataStore<Preferences> by preferencesDataStore("StatusLogin")
 
         val USER_NAME_KEY = stringPreferencesKey("username")
+        val FOTO_PROFIL_KEY = stringPreferencesKey("Foto_Profil")
     }
 
     //flow untuk status login
@@ -27,6 +28,10 @@ class DataStore(private val context: Context) {
         preferences[USER_NAME_KEY]
     }
 
+    //flow foto profil
+    val fotoProil: Flow<String?> = context.dataStore.data.map { preferences ->
+        preferences[FOTO_PROFIL_KEY]
+    }
     suspend fun saveStatus(isLogin: Boolean) = context.dataStore.edit { preferences ->
         preferences[STATUS_LOGIN_KEY] = isLogin
     }
@@ -40,5 +45,12 @@ class DataStore(private val context: Context) {
     suspend fun clearStatus() = context.dataStore.edit { preferences ->
         preferences.remove(STATUS_LOGIN_KEY)
         preferences.remove(USER_NAME_KEY)
+        preferences.remove(FOTO_PROFIL_KEY)
+    }
+
+    suspend fun saveFotoProfil(fotoPath: String){
+        context.dataStore.edit { preferences ->
+            preferences[FOTO_PROFIL_KEY] = fotoPath
+        }
     }
 }

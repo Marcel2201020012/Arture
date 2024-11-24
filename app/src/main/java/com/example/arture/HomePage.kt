@@ -1,5 +1,6 @@
 package com.example.arture
 
+import android.graphics.BitmapFactory
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -28,6 +29,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -45,6 +48,7 @@ import navigation.NavigationRoutes
 fun homePageScreen(navController: NavController, dataStore: DataStore) {
 
     val userName by dataStore.getUserName.collectAsState(initial = "")
+    val fotoProfil by dataStore.fotoProil.collectAsState(initial = null)
 
     val colorList = listOf(
         Color(0xFF90A955), Color(0xFFECF39E)
@@ -116,15 +120,27 @@ fun homePageScreen(navController: NavController, dataStore: DataStore) {
                                 )
                                 .size(48.dp)
                                 .clickable {
-                                    //do stuff
+                                    navController.navigate(NavigationRoutes.akun)
                                 }) {
-                                Icon(
-                                    painter = painterResource(
-                                        id = R.drawable.beranda_profile_picture
-                                    ),
-                                    contentDescription = "profile_picture",
-                                    tint = Color.Unspecified
-                                )
+                                if (fotoProfil != null) {
+                                    val bitmap = BitmapFactory.decodeFile(fotoProfil)
+                                    if (bitmap != null) {
+                                        Image(
+                                            bitmap = bitmap.asImageBitmap(),
+                                            contentDescription = "profil image",
+                                            Modifier.fillMaxSize().clip(CircleShape),
+                                            contentScale = ContentScale.Crop
+                                        )
+                                    }
+                                } else {
+                                    Icon(
+                                        painter = painterResource(
+                                            id = R.drawable.beranda_profile_picture
+                                        ),
+                                        contentDescription = "profile_picture",
+                                        tint = Color.Unspecified
+                                    )
+                                }
                             }
                         }
 

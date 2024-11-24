@@ -48,7 +48,7 @@ fun ArtureScreen() {
             startDestination = NavigationRoutes.loginCheck,
             builder = {
                 composable(NavigationRoutes.loginCheck) {
-                    LoginCheckScreen(navController)
+                    LoginCheckScreen(navController, dataStore)
                     showFooterMenu = false
                 }
                 composable(NavigationRoutes.flogIn) {
@@ -60,7 +60,7 @@ fun ArtureScreen() {
                     showFooterMenu = false
                 }
                 composable(NavigationRoutes.logIn) {
-                    LoginScreen(navController)
+                    LoginScreen(navController, context, dataStore)
                     showFooterMenu = false
                 }
                 composable(NavigationRoutes.beranda) {
@@ -91,7 +91,7 @@ fun ArtureScreen() {
                     })
                 }
                 composable(NavigationRoutes.akun) {
-                    AkunPageScreen(navController)
+                    AkunPageScreen(navController, dataStore)
                     showFooterMenu = true
                 }
                 composable(
@@ -110,8 +110,14 @@ fun ArtureScreen() {
                         page = page,
                         title = title,
                         desc = desc,
-                        navController = navController
+                        navController = navController,
+                        dataStore = dataStore,
+                        context = context
                     )
+                    showFooterMenu = false
+                }
+                composable(NavigationRoutes.camera){
+                    CameraPreviewScreen(navController, dataStore)
                     showFooterMenu = false
                 }
             })
@@ -144,6 +150,6 @@ fun linearBgBrush(isVerticalGradient: Boolean, colors: List<Color>): Brush {
 @Composable
 fun GreetingPreview() {
     ArtureTheme {
-        LoginScreen(navController = rememberNavController())
+        //LoginScreen(navController = rememberNavController())
     }
 }
