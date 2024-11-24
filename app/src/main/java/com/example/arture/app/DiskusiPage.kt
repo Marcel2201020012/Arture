@@ -1,4 +1,4 @@
-package com.example.arture
+package com.example.arture.app
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
@@ -43,7 +43,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
+import com.example.arture.R
+import com.example.arture.app.home.component.DiskusiGenerator
+import com.example.arture.app.home.component.KomentarGenerator
 import com.example.arture.ui.theme.poppinsFont
 import model.DiskusiCardModel
 import model.KomentarCardModel

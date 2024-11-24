@@ -1,4 +1,4 @@
-package com.example.arture
+package com.example.arture.app.akun
 
 import android.net.Uri
 import androidx.compose.foundation.Image
@@ -36,6 +36,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.arture.R
+import com.example.arture.app.footerMenuScreen
+import com.example.arture.app.linearBgBrush
 import navigation.NavigationRoutes
 
 @Composable

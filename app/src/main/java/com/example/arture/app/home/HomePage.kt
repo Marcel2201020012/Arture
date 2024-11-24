@@ -1,4 +1,4 @@
-package com.example.arture
+package com.example.arture.app.home
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -35,7 +35,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.arture.R
+import com.example.arture.app.footerMenuScreen
+import com.example.arture.app.home.component.artikelPopulerGenerator
+import com.example.arture.app.home.component.lowonganTerbaruGenerator
+import com.example.arture.app.linearBgBrush
 import com.example.arture.data.DataStore
+import com.example.arture.data.DummyData
 import com.example.arture.ui.theme.poppinsFont
 import model.ArtikelPopulerCardModel
 import model.LowonganTerbaruCardModel
@@ -276,7 +282,7 @@ fun homePageScreen(navController: NavController, dataStore: DataStore) {
                                     }
                                 }
                             }
-                            Spacer(modifier = Modifier.height(12.dp))
+                            Spacer(modifier = Modifier.height(36.dp))
 
                             //artikel
                             Row(
@@ -294,7 +300,7 @@ fun homePageScreen(navController: NavController, dataStore: DataStore) {
                                     contentDescription = "lihat semua",
                                     modifier = Modifier.clickable { /*do stuff*/ })
                             }
-                            Spacer(modifier = Modifier.height(12.dp))
+                            Spacer(modifier = Modifier.height(8.dp))
                         }
 
                         //Artikel Populer
@@ -311,7 +317,7 @@ fun homePageScreen(navController: NavController, dataStore: DataStore) {
                                 .fillMaxWidth()
                                 .background(Color.White)
                         ) {
-                            Spacer(modifier = Modifier.height(12.dp))
+                            Spacer(modifier = Modifier.height(36.dp))
 
                             Row(
                                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -328,7 +334,7 @@ fun homePageScreen(navController: NavController, dataStore: DataStore) {
                                     contentDescription = "lihat semua",
                                     modifier = Modifier.clickable { /*do stuff*/ })
                             }
-                            Spacer(modifier = Modifier.height(12.dp))
+                            Spacer(modifier = Modifier.height(8.dp))
 
                             //Lowongan Card
                             Column(
@@ -369,39 +375,23 @@ fun artikelPopulerView() {
 //Lowongan kerja function
 @Composable
 fun lowonganTerbaruView(navController: NavController) {
-    val lowongan = listOf(
-        LowonganTerbaruCardModel(
-            "Technical Sales Feedmill",
-            "PT. Sreeya Sewu Indonesia, Tbk",
-            "Blitar, Jawa Timur",
-            13,
-            R.drawable.lowongan_img_test
-        ),
-        LowonganTerbaruCardModel(
-            "Technical Sales Feedmill",
-            "PT. Sreeya Sewu Indonesia, Tbk",
-            "Blitar, Jawa Timur",
-            13,
-            R.drawable.lowongan_img_test
-        ),
-        LowonganTerbaruCardModel(
-            "Technical Sales Feedmill",
-            "PT. Sreeya Sewu Indonesia, Tbk",
-            "Blitar, Jawa Timur",
-            13,
-            R.drawable.lowongan_img_test
-        ),
-        LowonganTerbaruCardModel(
-            "Technical Sales Feedmill",
-            "PT. Sreeya Sewu Indonesia, Tbk",
-            "Blitar, Jawa Timur",
-            13,
-            R.drawable.lowongan_img_test
-        )
+//    val lowongan = listOf(
+//        LowonganTerbaruCardModel(
+//            id = 1,
+//            judul = "Technical Sales Feedmill",
+//            pt = "PT. Sreeya Sewu Indonesia, Tbk",
+//            alamat = "Blitar, Jawa Timur",
+//            jam = 13,
+//            img = R.drawable.lowongan_img_test,
+//            kualifikasi = "• Candidate must posses at least Bachelor degree in Animal Husbandry / Veterinarian\n" +
+//                    "• Candidate must posses at least Bachelor degree in Animal Husbandry / Veterinarian\n" +
+//                    "• Candidate must posses at least Bachelor degree in Animal Husbandry / Veterinarian\n"
+//
+//        ),
+//    )
 
-    )
-
-    lowonganTerbaruGenerator(lowongan, navController)
+    lowonganTerbaruGenerator(cardItem = DummyData.lowongancard,
+        navController)
 }
 
 @Preview(showBackground = true)

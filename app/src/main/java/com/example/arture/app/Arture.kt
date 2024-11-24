@@ -1,4 +1,4 @@
-package com.example.arture
+package com.example.arture.app
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -21,7 +21,18 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.arture.app.akun.AkunPageScreen
+import com.example.arture.app.akun.EditAkunPageScreen
+import com.example.arture.app.home.DisimpanPageScreen
+import com.example.arture.app.home.FirstLogin
+import com.example.arture.app.home.LoginCheckScreen
+import com.example.arture.app.home.LoginScreen
+import com.example.arture.app.home.StatusPekerjaan
+import com.example.arture.app.home.homePageScreen
+import com.example.arture.app.home.signInScreen
 import com.example.arture.data.DataStore
+import com.example.arture.app.pekerjaan.DetailPekerjaan
+import com.example.arture.app.pekerjaan.Pekerjaan
 import com.example.arture.ui.theme.ArtureTheme
 import navigation.NavigationRoutes
 
@@ -45,7 +56,7 @@ fun ArtureScreen() {
 
         NavHost(
             navController = navController,
-            startDestination = NavigationRoutes.loginCheck,
+            startDestination = NavigationRoutes.beranda,
             builder = {
                 composable(NavigationRoutes.loginCheck) {
                     LoginCheckScreen(navController)
@@ -81,8 +92,15 @@ fun ArtureScreen() {
                         showFooterMenu = true
                     }
                 }
-                composable(NavigationRoutes.detailPekerjaan) {
-                    DetailPekerjaan(navController)
+                composable(
+                    NavigationRoutes.detailPekerjaan + "/{lowonganId}",
+                    arguments = listOf(navArgument("lowonganId")
+                    { type = NavType.IntType })
+                ) { navBackStackEntry ->
+                    DetailPekerjaan(
+                        navController,
+                        lowongansId = navBackStackEntry.arguments?.getInt("lowonganId")
+                    )
                     showFooterMenu = false
                 }
                 composable(NavigationRoutes.diskusi) {

@@ -1,4 +1,4 @@
-package com.example.arture
+package com.example.arture.app
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

@@ -1,4 +1,4 @@
-package com.example.arture
+package com.example.arture.app
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.arture.R
 import com.example.arture.ui.theme.poppinsFont
 import navigation.NavigationRoutes
 

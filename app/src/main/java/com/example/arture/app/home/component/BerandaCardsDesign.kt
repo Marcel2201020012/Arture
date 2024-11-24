@@ -1,4 +1,4 @@
-package com.example.arture
+package com.example.arture.app.home.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -49,6 +49,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.arture.R
+import com.example.arture.data.DummyData
 import com.example.arture.ui.theme.poppinsFont
 import model.ArtikelPopulerCardModel
 import model.DiskusiCardModel
@@ -180,7 +182,9 @@ fun BerandaArtikelCardDesign(item: ArtikelPopulerCardModel) {
 }
 
 @Composable
-fun BerandaLowonganCardDesign(item: LowonganTerbaruCardModel, navController: NavController) {
+fun BerandaLowonganCardDesign(lowongan: LowonganTerbaruCardModel,
+                              navController: NavController,
+                              onItemClicked: (Int) -> Unit) {
     Box(
         modifier = Modifier
             .background(
@@ -202,21 +206,24 @@ fun BerandaLowonganCardDesign(item: LowonganTerbaruCardModel, navController: Nav
                 modifier = Modifier
                     .padding(12.dp)
                     .fillMaxSize(),
-                horizontalArrangement = Arrangement.SpaceEvenly,
+                horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.lowongan_img_test),
+                    painter = painterResource(lowongan.img),
                     contentDescription = "Logo PT",
-                    modifier = Modifier.size(86.dp)
+                    modifier = Modifier
+                        .size(86.dp)
+                        .padding(5.dp)
                 )
 
                 Column(
                     verticalArrangement = Arrangement.SpaceEvenly,
                     modifier = Modifier.fillMaxHeight()
+                        .width(200.dp)
                 ) {
                     Text(
-                        text = item.judul,
+                        text = lowongan.judul,
                         fontFamily = poppinsFont,
                         style = MaterialTheme.typography.bodyLarge,
                         fontWeight = FontWeight.Bold,
@@ -225,14 +232,14 @@ fun BerandaLowonganCardDesign(item: LowonganTerbaruCardModel, navController: Nav
                         overflow = TextOverflow.Ellipsis
                     )
                     Text(
-                        text = item.pt,
+                        text = lowongan.pt,
                         fontFamily = poppinsFont,
                         style = MaterialTheme.typography.bodySmall,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )
                     Text(
-                        text = item.alamat,
+                        text = lowongan.alamat,
                         fontFamily = poppinsFont,
                         style = MaterialTheme.typography.bodySmall,
                         maxLines = 1,
@@ -245,7 +252,7 @@ fun BerandaLowonganCardDesign(item: LowonganTerbaruCardModel, navController: Nav
                         )
                         Spacer(modifier = Modifier.width(4.dp))
                         Text(
-                            text = "${item.jam} jam yang lalu",
+                            text = "${lowongan.jam} jam yang lalu",
                             fontFamily = poppinsFont,
                             style = MaterialTheme.typography.bodySmall,
                             fontSize = 8.sp
@@ -253,7 +260,7 @@ fun BerandaLowonganCardDesign(item: LowonganTerbaruCardModel, navController: Nav
                     }
                 }
 
-                IconButton(onClick = { navController.navigate(NavigationRoutes.detailPekerjaan) }) {
+                IconButton(onClick = {onItemClicked(lowongan.id)}) {
                     Image(
                         painter = painterResource(id = R.drawable.beranda_lowongan_arrow),
                         contentDescription = "logo arrow"
@@ -551,12 +558,18 @@ fun artikelPopulerGenerator(cardItem: List<ArtikelPopulerCardModel>) {
 }
 
 @Composable
-fun lowonganTerbaruGenerator(cardItem: List<LowonganTerbaruCardModel>, navController: NavController) {
+fun lowonganTerbaruGenerator(
+    cardItem: List<LowonganTerbaruCardModel>,
+    navController: NavController) {
     LazyColumn(
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        items(cardItem) { item ->
-            BerandaLowonganCardDesign(item, navController)
+        items(cardItem, key = { it.id }) {
+            BerandaLowonganCardDesign(lowongan = it, navController)
+            { lowonganId -> navController.navigate(
+                    NavigationRoutes.detailPekerjaan + "/$lowonganId"
+                )
+            }
         }
     }
 }
@@ -599,15 +612,36 @@ fun testBerandaCardDesign() {
 //            R.drawable.artikel_img_test
 //        )
 //    )
-//    BerandaLowonganCardDesign(
-//        item = LowonganTerbaruCardModel(
-//            "Technical Sales Feedmill",
-//            "PT. Sreeya Sewu Indonesia, Tbk",
-//            "Blitar, Jawa Timur",
-//            13,
-//            R.drawable.lowongan_img_test
-//        )
-//    )
+    Column {
+        BerandaLowonganCardDesign(
+            lowongan = LowonganTerbaruCardModel(
+                id = 1,
+                judul = "Technical Sales Feedmill",
+                pt = "PT. Sreeya Sewu Indonesia, Tbk",
+                alamat = "Blitar, Jawa Timur",
+                jam = 13,
+                img = R.drawable.lowongan_img_test,
+                kualifikasi = " ",
+                pertanyaan = " "
+            ),
+            navController = rememberNavController(),
+            onItemClicked = {}
+        )
+        BerandaLowonganCardDesign(
+            lowongan = LowonganTerbaruCardModel(
+                id = 2,
+                judul = "Field Officer",
+                pt = "PT Berindo Jaya",
+                alamat = "Bandar Lampung, Lampung",
+                jam = 13,
+                img = R.drawable.lowongan_img_barindojaya,
+                kualifikasi = " ",
+                pertanyaan = " "
+            ),
+            navController = rememberNavController(),
+            onItemClicked = {}
+        )
+    }
 //    DisimpanArtikelDesign(
 //        item = ArtikelPopulerCardModel(
 //            "Budidaya Tanaman Jagung dengan...",
@@ -616,17 +650,17 @@ fun testBerandaCardDesign() {
 //            R.drawable.artikel_img_test
 //        )
 //    )
-    DiskusiCardDesign(
-        item = DiskusiCardModel(
-            R.drawable.beranda_profile_picture,
-            "Muhammad Sumbul",
-            "Petani",
-            "Halo semua, musim kemarau ini cukup panjang dan saya khawatir dengan irigasi di lahan saya. Ada ya...",
-            25,
-            13
-        ),
-        onAnswerClick = {}
-    )
+//    DiskusiCardDesign(
+//        item = DiskusiCardModel(
+//            R.drawable.beranda_profile_picture,
+//            "Muhammad Sumbul",
+//            "Petani",
+//            "Halo semua, musim kemarau ini cukup panjang dan saya khawatir dengan irigasi di lahan saya. Ada ya...",
+//            25,
+//            13
+//        ),
+//        onAnswerClick = {}
+//    )
 //    KomentarCardDesign(
 //        item =
 //        KomentarCardModel(

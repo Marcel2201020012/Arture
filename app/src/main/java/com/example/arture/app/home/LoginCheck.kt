@@ -1,4 +1,4 @@
-package com.example.arture
+package com.example.arture.app.home
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize

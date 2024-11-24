@@ -1,4 +1,4 @@
-package com.example.arture
+package com.example.arture.app.akun
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -36,6 +36,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.arture.R
+import com.example.arture.app.footerMenuScreen
+import com.example.arture.app.linearBgBrush
 import com.example.arture.ui.theme.poppinsFont
 import navigation.NavigationRoutes
 
@@ -131,7 +134,8 @@ fun EditBiodataPage() {
                         .background(brush = linearBgBrush(
                             isVerticalGradient = false,
                             colors = listOf(Color(0xFF90A955), Color(0xFFECF39E))
-                        ))
+                        )
+                        )
                         .clickable { /*do something*/ }, contentAlignment = Alignment.Center
                 ) {
                     Icon(
