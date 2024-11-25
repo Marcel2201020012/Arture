@@ -133,7 +133,9 @@ fun homePageScreen(navController: NavController, dataStore: DataStore) {
                                         Image(
                                             bitmap = bitmap.asImageBitmap(),
                                             contentDescription = "profil image",
-                                            Modifier.fillMaxSize().clip(CircleShape),
+                                            Modifier
+                                                .fillMaxSize()
+                                                .clip(CircleShape),
                                             contentScale = ContentScale.Crop
                                         )
                                     }
@@ -288,7 +290,9 @@ fun homePageScreen(navController: NavController, dataStore: DataStore) {
                                             .background(
                                                 color = Color.White
                                             )
-                                            .clickable { /*do stuff*/ }) {
+                                            .clickable {
+                                                navController.navigate(NavigationRoutes.riwayat)
+                                            }) {
                                             Image(
                                                 painter = painterResource(id = R.drawable.beranda_riwayat_icon),
                                                 contentDescription = "riwayat icon"
@@ -405,8 +409,10 @@ fun lowonganTerbaruView(navController: NavController) {
 //        ),
 //    )
 
-    lowonganTerbaruGenerator(cardItem = DummyData.lowongancard,
-        navController)
+    lowonganTerbaruGenerator(
+        cardItem = DummyData.lowongancard,
+        navController
+    )
 }
 
 @Preview(showBackground = true)

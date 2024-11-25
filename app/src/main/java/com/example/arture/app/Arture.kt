@@ -30,6 +30,7 @@ import com.example.arture.app.home.LoginCheckScreen
 import com.example.arture.app.home.LoginScreen
 import com.example.arture.app.home.StatusPekerjaan
 import com.example.arture.app.home.component.NotifikasiScreen
+import com.example.arture.app.home.component.RiwayatScreen
 import com.example.arture.app.home.homePageScreen
 import com.example.arture.app.home.signInScreen
 import com.example.arture.data.DataStore
@@ -86,6 +87,10 @@ fun ArtureScreen() {
                 }
                 composable(NavigationRoutes.statusPekerjaan) {
                     StatusPekerjaan(navController)
+                    showFooterMenu = false
+                }
+                composable(NavigationRoutes.riwayat) {
+                    RiwayatScreen(navController)
                     showFooterMenu = false
                 }
                 composable(NavigationRoutes.pekerjaan) {
