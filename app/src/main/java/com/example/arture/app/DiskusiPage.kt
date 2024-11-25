@@ -43,6 +43,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.arture.R
 import com.example.arture.app.home.component.DiskusiGenerator
 import com.example.arture.app.home.component.KomentarGenerator
@@ -653,14 +654,14 @@ fun TestDiskusiPage() {
 //        13
 //    )
 
-    Box {
-        //DiskusiPageScreen(rememberNavController(), showFooterMenu = {})
-        MasukkanPertanyaanScreen()
+//    Box {
+        DiskusiPageScreen(rememberNavController(), showFooterMenu = {})
+//        MasukkanPertanyaanScreen()
 //        JawabanScreen(dummy)
 //        footerMenuScreen(
 //            modifier = Modifier.align(Alignment.BottomCenter),
 //            rememberNavController(),
 //            currentRoute = null
 //        )
-    }
+//    }
 }

@@ -29,6 +29,7 @@ import com.example.arture.app.home.FirstLogin
 import com.example.arture.app.home.LoginCheckScreen
 import com.example.arture.app.home.LoginScreen
 import com.example.arture.app.home.StatusPekerjaan
+import com.example.arture.app.home.component.NotifikasiScreen
 import com.example.arture.app.home.homePageScreen
 import com.example.arture.app.home.signInScreen
 import com.example.arture.data.DataStore
@@ -112,6 +113,10 @@ fun ArtureScreen() {
                 composable(NavigationRoutes.akun) {
                     AkunPageScreen(navController, dataStore)
                     showFooterMenu = true
+                }
+                composable(NavigationRoutes.notifikasi){
+                    NotifikasiScreen(navController)
+                    showFooterMenu = false
                 }
                 composable(
                     route = "EditAkunPage/{page}/{title}/{desc}",

@@ -107,7 +107,7 @@ fun homePageScreen(navController: NavController, dataStore: DataStore) {
                                 )
                                 .size(36.dp)
                                 .clickable {
-                                    //do stuff
+                                    navController.navigate(NavigationRoutes.notifikasi)
                                 }) {
                                 Icon(
                                     painter = painterResource(id = R.drawable.beranda_notif_icon),
