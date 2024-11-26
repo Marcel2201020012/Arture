@@ -53,7 +53,7 @@ import navigation.NavigationRoutes
 fun homePageScreen(navController: NavController, dataStore: DataStore) {
 
     val userName by dataStore.getUserName.collectAsState(initial = "")
-    val fotoProfil by dataStore.fotoProfil.collectAsState(initial = null)
+    val fotoProfil by dataStore.fotoProfil.collectAsState(initial = "")
 
     val colorList = listOf(
         Color(0xFF90A955), Color(0xFFECF39E)
@@ -107,7 +107,7 @@ fun homePageScreen(navController: NavController, dataStore: DataStore) {
                                 )
                                 .size(36.dp)
                                 .clickable {
-                                    //do stuff
+                                    navController.navigate(NavigationRoutes.notifikasi)
                                 }) {
                                 Icon(
                                     painter = painterResource(id = R.drawable.beranda_notif_icon),
@@ -127,24 +127,25 @@ fun homePageScreen(navController: NavController, dataStore: DataStore) {
                                 .clickable {
                                     navController.navigate(NavigationRoutes.akun)
                                 }) {
+                                Icon(
+                                    painter = painterResource(
+                                        id = R.drawable.beranda_profile_picture
+                                    ),
+                                    contentDescription = "profile_picture",
+                                    tint = Color.Unspecified
+                                )
                                 if (fotoProfil != "") {
                                     val bitmap = BitmapFactory.decodeFile(fotoProfil)
                                     if (bitmap != null) {
                                         Image(
                                             bitmap = bitmap.asImageBitmap(),
                                             contentDescription = "profil image",
-                                            Modifier.fillMaxSize().clip(CircleShape),
+                                            Modifier
+                                                .fillMaxSize()
+                                                .clip(CircleShape),
                                             contentScale = ContentScale.Crop
                                         )
                                     }
-                                } else {
-                                    Icon(
-                                        painter = painterResource(
-                                            id = R.drawable.beranda_profile_picture
-                                        ),
-                                        contentDescription = "profile_picture",
-                                        tint = Color.Unspecified
-                                    )
                                 }
                             }
                         }
@@ -288,7 +289,9 @@ fun homePageScreen(navController: NavController, dataStore: DataStore) {
                                             .background(
                                                 color = Color.White
                                             )
-                                            .clickable { /*do stuff*/ }) {
+                                            .clickable {
+                                                navController.navigate(NavigationRoutes.riwayat)
+                                            }) {
                                             Image(
                                                 painter = painterResource(id = R.drawable.beranda_riwayat_icon),
                                                 contentDescription = "riwayat icon"

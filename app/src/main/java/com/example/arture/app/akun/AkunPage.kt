@@ -50,7 +50,7 @@ import navigation.NavigationRoutes
 @Composable
 fun AkunPageScreen(navController: NavController, dataStore: DataStore) {
 
-    val fotoProfil by dataStore.fotoProfil.collectAsState(initial = null)
+    val fotoProfil by dataStore.fotoProfil.collectAsState(initial = "")
     val userName by dataStore.getUserName.collectAsState(initial = "")
 
     val coroutineScope = rememberCoroutineScope()
@@ -111,6 +111,11 @@ fun AkunPageScreen(navController: NavController, dataStore: DataStore) {
                             .size(90.dp),
                         contentAlignment = Alignment.Center
                     ) {
+                        Image(
+                            painter = painterResource(id = R.drawable.beranda_profile_picture),
+                            contentDescription = "profil image",
+                            Modifier.size(84.dp)
+                        )
                         if (fotoProfil != "") {
                             val bitmap = BitmapFactory.decodeFile(fotoProfil)
                             if (bitmap != null) {
@@ -123,12 +128,6 @@ fun AkunPageScreen(navController: NavController, dataStore: DataStore) {
                                     contentScale = ContentScale.Crop
                                 )
                             }
-                        } else {
-                            Image(
-                                painter = painterResource(id = R.drawable.beranda_profile_picture),
-                                contentDescription = "profil image",
-                                Modifier.size(84.dp)
-                            )
                         }
                     }
 

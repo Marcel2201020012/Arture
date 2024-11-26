@@ -147,6 +147,7 @@ fun LoginScreen(navController: NavController, context: Context, dataStore: DataS
                             Icon(
                                 painter = painterResource(id = R.drawable.mail),
                                 contentDescription = "gmail_logo",
+                                tint = Color.Black,
                                 modifier = Modifier.size(28.dp)
                             )
                         })
@@ -173,6 +174,7 @@ fun LoginScreen(navController: NavController, context: Context, dataStore: DataS
                                 Icon(
                                     painter = eye,
                                     contentDescription = "eye_status_1",
+                                    tint = Color.Black,
                                     modifier = Modifier.size(28.dp)
                                 )
                             }

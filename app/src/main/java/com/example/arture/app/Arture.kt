@@ -32,6 +32,8 @@ import com.example.arture.app.home.FirstLogin
 import com.example.arture.app.home.LoginCheckScreen
 import com.example.arture.app.home.LoginScreen
 import com.example.arture.app.home.StatusPekerjaan
+import com.example.arture.app.home.component.NotifikasiScreen
+import com.example.arture.app.home.component.RiwayatScreen
 import com.example.arture.app.home.homePageScreen
 import com.example.arture.app.home.signInScreen
 import com.example.arture.data.DataStore
@@ -91,6 +93,10 @@ fun ArtureScreen() {
                     StatusPekerjaan(navController)
                     showFooterMenu = false
                 }
+                composable(NavigationRoutes.riwayat) {
+                    RiwayatScreen(navController)
+                    showFooterMenu = false
+                }
                 composable(NavigationRoutes.edukasi) {
                     Edukasi(navController)
                     showFooterMenu = true
@@ -112,12 +118,6 @@ fun ArtureScreen() {
                         showFooterMenu = true
                     }
                 }
-//                composable(NavigationRoutes.expandable) {
-//                    ExpandableContentList(navController, newArtikelList = new)
-//                    LaunchedEffect(Unit) {
-//                        showFooterMenu = false
-//                    }
-//                }
                 composable(
                     NavigationRoutes.detailPekerjaan + "/{lowonganId}",
                     arguments = listOf(navArgument("lowonganId")
@@ -137,6 +137,10 @@ fun ArtureScreen() {
                 composable(NavigationRoutes.akun) {
                     AkunPageScreen(navController, dataStore)
                     showFooterMenu = true
+                }
+                composable(NavigationRoutes.notifikasi){
+                    NotifikasiScreen(navController)
+                    showFooterMenu = false
                 }
                 composable(
                     route = "EditAkunPage/{page}/{title}/{desc}",
