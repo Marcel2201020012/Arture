@@ -139,7 +139,7 @@ fun EditAkunPageScreen(
 fun EditBiodataPage(navController: NavController, dataStore: DataStore, context: Context) {
 
     //data store
-    val fotoProfil by dataStore.fotoProfil.collectAsState(initial = null)
+    val fotoProfil by dataStore.fotoProfil.collectAsState(initial = "")
     val userName by dataStore.getUserName.collectAsState(initial = "")
 
     //user profil data
@@ -212,6 +212,11 @@ fun EditBiodataPage(navController: NavController, dataStore: DataStore, context:
                     .size(90.dp),
                 contentAlignment = Alignment.Center
             ) {
+                Image(
+                    painter = painterResource(id = R.drawable.beranda_profile_picture),
+                    contentDescription = "profil image",
+                    Modifier.size(84.dp)
+                )
                 if (fotoProfil != "") {
                     val bitmap = BitmapFactory.decodeFile(fotoProfil)
                     if (bitmap != null) {
@@ -224,12 +229,6 @@ fun EditBiodataPage(navController: NavController, dataStore: DataStore, context:
                             contentScale = ContentScale.Crop
                         )
                     }
-                } else {
-                    Image(
-                        painter = painterResource(id = R.drawable.beranda_profile_picture),
-                        contentDescription = "profil image",
-                        Modifier.size(84.dp)
-                    )
                 }
             }
         }
