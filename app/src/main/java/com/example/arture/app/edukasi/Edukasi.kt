@@ -60,6 +60,7 @@ fun Edukasi(
             .fillMaxSize()
     ) {
         Column (
+            Modifier.padding(bottom = 80.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             var text by remember { mutableStateOf("") }
@@ -127,7 +128,7 @@ fun Edukasi(
             }
             OutlinedTextField(
                 modifier = Modifier
-                    .offset(y = -35.dp)
+                    .offset(y = (-35).dp)
                     .background(
                         color = Color.LightGray,
                         shape = RoundedCornerShape(66.dp)
@@ -138,7 +139,7 @@ fun Edukasi(
                 onValueChange = { text = it },
                 colors = OutlinedTextFieldDefaults.colors(
                     focusedBorderColor = Color.White,
-                    unfocusedBorderColor = Color.White,
+                    unfocusedBorderColor = Color.Transparent,
                 ),
                 leadingIcon = {
                     Icon(
@@ -179,7 +180,7 @@ fun Edukasi(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(start = 16.dp, end = 16.dp, top = 16.dp)
-                    .offset(y = -15.dp)
+                    .offset(y = (-15).dp)
             ) {
                 Text(
                     text = "Artikel Lainnya",
@@ -191,7 +192,8 @@ fun Edukasi(
                     contentDescription = "lihat semua",
                     modifier = Modifier.clickable { /*do stuff*/ })
             }
-            Row {
+
+            Column{
                 DisimpanArtikelView(navController)
             }
 

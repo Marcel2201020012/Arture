@@ -13,10 +13,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
@@ -39,26 +35,10 @@ fun footerMenuScreen(
 
     //state
     val berandaButtonIsClicked = currentRoute == NavigationRoutes.beranda
-//    val edukasiButtonIsClicked = currentRoute == NavigationRoutes.edukasi
+    val edukasiButtonIsClicked = currentRoute == NavigationRoutes.edukasi
     val pekerjaanButtonIsClicked = currentRoute == NavigationRoutes.pekerjaan
     val diskusiButtonIsClicked = currentRoute == NavigationRoutes.diskusi
     val akunButtonIsClicked = currentRoute == NavigationRoutes.akun
-
-//    var berandaButtonIsClicked by remember {
-//        mutableStateOf(true)
-//    }
-    var edukasiButtonIsClicked by remember {
-        mutableStateOf(false)
-    }
-//    var pekerjaanButtonIsClicked by remember {
-//        mutableStateOf(false)
-//    }
-//    var diskusiButtonIsClicked by remember {
-//        mutableStateOf(false)
-//    }
-//    var akunButtonIsClicked by remember {
-//        mutableStateOf(false)
-//    }
 
     val (berandaIcon, berandaIconText) = if (berandaButtonIsClicked) Pair(
         R.drawable.footer_home_icon_activated,
@@ -116,7 +96,6 @@ fun footerMenuScreen(
                 ) {
                     IconButton(
                         onClick = {
-                            edukasiButtonIsClicked = false
                             navController.navigate(NavigationRoutes.beranda) {
                                 popUpTo(0) {
                                     inclusive = true
@@ -148,7 +127,6 @@ fun footerMenuScreen(
                 ) {
                     IconButton(
                         onClick = {
-                            edukasiButtonIsClicked = false
                             navController.navigate(NavigationRoutes.edukasi) {
                                 popUpTo(NavigationRoutes.beranda) {
                                     inclusive = false }
@@ -179,7 +157,6 @@ fun footerMenuScreen(
                 ) {
                     IconButton(
                         onClick = {
-                            edukasiButtonIsClicked = false
                             navController.navigate(NavigationRoutes.pekerjaan) {
                                 popUpTo(NavigationRoutes.beranda){
                                     inclusive = false
@@ -211,7 +188,6 @@ fun footerMenuScreen(
                 ) {
                     IconButton(
                         onClick = {
-                            edukasiButtonIsClicked = false
                             navController.navigate(NavigationRoutes.diskusi) {
                                 popUpTo(NavigationRoutes.beranda){
                                     inclusive = false
@@ -243,7 +219,6 @@ fun footerMenuScreen(
                 ) {
                     IconButton(
                         onClick = {
-                            edukasiButtonIsClicked = false
                             navController.navigate(NavigationRoutes.akun) {
                                 popUpTo(NavigationRoutes.beranda){
                                     inclusive = false

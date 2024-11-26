@@ -1,7 +1,10 @@
 package com.example.arture.app.edukasi
 
+import EbookContent
 import ExpandableCard
 import ExpandableContentList
+import TextContent
+import VideoContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -17,7 +20,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberBasicTooltipState
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -142,15 +147,15 @@ fun DetailEdukasiContent(
                         )
                     ),
                     modifier = Modifier
-                        .padding(start = 16.dp ,top = 185.dp)
-                        .width(300.dp)
+                        .padding(start = 16.dp, top = 185.dp)
+                        .fillMaxWidth()
                 )
             }
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(680.dp)
-                    .offset(y = -12.dp)
+                    .offset(y = (-12).dp)
                     .background(
                         color = Color.White,
                         shape = RoundedCornerShape(16.dp)
@@ -160,20 +165,21 @@ fun DetailEdukasiContent(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(16.dp)
+                        .verticalScroll(rememberScrollState())
                 ) {
                     ExpandableCard(
                         title = "Artikel",
-                        content = newArtikelList[0].desc
+                        content = { TextContent(newArtikelList[0].desc) }
                     )
                     Spacer(modifier = Modifier.height(8.dp))
                     ExpandableCard(
                         title = "Video",
-                        content = newArtikelList[0].yt
+                        content = { VideoContent(newArtikelList[0].yt) }
                     )
                     Spacer(modifier = Modifier.height(8.dp))
                     ExpandableCard(
                         title = "E-Book",
-                        content = newArtikelList[0].ebook
+                        content = { EbookContent(newArtikelList[0].ebook) }
                     )
                 }
 

@@ -278,9 +278,9 @@ fun Pekerjaan(navController: NavController) {
             }
             Column(
                 modifier = Modifier
-//                    .padding(
-//                        end = 16.dp, start = 16.dp
-//                    )
+                    .padding(
+                        end = 16.dp, start = 16.dp
+                    )
                     .fillMaxWidth()
                     .background(Color.White),
                 horizontalAlignment = Alignment.CenterHorizontally
