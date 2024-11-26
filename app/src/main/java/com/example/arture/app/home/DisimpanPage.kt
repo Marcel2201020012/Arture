@@ -30,11 +30,14 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.arture.R
 import com.example.arture.app.home.component.DisimpanArtikelGenerator
 import com.example.arture.app.linearBgBrush
+import com.example.arture.data.DummyData
 import com.example.arture.ui.theme.poppinsFont
 import model.ArtikelPopulerCardModel
 import navigation.NavigationRoutes
@@ -189,48 +192,24 @@ fun DisimpanPageScreen(navController: NavController) {
                     .padding(top = 20.dp, start = 20.dp, end = 20.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                if (edukasiIsClicked) DisimpanArtikelView() else lowonganTerbaruView(navController)
+                if (edukasiIsClicked) DisimpanArtikelView(navController) else lowonganTerbaruView(navController)
             }
         }
     }
 }
 
 @Composable
-fun DisimpanArtikelView() {
-    val artikel = listOf(
-        ArtikelPopulerCardModel(
-            "Budidaya Tanaman Jagung dengan...",
-            "Jagung merupakan salah satu komoditas tanaman pangan...",
-            13,
-            R.drawable.artikel_img_test
-        ),
-        ArtikelPopulerCardModel(
-            "Budidaya Tanaman Jagung dengan...",
-            "Jagung merupakan salah satu komoditas tanaman pangan...",
-            13,
-            R.drawable.artikel_img_test
-        ),
-        ArtikelPopulerCardModel(
-            "Budidaya Tanaman Jagung dengan...",
-            "Jagung merupakan salah satu komoditas tanaman pangan...",
-            13,
-            R.drawable.artikel_img_test
-        ),
-        ArtikelPopulerCardModel(
-            "Budidaya Tanaman Jagung dengan...",
-            "Jagung merupakan salah satu komoditas tanaman pangan...",
-            13,
-            R.drawable.artikel_img_test
-        )
-    )
-    DisimpanArtikelGenerator(cardItem = artikel)
+fun DisimpanArtikelView(navController: NavController) {
+    DisimpanArtikelGenerator(
+        cardItem = DummyData.artikelcard,
+        navController)
 }
 
-//@Preview
-//@Composable
-//fun TestDisimpanPageScreen() {
-//    Box {
-//        DisimpanPageScreen(rememberNavController())
-//        footerMenuScreen(modifier = Modifier.align(Alignment.BottomCenter), rememberNavController(), currentRoute = null)
-//    }
-//}
+@Preview
+@Composable
+fun TestDisimpanPageScreen() {
+    Box {
+        DisimpanPageScreen(rememberNavController())
+        //footerMenuScreen(modifier = Modifier.align(Alignment.BottomCenter), rememberNavController(), currentRoute = null)
+    }
+}

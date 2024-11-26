@@ -3,10 +3,14 @@ package model
 import com.example.arture.app.home.component.JobStatus
 
 data class ArtikelPopulerCardModel(
+    val id: Int,
     val judul: String,
     val desc: String,
     val jam: Int,
-    val img: Int
+    val img: Int,
+    val yt: String,
+    val ebook: String,
+    var isExpanded: Boolean = false
 )
 
 data class LowonganTerbaruCardModel(

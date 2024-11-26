@@ -59,7 +59,8 @@ import model.LowonganTerbaruCardModel
 import navigation.NavigationRoutes
 
 @Composable
-fun BerandaArtikelCardDesign(item: ArtikelPopulerCardModel) {
+fun BerandaArtikelCardDesign(artikel: ArtikelPopulerCardModel,
+                             onItemClicked: (Int) -> Unit) {
 
     var bookmarkIsClicked by remember {
         mutableStateOf(false)
@@ -96,7 +97,7 @@ fun BerandaArtikelCardDesign(item: ArtikelPopulerCardModel) {
                         )
                     )
                 )
-                .clickable { /*do stuff*/ }
+                .clickable { onItemClicked(artikel.id) }
         ) {
             Column(
                 modifier = Modifier
@@ -111,7 +112,7 @@ fun BerandaArtikelCardDesign(item: ArtikelPopulerCardModel) {
                         Box {
                             //judul
                             Text(
-                                text = item.judul,
+                                text = artikel.judul,
                                 fontFamily = poppinsFont,
                                 style = TextStyle(Color(0xFF2D786C)),
                                 fontSize = 16.sp,
@@ -128,7 +129,7 @@ fun BerandaArtikelCardDesign(item: ArtikelPopulerCardModel) {
                                     contentDescription = "logo jam"
                                 )
                                 Spacer(modifier = Modifier.width(4.dp))
-                                Text(text = "${item.jam} jam yang lalu", fontSize = 8.sp)
+                                Text(text = "${artikel.jam} jam yang lalu", fontSize = 8.sp)
                             }
                         }
 
@@ -141,7 +142,7 @@ fun BerandaArtikelCardDesign(item: ArtikelPopulerCardModel) {
                             contentAlignment = Alignment.Center
                         ) {
                             Image(
-                                painter = painterResource(id = item.img),
+                                painter = painterResource(id = artikel.img),
                                 contentDescription = null,
                                 modifier = Modifier
                                     .fillMaxSize()
@@ -159,7 +160,7 @@ fun BerandaArtikelCardDesign(item: ArtikelPopulerCardModel) {
                         modifier = Modifier.fillMaxWidth()
                     ) {
                         Text(
-                            text = item.desc,
+                            text = artikel.desc,
                             fontFamily = poppinsFont,
                             fontSize = 12.sp,
                             maxLines = 2,
@@ -183,7 +184,6 @@ fun BerandaArtikelCardDesign(item: ArtikelPopulerCardModel) {
 
 @Composable
 fun BerandaLowonganCardDesign(lowongan: LowonganTerbaruCardModel,
-                              navController: NavController,
                               onItemClicked: (Int) -> Unit) {
     Box(
         modifier = Modifier
@@ -272,7 +272,8 @@ fun BerandaLowonganCardDesign(lowongan: LowonganTerbaruCardModel,
 }
 
 @Composable
-fun DisimpanArtikelDesign(item: ArtikelPopulerCardModel) {
+fun DisimpanArtikelDesign(artikel: ArtikelPopulerCardModel,
+                          onItemClicked: (Int) -> Unit) {
     Surface(
         shadowElevation = 8.dp,
         shape = RoundedCornerShape(16.dp)
@@ -300,6 +301,7 @@ fun DisimpanArtikelDesign(item: ArtikelPopulerCardModel) {
                         )
                     )
                     .size(width = 360.dp, height = 160.dp)
+                    .clickable { onItemClicked(artikel.id) }
             ) {
                 Row(
                     modifier = Modifier
@@ -309,9 +311,13 @@ fun DisimpanArtikelDesign(item: ArtikelPopulerCardModel) {
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Image(
-                        modifier = Modifier.size(120.dp),
-                        painter = painterResource(id = R.drawable.disimapan_artikel_img_test),
-                        contentDescription = "gambar artikel"
+                        modifier = Modifier
+                            .width(120.dp)
+                            .height(120.dp)
+                            .clip(RoundedCornerShape(16.dp)),
+                        painter = painterResource(artikel.img),
+                        contentDescription = "gambar artikel",
+                        contentScale = ContentScale.Crop,
                     )
                     Column(
                         modifier = Modifier
@@ -320,7 +326,7 @@ fun DisimpanArtikelDesign(item: ArtikelPopulerCardModel) {
                         verticalArrangement = Arrangement.SpaceBetween
                     ) {
                         Text(
-                            text = item.judul,
+                            text = artikel.judul,
                             fontFamily = poppinsFont,
                             style = TextStyle(Color(0xFF2D786C)),
                             fontSize = 16.sp,
@@ -331,7 +337,7 @@ fun DisimpanArtikelDesign(item: ArtikelPopulerCardModel) {
                         )
                         Spacer(modifier = Modifier.height(4.dp))
                         Text(
-                            text = item.desc,
+                            text = artikel.desc,
                             fontFamily = poppinsFont,
                             fontSize = 12.sp,
                             maxLines = 2,
@@ -351,7 +357,7 @@ fun DisimpanArtikelDesign(item: ArtikelPopulerCardModel) {
                                     contentDescription = "logo jam"
                                 )
                                 Spacer(modifier = Modifier.width(4.dp))
-                                Text(text = "${item.jam} jam yang lalu", fontSize = 8.sp)
+                                Text(text = "${artikel.jam} jam yang lalu", fontSize = 8.sp)
                             }
 
                             Icon(
@@ -546,13 +552,20 @@ fun KomentarCardDesign(item: KomentarCardModel) {
 }
 
 @Composable
-fun artikelPopulerGenerator(cardItem: List<ArtikelPopulerCardModel>) {
+fun artikelPopulerGenerator(
+    cardItem: List<ArtikelPopulerCardModel>,
+    navController: NavController) {
     LazyRow(
         contentPadding = PaddingValues(horizontal = 12.dp),
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        items(cardItem) { item ->
-            BerandaArtikelCardDesign(item)
+        items(cardItem, key = { it.id}) {
+            BerandaArtikelCardDesign(artikel = it,)
+            {
+                artikelId -> navController.navigate(
+                    NavigationRoutes.detailArtikel + "/$artikelId"
+                )
+            }
         }
     }
 }
@@ -565,7 +578,7 @@ fun lowonganTerbaruGenerator(
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         items(cardItem, key = { it.id }) {
-            BerandaLowonganCardDesign(lowongan = it, navController)
+            BerandaLowonganCardDesign(lowongan = it)
             { lowonganId -> navController.navigate(
                     NavigationRoutes.detailPekerjaan + "/$lowonganId"
                 )
@@ -575,10 +588,17 @@ fun lowonganTerbaruGenerator(
 }
 
 @Composable
-fun DisimpanArtikelGenerator(cardItem: List<ArtikelPopulerCardModel>) {
+fun DisimpanArtikelGenerator(
+    cardItem: List<ArtikelPopulerCardModel>,
+    navController: NavController) {
     LazyColumn(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-        items(cardItem) { item ->
-            DisimpanArtikelDesign(item)
+        items(cardItem, key = { it.id}) {
+            DisimpanArtikelDesign(artikel = it,)
+            {
+                    artikelId -> navController.navigate(
+                NavigationRoutes.detailArtikel + "/$artikelId"
+            )
+            }
         }
     }
 }
@@ -612,43 +632,45 @@ fun testBerandaCardDesign() {
 //            R.drawable.artikel_img_test
 //        )
 //    )
-    Column {
-        BerandaLowonganCardDesign(
-            lowongan = LowonganTerbaruCardModel(
-                id = 1,
-                judul = "Technical Sales Feedmill",
-                pt = "PT. Sreeya Sewu Indonesia, Tbk",
-                alamat = "Blitar, Jawa Timur",
-                jam = 13,
-                img = R.drawable.lowongan_img_test,
-                kualifikasi = " ",
-                pertanyaan = " "
-            ),
-            navController = rememberNavController(),
-            onItemClicked = {}
-        )
-        BerandaLowonganCardDesign(
-            lowongan = LowonganTerbaruCardModel(
-                id = 2,
-                judul = "Field Officer",
-                pt = "PT Berindo Jaya",
-                alamat = "Bandar Lampung, Lampung",
-                jam = 13,
-                img = R.drawable.lowongan_img_barindojaya,
-                kualifikasi = " ",
-                pertanyaan = " "
-            ),
-            navController = rememberNavController(),
-            onItemClicked = {}
-        )
-    }
-//    DisimpanArtikelDesign(
-//        item = ArtikelPopulerCardModel(
-//            "Budidaya Tanaman Jagung dengan...",
-//            "Jagung merupakan salah satu komoditas tanaman pangan...",
-//            13,
-//            R.drawable.artikel_img_test
+//    Column {
+//        BerandaLowonganCardDesign(
+//            lowongan = LowonganTerbaruCardModel(
+//                id = 1,
+//                judul = "Technical Sales Feedmill",
+//                pt = "PT. Sreeya Sewu Indonesia, Tbk",
+//                alamat = "Blitar, Jawa Timur",
+//                jam = 13,
+//                img = R.drawable.lowongan_img_test,
+//                kualifikasi = " ",
+//                pertanyaan = " "
+//            ),
+//            onItemClicked = {}
 //        )
+//        BerandaLowonganCardDesign(
+//            lowongan = LowonganTerbaruCardModel(
+//                id = 2,
+//                judul = "Field Officer",
+//                pt = "PT Berindo Jaya",
+//                alamat = "Bandar Lampung, Lampung",
+//                jam = 13,
+//                img = R.drawable.lowongan_img_barindojaya,
+//                kualifikasi = " ",
+//                pertanyaan = " "
+//            ),
+//            onItemClicked = {}
+//        )
+//    }
+//    DisimpanArtikelDesign(
+//        artikel =
+//        ArtikelPopulerCardModel(
+//            id = 1,
+//            judul = "Tutorial Hidroponik Pemulaa yang Baik...",
+//            desc = "Hidroponik adalah cara bercocok tanam dengan menggunakan air sebagai media...",
+//            jam = 13,
+//            img = R.drawable.artikel_img_test
+//
+//        ),
+//        onItemClicked = {}
 //    )
 //    DiskusiCardDesign(
 //        item = DiskusiCardModel(

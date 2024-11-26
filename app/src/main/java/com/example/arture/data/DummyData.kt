@@ -1,6 +1,7 @@
 package com.example.arture.data
 
 import com.example.arture.R
+import model.ArtikelPopulerCardModel
 import model.LowonganTerbaruCardModel
 
 object DummyData {
@@ -33,5 +34,27 @@ object DummyData {
             pertanyaan = "• Which of the following types of qualifications do you have?"
         )
 
+    )
+    val artikelcard = listOf(
+        ArtikelPopulerCardModel(
+            id = 1,
+            judul = "Tutorial Hidroponik Pemulaa yang Baik...",
+            desc = "Hidroponik adalah cara bercocok tanam dengan menggunakan air sebagai media...",
+            jam = 13,
+            img = R.drawable.artikel_img_test,
+            yt = "test",
+            ebook = "bukuuu"
+
+        ),
+        ArtikelPopulerCardModel(
+            id = 2,
+            judul = "Budidaya Tanaman Jagung dengan...",
+            desc = "Jagung merupakan salah satu komoditas tanaman pangan...",
+            jam = 13,
+            img = R.drawable.disimpan_artikel_img_test,
+            yt = "test",
+            ebook = "bukuuu"
+
+        )
     )
 }

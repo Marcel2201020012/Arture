@@ -320,7 +320,7 @@ fun homePageScreen(navController: NavController, dataStore: DataStore) {
 
                         //Artikel Populer
                         Row {
-                            artikelPopulerView()
+                            artikelPopulerView(navController)
                         }
 
                         //lowongan terbaru
@@ -369,43 +369,17 @@ fun homePageScreen(navController: NavController, dataStore: DataStore) {
 
 //Artikel populer function
 @Composable
-fun artikelPopulerView() {
-    val artikel = listOf(
-        ArtikelPopulerCardModel(
-            "Tutorial Hidroponik Pemula yang Baik...",
-            "Hidroponik adalah cara bercocok tanam dengan menggunakan air sebagai media...",
-            13,
-            R.drawable.artikel_img_test
-        ),
-        ArtikelPopulerCardModel(
-            "Tutorial Hidroponik Pemula yang Baik...",
-            "Hidroponik adalah cara bercocok tanam dengan menggunakan air sebagai media...",
-            13,
-            R.drawable.artikel_img_test
-        )
-    )
-    artikelPopulerGenerator(artikel)
+fun artikelPopulerView(navController: NavController) {
+    artikelPopulerGenerator(
+        cardItem = DummyData.artikelcard,
+        navController)
 }
 
 //Lowongan kerja function
 @Composable
 fun lowonganTerbaruView(navController: NavController) {
-//    val lowongan = listOf(
-//        LowonganTerbaruCardModel(
-//            id = 1,
-//            judul = "Technical Sales Feedmill",
-//            pt = "PT. Sreeya Sewu Indonesia, Tbk",
-//            alamat = "Blitar, Jawa Timur",
-//            jam = 13,
-//            img = R.drawable.lowongan_img_test,
-//            kualifikasi = "• Candidate must posses at least Bachelor degree in Animal Husbandry / Veterinarian\n" +
-//                    "• Candidate must posses at least Bachelor degree in Animal Husbandry / Veterinarian\n" +
-//                    "• Candidate must posses at least Bachelor degree in Animal Husbandry / Veterinarian\n"
-//
-//        ),
-//    )
-
-    lowonganTerbaruGenerator(cardItem = DummyData.lowongancard,
+    lowonganTerbaruGenerator(
+        cardItem = DummyData.lowongancard,
         navController)
 }
 

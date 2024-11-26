@@ -19,9 +19,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.arture.R
 import com.example.arture.app.home.component.JobStatus
 import com.example.arture.app.home.component.StatusPekerjaanGenerator
@@ -68,7 +71,7 @@ fun StatusPekerjaan(navController: NavController) {
                         modifier = Modifier
                             //.background(color = Color.White)
                             .fillMaxWidth(),
-                        //horizontalArrangement = Arrangement.SpaceBetween,
+                        horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         IconButton(onClick = {navController.navigate(NavigationRoutes.beranda) {
@@ -98,10 +101,11 @@ fun StatusPekerjaan(navController: NavController) {
                     }
 
                     Text(
-                        text = "\"Kesuksesan bukan hanya tentang seberapa cepat kamu menemukannya, tetapi seberapa keras kamu bertahan untuk mencapainya.\"",
+                        text = "\"Kesuksesan bukan hanya tentang seberapa cepat kamu menemukannya, tetapi seberapa keras kamu \nbertahan untuk mencapainya.\"",
                         textAlign = TextAlign.Center,
                         style = MaterialTheme.typography.bodyMedium,
-                        color = Color.White
+                        color = Color.White,
+                        fontWeight = FontWeight.Bold
 
                     )
 
@@ -154,11 +158,10 @@ fun StatusPekerjaanView() {
 }
 
 
-//@Preview
-//@Composable
-//fun StatusPekerjaanTest() {
-//    Box {
-//        StatusPekerjaan()
-//        footerMenuScreen(modifier = Modifier.align(Alignment.BottomCenter))
-//    }
-//}
+@Preview
+@Composable
+fun StatusPekerjaanTest() {
+    Box {
+        StatusPekerjaan(navController = rememberNavController())
+    }
+}

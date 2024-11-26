@@ -1,5 +1,6 @@
 package com.example.arture.app
 
+import ExpandableContentList
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
@@ -24,6 +25,8 @@ import androidx.navigation.navArgument
 import com.example.arture.app.akun.AkunPageScreen
 import com.example.arture.app.akun.CameraPreviewScreen
 import com.example.arture.app.akun.EditAkunPageScreen
+import com.example.arture.app.edukasi.DetailEdukasi
+import com.example.arture.app.edukasi.Edukasi
 import com.example.arture.app.home.DisimpanPageScreen
 import com.example.arture.app.home.FirstLogin
 import com.example.arture.app.home.LoginCheckScreen
@@ -34,6 +37,7 @@ import com.example.arture.app.home.signInScreen
 import com.example.arture.data.DataStore
 import com.example.arture.app.pekerjaan.DetailPekerjaan
 import com.example.arture.app.pekerjaan.Pekerjaan
+import com.example.arture.data.DummyData
 import com.example.arture.ui.theme.ArtureTheme
 import navigation.NavigationRoutes
 
@@ -57,7 +61,7 @@ fun ArtureScreen() {
 
         NavHost(
             navController = navController,
-            startDestination = NavigationRoutes.loginCheck,
+            startDestination = NavigationRoutes.beranda,
             builder = {
                 composable(NavigationRoutes.loginCheck) {
                     LoginCheckScreen(navController, dataStore)
@@ -87,12 +91,33 @@ fun ArtureScreen() {
                     StatusPekerjaan(navController)
                     showFooterMenu = false
                 }
+                composable(NavigationRoutes.edukasi) {
+                    Edukasi(navController)
+                    showFooterMenu = true
+                }
+                composable(
+                    NavigationRoutes.detailArtikel + "/{artikelId}",
+                    arguments = listOf(navArgument("artikelId")
+                    { type = NavType.IntType })
+                ) { navBackStackEntry ->
+                    DetailEdukasi(
+                        navController,
+                        artikelsId = navBackStackEntry.arguments?.getInt("artikelId")
+                    )
+                    showFooterMenu = false
+                }
                 composable(NavigationRoutes.pekerjaan) {
                     Pekerjaan(navController)
                     LaunchedEffect(Unit) {
                         showFooterMenu = true
                     }
                 }
+//                composable(NavigationRoutes.expandable) {
+//                    ExpandableContentList(navController, newArtikelList = new)
+//                    LaunchedEffect(Unit) {
+//                        showFooterMenu = false
+//                    }
+//                }
                 composable(
                     NavigationRoutes.detailPekerjaan + "/{lowonganId}",
                     arguments = listOf(navArgument("lowonganId")

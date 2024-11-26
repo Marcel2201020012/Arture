@@ -149,10 +149,11 @@ fun footerMenuScreen(
                     IconButton(
                         onClick = {
                             edukasiButtonIsClicked = false
-//                            navController.navigate(NavigationRoutes.disimpanPage) {
-//                                popUpTo(NavigationRoutes.disimpanPage) { inclusive = true }
-//                                launchSingleTop = true
-//                            }
+                            navController.navigate(NavigationRoutes.edukasi) {
+                                popUpTo(NavigationRoutes.beranda) {
+                                    inclusive = false }
+                                launchSingleTop = true
+                            }
                         }, modifier = Modifier.height(16.dp)
                     ) {
                         Icon(
