@@ -47,27 +47,30 @@ fun ExpandableContentList(
     val items = remember {
         mutableStateListOf(*artikelcard.toTypedArray())
     }
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp)
-        ) {
-            ExpandableCard(
-                title = "Artikel",
-                content = newArtikelList[0].desc
-            )
-            Spacer(modifier = Modifier.height(8.dp))
-            ExpandableCard(
-                title = "Video",
-                content = newArtikelList[0].yt
-            )
-            Spacer(modifier = Modifier.height(8.dp))
-            ExpandableCard(
-                title = "E-Book",
-                content = newArtikelList[0].ebook
-            )
-        }
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp)
+    ) {
+        ExpandableCard(
+            title = "Artikel",
+            content = newArtikelList[0].desc
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        ExpandableCard(
+            title = "Video",
+            content = newArtikelList[0].yt
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        ExpandableCard(
+            title = "E-Book",
+            content = newArtikelList[0].ebook
+        )
+    }
+
+    Spacer(modifier = Modifier.height(16.dp))
 }
+
 
 @Composable
 fun ExpandableCard(
@@ -75,58 +78,46 @@ fun ExpandableCard(
     content: String
 ) {
     var isExpanded by remember { mutableStateOf(false) }
- Box(
-     modifier = Modifier
-         .width(384.dp)
-         .height(72.dp)
-         .background(
-             color = Color.LightGray,
-             shape = RoundedCornerShape(16.dp)
-         ),
- ) {
-     Box(
-         modifier = Modifier
-             .width(382.dp)
-             .height(70.dp)
-             .background(
-                 color = Color.White,
-                 shape = RoundedCornerShape(16.dp)
-             )
-     ) {
-         Column(
-             modifier = Modifier
-                 .fillMaxWidth()
-                 .padding(16.dp)
-         ) {
-             Row(
-                 modifier = Modifier
-                     .fillMaxWidth(),
-                 verticalAlignment = Alignment.CenterVertically,
-                 horizontalArrangement = Arrangement.SpaceBetween
-             ) {
-                 Text(
-                     text = title,
-                     style = MaterialTheme.typography.bodyLarge,
-                     modifier = Modifier.weight(1f)
-                 )
-                 IconButton(onClick = { isExpanded = !isExpanded }) {
-                     Icon(
-                         imageVector = if (isExpanded) Icons.Default.ExpandLess
-                         else Icons.Default.ExpandMore,
-                         contentDescription = null
-                     )
-                 }
-             }
-             AnimatedVisibility(visible = isExpanded) {
-                 Text(
-                     text = content,
-                     style = MaterialTheme.typography.bodySmall,
-                     modifier = Modifier.padding(top = 8.dp)
-                 )
-             }
-         }
-     }
- }
+
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(8.dp),
+        shape = RoundedCornerShape(8.dp),
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp)
+        ) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(
+                    text = title,
+                    style = MaterialTheme.typography.bodyLarge,
+                    modifier = Modifier.weight(1f)
+                )
+                IconButton(onClick = { isExpanded = !isExpanded }) {
+                    Icon(
+                        imageVector = if (isExpanded) Icons.Default.ExpandLess
+                        else Icons.Default.ExpandMore,
+                        contentDescription = null
+                    )
+                }
+            }
+            AnimatedVisibility(visible = isExpanded) {
+                Text(
+                    text = content,
+                    style = MaterialTheme.typography.bodySmall,
+                    modifier = Modifier.padding(top = 8.dp)
+                )
+            }
+        }
+    }
 }
 
 
@@ -135,5 +126,6 @@ fun ExpandableCard(
 fun ExpandableTest() {
     ExpandableContentList(
         newArtikelList = DummyData.artikelcard,
-        navController = rememberNavController())
+        navController = rememberNavController()
+    )
 }
