@@ -436,7 +436,7 @@ fun DetailPekerjaanContent(
                                             //contentAlignment = Alignment.BottomEnd
                                         ) {
                                             Image(
-                                                painter = painterResource(id = R.drawable.lowongan_img_test),
+                                                painter = painterResource(newLowonganList[0].img),
                                                 contentDescription = "Logo PT",
                                                 modifier = Modifier
                                                     .fillMaxSize()

@@ -243,30 +243,30 @@ fun Pekerjaan(navController: NavController) {
 //                            }
                                 var selected by remember { mutableStateOf(false) }
 
-                                LazyRow(
-                                    horizontalArrangement = Arrangement.spacedBy(4.dp)
-                                ) {
-                                    items(4) { index ->
-                                        FilterChip(
-                                            onClick = { selected = !selected },
-                                            label = {
-                                                Text("Filter chip")
-                                            },
-                                            selected = selected,
-                                            leadingIcon = if (selected) {
-                                                {
-                                                    Icon(
-                                                        imageVector = Icons.Filled.Done,
-                                                        contentDescription = "Done icon",
-                                                        modifier = Modifier.size(FilterChipDefaults.IconSize)
-                                                    )
-                                                }
-                                            } else {
-                                                null
-                                            },
-                                        )
-                                    }
-                                }
+//                                LazyRow(
+//                                    horizontalArrangement = Arrangement.spacedBy(4.dp)
+//                                ) {
+//                                    items(4) { index ->
+//                                        FilterChip(
+//                                            onClick = { selected = !selected },
+//                                            label = {
+//                                                Text("Filter chip")
+//                                            },
+//                                            selected = selected,
+//                                            leadingIcon = if (selected) {
+//                                                {
+//                                                    Icon(
+//                                                        imageVector = Icons.Filled.Done,
+//                                                        contentDescription = "Done icon",
+//                                                        modifier = Modifier.size(FilterChipDefaults.IconSize)
+//                                                    )
+//                                                }
+//                                            } else {
+//                                                null
+//                                            },
+//                                        )
+//                                    }
+//                                }
 
 
                             }
