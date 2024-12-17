@@ -108,7 +108,7 @@ fun Edukasi(
                                 )
                             }
                             Text(
-                                text = "Pekerjaan",
+                                text = "Edukasi",
                                 style = MaterialTheme.typography.titleLarge
                             )
                             Spacer(modifier = Modifier.width(45.dp))
