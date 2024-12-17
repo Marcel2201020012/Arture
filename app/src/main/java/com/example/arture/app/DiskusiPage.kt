@@ -114,8 +114,14 @@ fun DiskusiPageScreen(navController: NavController, showFooterMenu: (Boolean) ->
                             isVerticalGradient = false,
                             colors = listOf(Color(0xFF90A955), Color(0xFFECF39E))
                         )
-                    )
+                    ),
+                contentAlignment = Alignment.Center
             ) {
+                Image(
+                    modifier = Modifier.align(Alignment.TopEnd),
+                    painter = painterResource(id = R.drawable.diskui_logo),
+                    contentDescription = "logo diskusi"
+                )
                 //title
                 Row(
                     Modifier.fillMaxWidth(),
@@ -141,10 +147,7 @@ fun DiskusiPageScreen(navController: NavController, showFooterMenu: (Boolean) ->
                         fontFamily = poppinsFont,
                         style = MaterialTheme.typography.titleLarge
                     )
-                    Image(
-                        painter = painterResource(id = R.drawable.diskui_logo),
-                        contentDescription = "logo diskusi"
-                    )
+                    Spacer(modifier = Modifier.width(45.dp))
                 }
             }
 

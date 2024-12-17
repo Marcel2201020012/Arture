@@ -138,14 +138,14 @@ fun TextContent(text: String) {
 @Composable
 fun VideoContent(videoUrl: String) {
     Column {
-        Text(
-            text = "Watch Video:",
-            style = MaterialTheme.typography.bodySmall,
-            modifier = Modifier.padding(bottom = 8.dp)
-        )
+//        Text(
+//            text = "Watch Video:",
+//            style = MaterialTheme.typography.bodySmall,
+//            modifier = Modifier.padding(bottom = 8.dp)
+//        )
         // Placeholder for video thumbnail (replace with your video player logic)
         Image(
-            painter = painterResource(id = R.drawable.beranda_profile_picture), // Replace with your video thumbnail resource
+            painter = painterResource(id = R.drawable.detail_edukasi_youtube_), // Replace with your video thumbnail resource
             contentDescription = null,
             modifier = Modifier
                 .fillMaxWidth()

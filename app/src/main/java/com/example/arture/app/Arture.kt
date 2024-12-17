@@ -63,7 +63,7 @@ fun ArtureScreen() {
 
         NavHost(
             navController = navController,
-            startDestination = NavigationRoutes.beranda,
+            startDestination = NavigationRoutes.loginCheck,
             builder = {
                 composable(NavigationRoutes.loginCheck) {
                     LoginCheckScreen(navController, dataStore)
@@ -114,9 +114,7 @@ fun ArtureScreen() {
                 }
                 composable(NavigationRoutes.pekerjaan) {
                     Pekerjaan(navController)
-                    LaunchedEffect(Unit) {
-                        showFooterMenu = true
-                    }
+                    showFooterMenu = true
                 }
                 composable(
                     NavigationRoutes.detailPekerjaan + "/{lowonganId}",
